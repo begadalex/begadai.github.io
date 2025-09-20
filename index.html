@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BEGAD AI - Free Premium Access for Students</title>
-    <meta name="description" content="Get free access to Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, and Epic Games accounts for students.">
+    <meta name="description" content="Get free access to Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, Epic Games, and Crunchyroll for students.">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,6 +39,8 @@
             --canva: 340 90% 60%;
             --apple-tv: 0 70% 50%;
             --apple-music: 320 70% 55%;
+            --epic: 35 90% 55%;
+            --crunchyroll: 355 90% 55%;
             --shadow: 0px 1px 3px 0px hsl(220 15% 15% / 0.10), 0px 1px 2px -1px hsl(220 15% 15% / 0.10);
         }
         .dark {
@@ -202,6 +204,16 @@
             border-color: hsl(var(--apple-music) / 0.3);
             color: hsl(var(--apple-music));
         }
+        .info-box-epic {
+            background-color: hsl(var(--epic) / 0.1);
+            border-color: hsl(var(--epic) / 0.3);
+            color: hsl(var(--epic));
+        }
+        .info-box-crunchyroll {
+            background-color: hsl(var(--crunchyroll) / 0.1);
+            border-color: hsl(var(--crunchyroll) / 0.3);
+            color: hsl(var(--crunchyroll));
+        }
         .badge {
             display: inline-flex; align-items: center; gap: 0.25rem;
             padding: 0.25rem 0.75rem; font-size: 0.78rem; font-weight: 600; border-radius: 1rem; border: 1.5px solid;
@@ -231,6 +243,16 @@
             background-color: hsl(var(--apple-music) / 0.09);
             color: hsl(var(--apple-music));
             border-color: hsl(var(--apple-music) / 0.2);
+        }
+        .badge-epic {
+            background-color: hsl(var(--epic) / 0.09);
+            color: hsl(var(--epic));
+            border-color: hsl(var(--epic) / 0.2);
+        }
+        .badge-crunchyroll {
+            background-color: hsl(var(--crunchyroll) / 0.09);
+            color: hsl(var(--crunchyroll));
+            border-color: hsl(var(--crunchyroll) / 0.2);
         }
 
         /* Utilities */
@@ -381,8 +403,8 @@
             color: hsl(var(--canva));
         }
         .service-icon-epic {
-            background-color: hsl(var(--info) / 0.1);
-            color: hsl(var(--info));
+            background-color: hsl(var(--epic) / 0.1);
+            color: hsl(var(--epic));
         }
         .service-icon-apple-tv {
             background-color: hsl(var(--apple-tv) / 0.1);
@@ -391,6 +413,30 @@
         .service-icon-apple-music {
             background-color: hsl(var(--apple-music) / 0.1);
             color: hsl(var(--apple-music));
+        }
+        .service-icon-crunchyroll {
+            background-color: hsl(var(--crunchyroll) / 0.1);
+            color: hsl(var(--crunchyroll));
+        }
+        
+        /* Tutorial section */
+        .tutorial-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .tutorial-number {
+            background: hsl(var(--primary));
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -431,8 +477,8 @@
                 <span class="gradient-text" data-en="Premium Services" data-ar="الخدمات المتميزة">Premium Services</span>
             </h1>
 
-            <p class="hero-subtitle" data-en="Access Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, and Epic Games with premium features - completely free for students" data-ar="الوصول إلى Perplexity AI Pro وCanva Pro وApple TV+ وApple Music وإيبك جيمز مع الميزات المتميزة - مجاني تماماً للطلاب">
-                Access Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, and Epic Games with premium features - completely free for students
+            <p class="hero-subtitle" data-en="Access Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, Epic Games, and Crunchyroll with premium features - completely free for students" data-ar="الوصول إلى Perplexity AI Pro وCanva Pro وApple TV+ وApple Music وإيبك جيمز وCrunchyroll مع الميزات المتميزة - مجاني تماماً للطلاب">
+                Access Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, Epic Games, and Crunchyroll with premium features - completely free for students
             </p>
 
             <button class="btn btn-primary btn-lg" onclick="scrollToAccount()">
@@ -466,12 +512,12 @@
                 </div>
                 <div class="card fade-in">
                     <div class="card-content text-center">
-                        <div class="service-icon service-icon-apple-tv">
-                            <i data-lucide="tv"></i>
+                        <div class="service-icon service-icon-crunchyroll">
+                            <i data-lucide="tv-2"></i>
                         </div>
-                        <h3 class="font-semibold mb-2" data-en="Entertainment" data-ar="الترفيه">Entertainment</h3>
-                        <p class="text-sm text-muted" data-en="Movies, series and music with Apple services" data-ar="أفلام ومسلسلات وموسيقى مع خدمات Apple">
-                            Movies, series and music with Apple services
+                        <h3 class="font-semibold mb-2" data-en="Anime Streaming" data-ar="بث الأنمي">Anime Streaming</h3>
+                        <p class="text-sm text-muted" data-en="Ad-free anime with Crunchyroll Premium" data-ar="أنمي خالي من الإعلانات مع Crunchyroll Premium">
+                            Ad-free anime with Crunchyroll Premium
                         </p>
                     </div>
                 </div>
@@ -505,6 +551,10 @@
                     <button class="btn-switch" data-service="apple-music" onclick="switchService('apple-music')">
                         <i data-lucide="music"></i>
                         <span data-en="Apple Music" data-ar="Apple Music">Apple Music</span>
+                    </button>
+                    <button class="btn-switch" data-service="crunchyroll" onclick="switchService('crunchyroll')">
+                        <i data-lucide="tv-2"></i>
+                        <span data-en="Crunchyroll" data-ar="كرانشي رول">Crunchyroll</span>
                     </button>
                 </div>
 
@@ -666,7 +716,7 @@
                         <div class="card" style="max-width: 600px;">
                             <div class="card-header">
                                 <div class="flex items-center justify-center mb-4">
-                                    <div class="badge badge-warning">
+                                    <div class="badge badge-epic">
                                         <i data-lucide="gamepad-2"></i>
                                         <span data-en="Gaming Account" data-ar="حساب ألعاب">Gaming Account</span>
                                     </div>
@@ -677,33 +727,56 @@
                                 <div class="mb-6">
                                     <label class="label" data-en="Account Email" data-ar="إيميل الحساب">Account Email</label>
                                     <div class="flex gap-2">
-                                        <input type="text" class="input" value="epicgms@oxaam.com" readonly id="epicEmail">
-                                        <button class="btn btn-outline" onclick="copyText('epicgms@oxaam.com')">
+                                        <input type="text" class="input" value="aapikgames@oxaam.com" readonly id="epicEmail">
+                                        <button class="btn btn-outline" onclick="copyText('aapikgames@oxaam.com')">
                                             <i data-lucide="copy"></i>
                                         </button>
                                     </div>
                                 </div>
                                 <div class="mb-6">
-                                    <label class="label" data-en="Account Password" data-ar="كلمة المرور">Account Password</label>
+                                    <label class="label" data-en="Password" data-ar="كلمة المرور">Password</label>
                                     <div class="flex gap-2">
-                                        <input type="text" class="input" value="Oxaam@epicgms" readonly id="epicPassword">
-                                        <button class="btn btn-outline" onclick="copyText('Oxaam@epicgms')">
+                                        <input type="text" class="input" value="Oxaam41202#" readonly id="epicPassword">
+                                        <button class="btn btn-outline" onclick="copyText('Oxaam41202#')">
                                             <i data-lucide="copy"></i>
                                         </button>
                                     </div>
                                 </div>
+                                <div class="mb-6">
+                                    <button class="btn btn-primary w-full" onclick="openVerificationLink('https://www.oxaam.com/aapikcode.php')">
+                                        <i data-lucide="external-link"></i>
+                                        <span data-en="Get Verification Code" data-ar="احصل على رمز التحقق">Get Verification Code</span>
+                                    </button>
+                                    <p class="text-sm text-muted text-center mt-4" data-en="Use if Epic Games asks for verification" data-ar="استخدم إذا طلب إيبك جيمز التحقق">Use if Epic Games asks for verification</p>
+                                </div>
                                 
-                                <!-- Epic Games Features -->
-                                <div class="info-box info-box-green">
+                                <!-- EA Play Subscription Info -->
+                                <div class="info-box info-box-green mb-4">
                                     <div class="flex gap-2">
-                                        <i data-lucide="gift"></i>
+                                        <i data-lucide="star"></i>
                                         <div class="text-sm">
-                                            <p class="font-medium mb-2" data-en="Epic Games Features:" data-ar="مميزات إيبك جيمز:">Epic Games Features:</p>
+                                            <p class="font-medium mb-2" data-en="EA Play Active Subscription" data-ar="اشتراك EA Play نشط">EA Play Active Subscription</p>
                                             <ul style="list-style: disc; list-style-position: inside;" class="space-y-1">
-                                                <li data-en="Free games every week" data-ar="ألعاب مجانية كل أسبوع">Free games every week</li>
-                                                <li data-en="Exclusive discounts and offers" data-ar="خصومات وعروض حصرية">Exclusive discounts and offers</li>
-                                                <li data-en="Access to Fortnite and other popular titles" data-ar="الوصول إلى Fortnite وعناوين شهيرة أخرى">Access to Fortnite and other popular titles</li>
-                                                <li data-en="Cloud saves and cross-platform play" data-ar="حفظ سحابي واللعب عبر المنصات">Cloud saves and cross-platform play</li>
+                                                <li data-en="FC 26 - 10 hours trial" data-ar="FC 26 - تجربة 10 ساعات">FC 26 - 10 hours trial</li>
+                                                <li data-en="Full FC 25 game and older FC games" data-ar="لعبة FC 25 كاملة وألعاب FC الأقدم">Full FC 25 game and older FC games</li>
+                                                <li data-en="Star Wars Jedi Survivor" data-ar="Star Wars Jedi Survivor">Star Wars Jedi Survivor</li>
+                                                <li data-en="Access to EA games library" data-ar="الوصول إلى مكتبة ألعاب EA">Access to EA games library</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Account Features -->
+                                <div class="info-box info-box-blue">
+                                    <div class="flex gap-2">
+                                        <i data-lucide="gamepad-2"></i>
+                                        <div class="text-sm">
+                                            <p class="font-medium mb-2" data-en="Account Features:" data-ar="مميزات الحساب:">Account Features:</p>
+                                            <ul style="list-style: disc; list-style-position: inside;" class="space-y-1">
+                                                <li data-en="Free games collection" data-ar="مجموعة الألعاب المجانية">Free games collection</li>
+                                                <li data-en="Some paid games included" data-ar="بعض الألعاب المدفوعة مشمولة">Some paid games included</li>
+                                                <li data-en="Limited games library" data-ar="مكتبة ألعاب محدودة">Limited games library</li>
+                                                <li data-en="Active EA Play subscription" data-ar="اشتراك EA Play نشط">Active EA Play subscription</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -813,13 +886,173 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Crunchyroll Account Container -->
+                    <div id="crunchyrollAccount" style="display: none; width: 100%; justify-content: center;">
+                        <div class="card" style="max-width: 600px;">
+                            <div class="card-header">
+                                <div class="flex items-center justify-center mb-4">
+                                    <div class="badge badge-crunchyroll">
+                                        <i data-lucide="tv-2"></i>
+                                        <span data-en="Anime Account" data-ar="حساب أنمي">Anime Account</span>
+                                    </div>
+                                </div>
+                                <h2 class="card-title" data-en="Crunchyroll Premium" data-ar="كرانشي رول المميز">Crunchyroll Premium</h2>
+                            </div>
+                            <div class="card-content">
+                                <div class="mb-6">
+                                    <label class="label" data-en="Account Email" data-ar="إيميل الحساب">Account Email</label>
+                                    <div class="flex gap-2">
+                                        <input type="text" class="input" value="krunshyrole27@pnao.in" readonly id="crunchyrollEmail">
+                                        <button class="btn btn-outline" onclick="copyText('krunshyrole27@pnao.in')">
+                                            <i data-lucide="copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="mb-6">
+                                    <label class="label" data-en="Account Password" data-ar="كلمة المرور">Account Password</label>
+                                    <div class="flex gap-2">
+                                        <input type="text" class="input" value="oxaam2727119" readonly id="crunchyrollPassword">
+                                        <button class="btn btn-outline" onclick="copyText('oxaam2727119')">
+                                            <i data-lucide="copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Crunchyroll Features -->
+                                <div class="info-box info-box-crunchyroll">
+                                    <div class="flex gap-2">
+                                        <i data-lucide="tv-2"></i>
+                                        <div class="text-sm">
+                                            <p class="font-medium mb-2" data-en="Crunchyroll Premium Features:" data-ar="مميزات Crunchyroll المميز:">Crunchyroll Premium Features:</p>
+                                            <ul style="list-style: disc; list-style-position: inside;" class="space-y-1">
+                                                <li data-en="Ad-free streaming" data-ar="بث خالٍ من الإعلانات">Ad-free streaming</li>
+                                                <li data-en="New episodes one hour after Japan" data-ar="حلقات جديدة بعد ساعة واحدة من اليابان">New episodes one hour after Japan</li>
+                                                <li data-en="Access to entire Crunchyroll library" data-ar="الوصول إلى مكتبة Crunchyroll بأكملها">Access to entire Crunchyroll library</li>
+                                                <li data-en="Stream on up to 4 devices simultaneously" data-ar="البث على ما يصل إلى 4 أجهزة في وقت واحد">Stream on up to 4 devices simultaneously</li>
+                                                <li data-en="Offline viewing available" data-ar="مشاهدة بدون اتصال متاحة">Offline viewing available</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tutorial Section -->
+    <section class="section section-muted">
+        <div class="container">
+            <h2 class="text-center text-3xl font-bold mb-8" data-en="How to Use Your Accounts" data-ar="كيفية استخدام حساباتك">How to Use Your Accounts</h2>
+            
+            <div class="services-grid">
+                <div class="card">
+                    <div class="card-content">
+                        <h3 class="font-semibold mb-4 flex items-center gap-2">
+                            <i data-lucide="brain" class="text-purple-500"></i>
+                            <span data-en="Perplexity & Canva" data-ar="Perplexity وCanva">Perplexity & Canva</span>
+                        </h3>
+                        
+                        <div class="tutorial-step">
+                            <div class="tutorial-number">1</div>
+                            <div>
+                                <p class="font-medium" data-en="Copy the email address" data-ar="انسخ عنوان البريد الإلكتروني">Copy the email address</p>
+                                <p class="text-sm text-muted" data-en="Click the copy button next to the email" data-ar="انقر على زر النسخ بجوار البريد الإلكتروني">Click the copy button next to the email</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-step">
+                            <div class="tutorial-number">2</div>
+                            <div>
+                                <p class="font-medium" data-en="Get verification code" data-ar="احصل على رمز التحقق">Get verification code</p>
+                                <p class="text-sm text-muted" data-en="Click the button to open the verification portal" data-ar="انقر على الزر لفتح بوابة التحقق">Click the button to open the verification portal</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-step">
+                            <div class="tutorial-number">3</div>
+                            <div>
+                                <p class="font-medium" data-en="Login to the service" data-ar="تسجيل الدخول إلى الخدمة">Login to the service</p>
+                                <p class="text-sm text-muted" data-en="Use the email and verification code to access your account" data-ar="استخدم البريد الإلكتروني ورمز التحقق للوصول إلى حسابك">Use the email and verification code to access your account</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3 class="font-semibold mb-4 flex items-center gap-2">
+                            <i data-lucide="gamepad-2" class="text-orange-500"></i>
+                            <span data-en="Epic Games & Streaming" data-ar="إيبك جيمز والبث">Epic Games & Streaming</span>
+                        </h3>
+                        
+                        <div class="tutorial-step">
+                            <div class="tutorial-number">1</div>
+                            <div>
+                                <p class="font-medium" data-en="Copy credentials" data-ar="انسخ بيانات الاعتماد">Copy credentials</p>
+                                <p class="text-sm text-muted" data-en="Copy both the email and password for the service" data-ar="انسخ كل من البريد الإلكتروني وكلمة المرور للخدمة">Copy both the email and password for the service</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-step">
+                            <div class="tutorial-number">2</div>
+                            <div>
+                                <p class="font-medium" data-en="Visit the service website" data-ar="زر موقع الخدمة">Visit the service website</p>
+                                <p class="text-sm text-muted" data-en="Go to the official website of the service" data-ar="انتقل إلى الموقع الرسمي للخدمة">Go to the official website of the service</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-step">
+                            <div class="tutorial-number">3</div>
+                            <div>
+                                <p class="font-medium" data-en="Login and enjoy" data-ar="سجل الدخول واستمتع">Login and enjoy</p>
+                                <p class="text-sm text-muted" data-en="Use the copied credentials to login and start using the service" data-ar="استخدم بيانات الاعتماد المنسوخة لتسجيل الدخول والبدء في استخدام الخدمة">Use the copied credentials to login and start using the service</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3 class="font-semibold mb-4 flex items-center gap-2">
+                            <i data-lucide="shield" class="text-green-500"></i>
+                            <span data-en="Important Notes" data-ar="ملاحظات مهمة">Important Notes</span>
+                        </h3>
+                        
+                        <div class="info-box info-box-blue">
+                            <div class="flex gap-2">
+                                <i data-lucide="info"></i>
+                                <div>
+                                    <p class="font-medium" data-en="Account Sharing" data-ar="مشاركة الحساب">Account Sharing</p>
+                                    <p class="text-sm" data-en="These accounts are shared among students. Please be respectful and don't change passwords." data-ar="هذه الحسابات مشتركة بين الطلاب. يرجى الاحترام وعدم تغيير كلمات المرور.">
+                                        These accounts are shared among students. Please be respectful and don't change passwords.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box info-box-green mt-4">
+                            <div class="flex gap-2">
+                                <i data-lucide="refresh-cw"></i>
+                                <div>
+                                    <p class="font-medium" data-en="Regular Updates" data-ar="تحديثات منتظمة">Regular Updates</p>
+                                    <p class="text-sm" data-en="We regularly update accounts. If one doesn't work, check back later or try another account." data-ar="نقوم بتحديث الحسابات بانتظام. إذا لم يعمل أحدها، تحقق لاحقًا أو جرب حسابًا آخر.">
+                                        We regularly update accounts. If one doesn't work, check back later or try another account.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- FAQ Section -->
-    <section class="section section-muted">
+    <section class="section">
         <div class="container">
             <h2 class="text-center text-3xl font-bold mb-8" data-en="Frequently Asked Questions" data-ar="الأسئلة الشائعة">Frequently Asked Questions</h2>
             
@@ -856,18 +1089,37 @@
     <footer class="footer">
         <div class="container">
             <div class="text-center">
-                <p class="text-sm text-muted" data-en="© 2023 BEGAD AI. Free educational resources for students worldwide." data-ar="© 2023 BEGAD AI. موارد تعليمية مجانية للطلاب حول العالم.">
-                    © 2023 BEGAD AI. Free educational resources for students worldwide.
-                </p>
+                <div class="flex items-center justify-center gap-2 mb-6">
+                    <div class="logo-icon">B</div>
+                    <span class="text-xl font-bold" data-en="BEGAD AI" data-ar="بيجاد AI">BEGAD AI</span>
+                </div>
+                <div class="max-w-2xl mx-auto mb-6">
+                    <div class="info-box info-box-green">
+                        <div class="flex gap-2">
+                            <i data-lucide="shield"></i>
+                            <p class="text-sm" data-en="This service is verified for educational use. All accounts are provided for legitimate student purposes." data-ar="هذه الخدمة موثقة للاستخدام التعليمي. جميع الحسابات مقدمة لأغراض شرعية للطلاب.">
+                                This service is verified for educational use. All accounts are provided for legitimate student purposes.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center gap-2 text-muted mb-6">
+                    <i data-lucide="graduation-cap"></i>
+                    <span class="text-sm" data-en="For Students, By Students" data-ar="للطلاب، من الطلاب">For Students, By Students</span>
+                    <i data-lucide="heart" style="color: #ef4444;"></i>
+                </div>
+                <div style="padding-top: 1.5rem; border-top: 1px solid hsl(var(--border));">
+                    <p class="text-xs text-muted">© 2025 BEGAD AI. Educational use only.</p>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Toast for notifications -->
-    <div class="toast" id="toast">
+    <!-- Toast notification -->
+    <div id="toast" class="toast">
         <div class="flex items-center gap-2">
-            <i data-lucide="check-circle" id="toastIcon"></i>
-            <span id="toastMessage"></span>
+            <i data-lucide="check"></i>
+            <span id="toastMessage">Copied!</span>
         </div>
     </div>
 
@@ -946,6 +1198,7 @@
             document.getElementById('epicAccount').style.display = service === 'epic' ? 'flex' : 'none';
             document.getElementById('appleTvAccount').style.display = service === 'apple-tv' ? 'flex' : 'none';
             document.getElementById('appleMusicAccount').style.display = service === 'apple-music' ? 'flex' : 'none';
+            document.getElementById('crunchyrollAccount').style.display = service === 'crunchyroll' ? 'flex' : 'none';
         }
 
         // Account switching functionality for Perplexity
