@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BEGAD AI - Free Perplexity AI Pro Access</title>
-    <meta name="description" content="Get free access to Perplexity AI Pro accounts for students. Modern AI platform with Arabic and English support.">
+    <title>BEGAD AI - Free Premium Access for Students</title>
+    <meta name="description" content="Get free access to Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, and Epic Games accounts for students.">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,6 +35,10 @@
             --ring: 260 85% 65%;
             --success: 142 70% 45%;
             --warning: 25 90% 55%;
+            --info: 200 90% 55%;
+            --canva: 340 90% 60%;
+            --apple-tv: 0 70% 50%;
+            --apple-music: 320 70% 55%;
             --shadow: 0px 1px 3px 0px hsl(220 15% 15% / 0.10), 0px 1px 2px -1px hsl(220 15% 15% / 0.10);
         }
         .dark {
@@ -138,9 +142,18 @@
         .card-content { padding: 1rem 1.5rem 1.5rem 1.5rem; }
         .card-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
 
-        /* New: Account Switcher */
+        /* Service Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        /* Account Switcher */
         .account-switcher {
             display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
         @media (max-width: 600px) {
             .account-switcher { flex-direction: column; gap: 0.3rem; }
@@ -174,6 +187,21 @@
             border-color: hsl(var(--success) / 0.3);
             color: hsl(var(--success));
         }
+        .info-box-canva {
+            background-color: hsl(var(--canva) / 0.1);
+            border-color: hsl(var(--canva) / 0.3);
+            color: hsl(var(--canva));
+        }
+        .info-box-apple-tv {
+            background-color: hsl(var(--apple-tv) / 0.1);
+            border-color: hsl(var(--apple-tv) / 0.3);
+            color: hsl(var(--apple-tv));
+        }
+        .info-box-apple-music {
+            background-color: hsl(var(--apple-music) / 0.1);
+            border-color: hsl(var(--apple-music) / 0.3);
+            color: hsl(var(--apple-music));
+        }
         .badge {
             display: inline-flex; align-items: center; gap: 0.25rem;
             padding: 0.25rem 0.75rem; font-size: 0.78rem; font-weight: 600; border-radius: 1rem; border: 1.5px solid;
@@ -188,6 +216,21 @@
             background-color: hsl(var(--warning) / 0.09);
             color: hsl(var(--warning));
             border-color: hsl(var(--warning) / 0.2);
+        }
+        .badge-canva {
+            background-color: hsl(var(--canva) / 0.09);
+            color: hsl(var(--canva));
+            border-color: hsl(var(--canva) / 0.2);
+        }
+        .badge-apple-tv {
+            background-color: hsl(var(--apple-tv) / 0.09);
+            color: hsl(var(--apple-tv));
+            border-color: hsl(var(--apple-tv) / 0.2);
+        }
+        .badge-apple-music {
+            background-color: hsl(var(--apple-music) / 0.09);
+            color: hsl(var(--apple-music));
+            border-color: hsl(var(--apple-music) / 0.2);
         }
 
         /* Utilities */
@@ -303,6 +346,7 @@
         /* Responsive styles for service switcher */
         @media (max-width: 900px) {
             #perplexityAccounts { flex-direction: column; gap: 1.25rem; }
+            .services-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 600px) {
             .account-switcher { flex-direction: column; gap: 0.3rem; }
@@ -321,6 +365,33 @@
         }
         /* Hidden class for language switching */
         .hidden { display: none; }
+        
+        /* Service icons */
+        .service-icon {
+            width: 2.5rem; height: 2.5rem; border-radius: 0.75rem; 
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1rem;
+        }
+        .service-icon-perplexity {
+            background-color: hsl(var(--primary) / 0.1);
+            color: hsl(var(--primary));
+        }
+        .service-icon-canva {
+            background-color: hsl(var(--canva) / 0.1);
+            color: hsl(var(--canva));
+        }
+        .service-icon-epic {
+            background-color: hsl(var(--info) / 0.1);
+            color: hsl(var(--info));
+        }
+        .service-icon-apple-tv {
+            background-color: hsl(var(--apple-tv) / 0.1);
+            color: hsl(var(--apple-tv));
+        }
+        .service-icon-apple-music {
+            background-color: hsl(var(--apple-music) / 0.1);
+            color: hsl(var(--apple-music));
+        }
     </style>
 </head>
 <body>
@@ -357,11 +428,11 @@
 
             <h1 class="hero-title">
                 <span data-en="Get Free Access to" data-ar="احصل على وصول مجاني إلى">Get Free Access to</span><br>
-                <span class="gradient-text" data-en="Premium Gaming & AI" data-ar="الألعاب والذكاء الاصطناعي المتميز">Premium Gaming & AI</span>
+                <span class="gradient-text" data-en="Premium Services" data-ar="الخدمات المتميزة">Premium Services</span>
             </h1>
 
-            <p class="hero-subtitle" data-en="Access Perplexity AI Pro and Epic Games with premium features - completely free for students" data-ar="الوصول إلى Perplexity AI Pro وإيبك جيمز مع الميزات المتميزة - مجاني تماماً للطلاب">
-                Access Perplexity AI Pro and Epic Games with premium features - completely free for students
+            <p class="hero-subtitle" data-en="Access Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, and Epic Games with premium features - completely free for students" data-ar="الوصول إلى Perplexity AI Pro وCanva Pro وApple TV+ وApple Music وإيبك جيمز مع الميزات المتميزة - مجاني تماماً للطلاب">
+                Access Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, and Epic Games with premium features - completely free for students
             </p>
 
             <button class="btn btn-primary btn-lg" onclick="scrollToAccount()">
@@ -373,7 +444,9 @@
             <div class="feature-grid">
                 <div class="card fade-in">
                     <div class="card-content text-center">
-                        <i data-lucide="brain" style="width: 2.5rem; height: 2.5rem; color: hsl(var(--primary)); margin: 0 auto 1rem;"></i>
+                        <div class="service-icon service-icon-perplexity">
+                            <i data-lucide="brain"></i>
+                        </div>
                         <h3 class="font-semibold mb-2" data-en="AI Research" data-ar="البحث بالذكاء الاصطناعي">AI Research</h3>
                         <p class="text-sm text-muted" data-en="Advanced AI-powered research and analysis tools" data-ar="أدوات البحث والتحليل المتقدمة بالذكاء الاصطناعي">
                             Advanced AI-powered research and analysis tools
@@ -382,19 +455,23 @@
                 </div>
                 <div class="card fade-in">
                     <div class="card-content text-center">
-                        <i data-lucide="sparkles" style="width: 2.5rem; height: 2.5rem; color: hsl(var(--primary)); margin: 0 auto 1rem;"></i>
-                        <h3 class="font-semibold mb-2" data-en="Pro Features" data-ar="المميزات المحترفة">Pro Features</h3>
-                        <p class="text-sm text-muted" data-en="Full access to premium Perplexity AI capabilities" data-ar="وصول كامل لقدرات بيربليكسيتي AI المتقدمة">
-                            Full access to premium Perplexity AI capabilities
+                        <div class="service-icon service-icon-canva">
+                            <i data-lucide="palette"></i>
+                        </div>
+                        <h3 class="font-semibold mb-2" data-en="Design Tools" data-ar="أدوات التصميم">Design Tools</h3>
+                        <p class="text-sm text-muted" data-en="Premium design resources with Canva Pro" data-ar="موارد تصميم متميزة مع Canva Pro">
+                            Premium design resources with Canva Pro
                         </p>
                     </div>
                 </div>
                 <div class="card fade-in">
                     <div class="card-content text-center">
-                        <i data-lucide="gamepad-2" style="width: 2.5rem; height: 2.5rem; color: hsl(var(--primary)); margin: 0 auto 1rem;"></i>
-                        <h3 class="font-semibold mb-2" data-en="Epic Games" data-ar="إيبك جيمز">Epic Games</h3>
-                        <p class="text-sm text-muted" data-en="Free and paid games with EA Play subscription" data-ar="ألعاب مجانية ومدفوعة مع اشتراك EA Play">
-                            Free and paid games with EA Play subscription
+                        <div class="service-icon service-icon-apple-tv">
+                            <i data-lucide="tv"></i>
+                        </div>
+                        <h3 class="font-semibold mb-2" data-en="Entertainment" data-ar="الترفيه">Entertainment</h3>
+                        <p class="text-sm text-muted" data-en="Movies, series and music with Apple services" data-ar="أفلام ومسلسلات وموسيقى مع خدمات Apple">
+                            Movies, series and music with Apple services
                         </p>
                     </div>
                 </div>
@@ -413,9 +490,21 @@
                         <i data-lucide="brain"></i>
                         <span data-en="Perplexity AI Pro" data-ar="بيربليكسيتي AI برو">Perplexity AI Pro</span>
                     </button>
+                    <button class="btn-switch" data-service="canva" onclick="switchService('canva')">
+                        <i data-lucide="palette"></i>
+                        <span data-en="Canva Pro" data-ar="كانفا برو">Canva Pro</span>
+                    </button>
                     <button class="btn-switch" data-service="epic" onclick="switchService('epic')">
                         <i data-lucide="gamepad-2"></i>
                         <span data-en="Epic Games" data-ar="إيبك جيمز">Epic Games</span>
+                    </button>
+                    <button class="btn-switch" data-service="apple-tv" onclick="switchService('apple-tv')">
+                        <i data-lucide="tv"></i>
+                        <span data-en="Apple TV+" data-ar="Apple TV+">Apple TV+</span>
+                    </button>
+                    <button class="btn-switch" data-service="apple-music" onclick="switchService('apple-music')">
+                        <i data-lucide="music"></i>
+                        <span data-en="Apple Music" data-ar="Apple Music">Apple Music</span>
                     </button>
                 </div>
 
@@ -523,12 +612,61 @@
                         </div>
                     </div>
                     
+                    <!-- Canva Pro Account Container -->
+                    <div id="canvaAccount" style="display: none; width: 100%; justify-content: center;">
+                        <div class="card" style="max-width: 600px;">
+                            <div class="card-header">
+                                <div class="flex items-center justify-center mb-4">
+                                    <div class="badge badge-canva">
+                                        <i data-lucide="palette"></i>
+                                        <span data-en="Design Account" data-ar="حساب تصميم">Design Account</span>
+                                    </div>
+                                </div>
+                                <h2 class="card-title" data-en="Canva Pro Account" data-ar="حساب Canva Pro">Canva Pro Account</h2>
+                            </div>
+                            <div class="card-content">
+                                <div class="mb-6">
+                                    <label class="label" data-en="Account Email" data-ar="إيميل الحساب">Account Email</label>
+                                    <div class="flex gap-2">
+                                        <input type="text" class="input" value="Kenva9557@examtestseries.online" readonly id="canvaEmail">
+                                        <button class="btn btn-outline" onclick="copyText('Kenva9557@examtestseries.online')">
+                                            <i data-lucide="copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="mb-6">
+                                    <button class="btn btn-primary w-full" onclick="openVerificationLink('https://www.oxaam.com/kaanvahcode9.php')">
+                                        <i data-lucide="external-link"></i>
+                                        <span data-en="Get Verification Code" data-ar="احصل على رمز التحقق">Get Verification Code</span>
+                                    </button>
+                                    <p class="text-sm text-muted text-center mt-4" data-en="Click to get verification code for Canva Pro" data-ar="انقر للحصول على رمز التحقق لـ Canva Pro">Click to get verification code for Canva Pro</p>
+                                </div>
+                                
+                                <!-- Canva Pro Features -->
+                                <div class="info-box info-box-canva">
+                                    <div class="flex gap-2">
+                                        <i data-lucide="sparkles"></i>
+                                        <div class="text-sm">
+                                            <p class="font-medium mb-2" data-en="Canva Pro Features:" data-ar="مميزات Canva Pro:">Canva Pro Features:</p>
+                                            <ul style="list-style: disc; list-style-position: inside;" class="space-y-1">
+                                                <li data-en="Access to premium templates and design elements" data-ar="الوصول إلى قوالب وعناصر تصميم متميزة">Access to premium templates and design elements</li>
+                                                <li data-en="Background remover and advanced editing tools" data-ar="أداة إزالة الخلفية وأدوات تحرير متقدمة">Background remover and advanced editing tools</li>
+                                                <li data-en="Brand kit for consistent designs" data-ar="مجموعة العلامة التجارية لتصاميم متناسقة">Brand kit for consistent designs</li>
+                                                <li data-en="Magic Resize for different platforms" data-ar="تغيير الحجم السحري لمنصات مختلفة">Magic Resize for different platforms</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <!-- Epic Games Account Container -->
                     <div id="epicAccount" style="display: none; width: 100%; justify-content: center;">
                         <div class="card" style="max-width: 600px;">
                             <div class="card-header">
                                 <div class="flex items-center justify-center mb-4">
-                                    <div class="badge badge-success">
+                                    <div class="badge badge-warning">
                                         <i data-lucide="gamepad-2"></i>
                                         <span data-en="Gaming Account" data-ar="حساب ألعاب">Gaming Account</span>
                                     </div>
@@ -539,56 +677,135 @@
                                 <div class="mb-6">
                                     <label class="label" data-en="Account Email" data-ar="إيميل الحساب">Account Email</label>
                                     <div class="flex gap-2">
-                                        <input type="text" class="input" value="aapikgames@oxaam.com" readonly id="epicEmail">
-                                        <button class="btn btn-outline" onclick="copyText('aapikgames@oxaam.com')">
+                                        <input type="text" class="input" value="epicgms@oxaam.com" readonly id="epicEmail">
+                                        <button class="btn btn-outline" onclick="copyText('epicgms@oxaam.com')">
                                             <i data-lucide="copy"></i>
                                         </button>
                                     </div>
                                 </div>
                                 <div class="mb-6">
-                                    <label class="label" data-en="Password" data-ar="كلمة المرور">Password</label>
+                                    <label class="label" data-en="Account Password" data-ar="كلمة المرور">Account Password</label>
                                     <div class="flex gap-2">
-                                        <input type="text" class="input" value="Oxaam41202#" readonly id="epicPassword">
-                                        <button class="btn btn-outline" onclick="copyText('Oxaam41202#')">
+                                        <input type="text" class="input" value="Oxaam@epicgms" readonly id="epicPassword">
+                                        <button class="btn btn-outline" onclick="copyText('Oxaam@epicgms')">
                                             <i data-lucide="copy"></i>
                                         </button>
                                     </div>
-                                </div>
-                                <div class="mb-6">
-                                    <button class="btn btn-primary w-full" onclick="openVerificationLink('https://www.oxaam.com/aapikcode.php')">
-                                        <i data-lucide="external-link"></i>
-                                        <span data-en="Get Verification Code" data-ar="احصل على رمز التحقق">Get Verification Code</span>
-                                    </button>
-                                    <p class="text-sm text-muted text-center mt-4" data-en="Use if Epic Games asks for verification" data-ar="استخدم إذا طلب إيبك جيمز التحقق">Use if Epic Games asks for verification</p>
                                 </div>
                                 
-                                <!-- EA Play Subscription Info -->
-                                <div class="info-box info-box-green mb-4">
+                                <!-- Epic Games Features -->
+                                <div class="info-box info-box-green">
                                     <div class="flex gap-2">
-                                        <i data-lucide="star"></i>
+                                        <i data-lucide="gift"></i>
                                         <div class="text-sm">
-                                            <p class="font-medium mb-2" data-en="EA Play Active Subscription" data-ar="اشتراك EA Play نشط">EA Play Active Subscription</p>
+                                            <p class="font-medium mb-2" data-en="Epic Games Features:" data-ar="مميزات إيبك جيمز:">Epic Games Features:</p>
                                             <ul style="list-style: disc; list-style-position: inside;" class="space-y-1">
-                                                <li data-en="FC 26 - 10 hours trial" data-ar="FC 26 - تجربة 10 ساعات">FC 26 - 10 hours trial</li>
-                                                <li data-en="Full older FC games" data-ar="جميع ألعاب FC القديمة">Full older FC games</li>
-                                                <li data-en="Star Wars Jedi Survivor" data-ar="Star Wars Jedi Survivor">Star Wars Jedi Survivor</li>
-                                                <li data-en="Access to EA games library" data-ar="الوصول إلى مكتبة ألعاب EA">Access to EA games library</li>
+                                                <li data-en="Free games every week" data-ar="ألعاب مجانية كل أسبوع">Free games every week</li>
+                                                <li data-en="Exclusive discounts and offers" data-ar="خصومات وعروض حصرية">Exclusive discounts and offers</li>
+                                                <li data-en="Access to Fortnite and other popular titles" data-ar="الوصول إلى Fortnite وعناوين شهيرة أخرى">Access to Fortnite and other popular titles</li>
+                                                <li data-en="Cloud saves and cross-platform play" data-ar="حفظ سحابي واللعب عبر المنصات">Cloud saves and cross-platform play</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Account Features -->
-                                <div class="info-box info-box-blue">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Apple TV+ Account Container -->
+                    <div id="appleTvAccount" style="display: none; width: 100%; justify-content: center;">
+                        <div class="card" style="max-width: 600px;">
+                            <div class="card-header">
+                                <div class="flex items-center justify-center mb-4">
+                                    <div class="badge badge-apple-tv">
+                                        <i data-lucide="tv"></i>
+                                        <span data-en="Streaming Account" data-ar="حساب بث">Streaming Account</span>
+                                    </div>
+                                </div>
+                                <h2 class="card-title" data-en="Apple TV+ Account" data-ar="حساب Apple TV+">Apple TV+ Account</h2>
+                            </div>
+                            <div class="card-content">
+                                <div class="mb-6">
+                                    <label class="label" data-en="Account Email" data-ar="إيميل الحساب">Account Email</label>
                                     <div class="flex gap-2">
-                                        <i data-lucide="gamepad-2"></i>
+                                        <input type="text" class="input" value="aptvliv796@oxaam.com" readonly id="appleTvEmail">
+                                        <button class="btn btn-outline" onclick="copyText('aptvliv796@oxaam.com')">
+                                            <i data-lucide="copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="mb-6">
+                                    <label class="label" data-en="Account Password" data-ar="كلمة المرور">Account Password</label>
+                                    <div class="flex gap-2">
+                                        <input type="text" class="input" value="Oxaam71921#" readonly id="appleTvPassword">
+                                        <button class="btn btn-outline" onclick="copyText('Oxaam71921#')">
+                                            <i data-lucide="copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Apple TV+ Features -->
+                                <div class="info-box info-box-apple-tv">
+                                    <div class="flex gap-2">
+                                        <i data-lucide="film"></i>
                                         <div class="text-sm">
-                                            <p class="font-medium mb-2" data-en="Account Features:" data-ar="مميزات الحساب:">Account Features:</p>
+                                            <p class="font-medium mb-2" data-en="Apple TV+ Features:" data-ar="مميزات Apple TV+:">Apple TV+ Features:</p>
                                             <ul style="list-style: disc; list-style-position: inside;" class="space-y-1">
-                                                <li data-en="Free games collection" data-ar="مجموعة الألعاب المجانية">Free games collection</li>
-                                                <li data-en="Some paid games included" data-ar="بعض الألعاب المدفوعة مشمولة">Some paid games included</li>
-                                                <li data-en="Limited games library" data-ar="مكتبة ألعاب محدودة">Limited games library</li>
-                                                <li data-en="Active EA Play subscription" data-ar="اشتراك EA Play نشط">Active EA Play subscription</li>
+                                                <li data-en="Access to exclusive Apple Originals" data-ar="الوصول إلى محتوى Apple الأصلي الحصري">Access to exclusive Apple Originals</li>
+                                                <li data-en="4K HDR and Dolby Atmos support" data-ar="دعم 4K HDR وDolby Atmos">4K HDR and Dolby Atmos support</li>
+                                                <li data-en="Download for offline viewing" data-ar="تحميل للمشاهدة بدون إنترنت">Download for offline viewing</li>
+                                                <li data-en="Family sharing for up to 6 members" data-ar="مشاركة عائلية لما يصل إلى 6 أفراد">Family sharing for up to 6 members</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Apple Music Account Container -->
+                    <div id="appleMusicAccount" style="display: none; width: 100%; justify-content: center;">
+                        <div class="card" style="max-width: 600px;">
+                            <div class="card-header">
+                                <div class="flex items-center justify-center mb-4">
+                                    <div class="badge badge-apple-music">
+                                        <i data-lucide="music"></i>
+                                        <span data-en="Music Account" data-ar="حساب موسيقى">Music Account</span>
+                                    </div>
+                                </div>
+                                <h2 class="card-title" data-en="Apple Music Account" data-ar="حساب Apple Music">Apple Music Account</h2>
+                            </div>
+                            <div class="card-content">
+                                <div class="mb-6">
+                                    <label class="label" data-en="Account Email" data-ar="إيميل الحساب">Account Email</label>
+                                    <div class="flex gap-2">
+                                        <input type="text" class="input" value="aptmusc9@oxaam.com" readonly id="appleMusicEmail">
+                                        <button class="btn btn-outline" onclick="copyText('aptmusc9@oxaam.com')">
+                                            <i data-lucide="copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="mb-6">
+                                    <label class="label" data-en="Account Password" data-ar="كلمة المرور">Account Password</label>
+                                    <div class="flex gap-2">
+                                        <input type="text" class="input" value="Oxaam9945#" readonly id="appleMusicPassword">
+                                        <button class="btn btn-outline" onclick="copyText('Oxaam9945#')">
+                                            <i data-lucide="copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Apple Music Features -->
+                                <div class="info-box info-box-apple-music">
+                                    <div class="flex gap-2">
+                                        <i data-lucide="headphones"></i>
+                                        <div class="text-sm">
+                                            <p class="font-medium mb-2" data-en="Apple Music Features:" data-ar="مميزات Apple Music:">Apple Music Features:</p>
+                                            <ul style="list-style: disc; list-style-position: inside;" class="space-y-1">
+                                                <li data-en="Access to over 100 million songs" data-ar="الوصول إلى أكثر من 100 مليون أغنية">Access to over 100 million songs</li>
+                                                <li data-en="Thousands of curated playlists" data-ar="الآلاف من قوائم التشغيل المنتقاة">Thousands of curated playlists</li>
+                                                <li data-en="High-quality audio with Lossless and Spatial Audio" data-ar="صوت عالي الجودة مع Lossless وSpatial Audio">High-quality audio with Lossless and Spatial Audio</li>
+                                                <li data-en="Lyrics in real-time and music videos" data-ar="كلمات الأغاني في الوقت الحقيقي ومقاطع الفيديو الموسيقية">Lyrics in real-time and music videos</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -601,41 +818,34 @@
         </div>
     </section>
 
-    <!-- Coming Soon Section -->
+    <!-- FAQ Section -->
     <section class="section section-muted">
         <div class="container">
-            <div class="section-content">
+            <h2 class="text-center text-3xl font-bold mb-8" data-en="Frequently Asked Questions" data-ar="الأسئلة الشائعة">Frequently Asked Questions</h2>
+            
+            <div class="services-grid">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="flex items-center justify-center mb-4">
-                            <div class="badge badge-warning">
-                                <i data-lucide="clock"></i>
-                                <span data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
-                            </div>
-                        </div>
-                        <h2 class="card-title" data-en="ChatGPT Pro Accounts" data-ar="حسابات ChatGPT برو">ChatGPT Pro Accounts</h2>
-                    </div>
-                    <div class="card-content text-center">
-                        <div class="flex justify-center mb-6">
-                            <div style="width: 4rem; height: 4rem; background-color: hsl(var(--primary) / 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                <i data-lucide="message-square" style="width: 2rem; height: 2rem; color: hsl(var(--primary));"></i>
-                            </div>
-                        </div>
-                        <p class="text-muted mb-8" data-en="We're working on adding free ChatGPT Pro accounts to our platform. Stay tuned!" data-ar="نعمل على إضافة حسابات ChatGPT Pro المجانية إلى منصتنا. ترقبوا!">
-                            We're working on adding free ChatGPT Pro accounts to our platform. Stay tuned!
+                    <div class="card-content">
+                        <h3 class="font-semibold mb-4" data-en="How do I access the accounts?" data-ar="كيف يمكنني الوصول إلى الحسابات؟">How do I access the accounts?</h3>
+                        <p class="text-sm text-muted" data-en="Each service has specific instructions. For Perplexity and Canva, you'll need to get a verification code. For other services, use the provided credentials." data-ar="كل خدمة لها تعليمات محددة. بالنسبة لـ Perplexity وCanva، ستحتاج إلى الحصول على رمز التحقق. للخدمات الأخرى، استخدم بيانات الاعتماد المقدمة.">
+                            Each service has specific instructions. For Perplexity and Canva, you'll need to get a verification code. For other services, use the provided credentials.
                         </p>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <div class="text-center p-4 card" style="background-color: hsl(var(--background)); border: 1px solid hsl(var(--border));">
-                                <i data-lucide="message-square" style="width: 1.5rem; height: 1.5rem; color: hsl(var(--primary)); margin: 0 auto 0.5rem;"></i>
-                                <p class="text-sm font-medium" data-en="ChatGPT Pro" data-ar="ChatGPT برو">ChatGPT Pro</p>
-                                <p class="text-xs text-muted" data-en="Advanced AI Chat" data-ar="دردشة ذكية متطورة">Advanced AI Chat</p>
-                            </div>
-                            <div class="text-center p-4 card" style="background-color: hsl(var(--background)); border: 1px solid hsl(var(--border));">
-                                <i data-lucide="bell" style="width: 1.5rem; height: 1.5rem; color: hsl(var(--primary)); margin: 0 auto 0.5rem;"></i>
-                                <p class="text-sm font-medium" data-en="Notifications" data-ar="الإشعارات">Notifications</p>
-                                <p class="text-xs text-muted" data-en="Get notified when ready" data-ar="احصل على إشعار عند الاستعداد">Get notified when ready</p>
-                            </div>
-                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h3 class="font-semibold mb-4" data-en="Are these accounts really free?" data-ar="هل هذه الحسابات مجانية حقًا؟">Are these accounts really free?</h3>
+                        <p class="text-sm text-muted" data-en="Yes, these accounts are provided completely free for students as part of our educational support initiative." data-ar="نعم، هذه الحسابات مقدمة مجانًا تمامًا للطلاب كجزء من مبادرة الدعم التعليمي لدينا.">
+                            Yes, these accounts are provided completely free for students as part of our educational support initiative.
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h3 class="font-semibold mb-4" data-en="What if an account stops working?" data-ar="ماذا لو توقف حساب عن العمل؟">What if an account stops working?</h3>
+                        <p class="text-sm text-muted" data-en="We regularly update our accounts. If you encounter any issues, check back later as we add new accounts frequently." data-ar="نقوم بتحديث حساباتنا بانتظام. إذا واجهت أي مشاكل، تحقق لاحقًا حيث نضيف حسابات جديدة بشكل متكرر.">
+                            We regularly update our accounts. If you encounter any issues, check back later as we add new accounts frequently.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -646,204 +856,163 @@
     <footer class="footer">
         <div class="container">
             <div class="text-center">
-                <div class="flex items-center justify-center gap-2 mb-6">
-                    <div class="logo-icon">B</div>
-                    <span class="text-xl font-bold" data-en="BEGAD AI" data-ar="بيجاد AI">BEGAD AI</span>
-                </div>
-                <div class="max-w-2xl mx-auto mb-6">
-                    <div class="info-box info-box-green">
-                        <div class="flex gap-2">
-                            <i data-lucide="shield"></i>
-                            <p class="text-sm" data-en="This service is verified by Perplexity for educational use. All accounts are provided for legitimate student research purposes." data-ar="هذه الخدمة موثقة من Perplexity للاستخدام التعليمي. جميع الحسابات مقدمة لأغراض بحثية شرعية للطلاب.">
-                                This service is verified by Perplexity for educational use. All accounts are provided for legitimate student research purposes.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex items-center justify-center gap-2 text-muted mb-6">
-                    <i data-lucide="graduation-cap"></i>
-                    <span class="text-sm" data-en="For Students, By Students" data-ar="للطلاب، من الطلاب">For Students, By Students</span>
-                    <i data-lucide="heart" style="color: #ef4444;"></i>
-                </div>
-                <div style="padding-top: 1.5rem; border-top: 1px solid hsl(var(--border));">
-                    <p class="text-xs text-muted">© 2024 BEGAD AI. Educational use only.</p>
-                </div>
+                <p class="text-sm text-muted" data-en="© 2023 BEGAD AI. Free educational resources for students worldwide." data-ar="© 2023 BEGAD AI. موارد تعليمية مجانية للطلاب حول العالم.">
+                    © 2023 BEGAD AI. Free educational resources for students worldwide.
+                </p>
             </div>
         </div>
     </footer>
 
-    <!-- Toast notification -->
-    <div id="toast" class="toast">
+    <!-- Toast for notifications -->
+    <div class="toast" id="toast">
         <div class="flex items-center gap-2">
-            <i data-lucide="check"></i>
-            <span id="toastMessage">Copied!</span>
+            <i data-lucide="check-circle" id="toastIcon"></i>
+            <span id="toastMessage"></span>
         </div>
     </div>
 
     <script>
-        // Accounts data
-        const accounts = [
-            {
-                email: "purplixyee611@oxaam.com",
-                verificationUrl: "https://www.oxaam.com/prxlycode5.php"
-            },
-            {
-                email: "purplixyee641@oxaam.com",
-                verificationUrl: "https://www.oxaam.com/prxlycode5.php"
-            }
-        ];
+        // Initialize Lucide icons
+        lucide.createIcons();
 
-        const epicAccount = {
-            email: "aapikgames@oxaam.com",
-            password: "Oxaam41202#",
-            verificationUrl: "https://www.oxaam.com/aapikcode.php"
-        };
-
-        // Theme management
-        let currentTheme = localStorage.getItem('begad-theme') || 'light';
-        let currentLanguage = localStorage.getItem('begad-language') || 'en';
-        let activeAccount = 0;
-        let activeService = localStorage.getItem('begad-service') || 'perplexity';
-
-        function initializeTheme() {
-            document.documentElement.classList.toggle('dark', currentTheme === 'dark');
-            updateThemeIcon();
-        }
+        // Theme toggle functionality
         function toggleTheme() {
-            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
-            localStorage.setItem('begad-theme', currentTheme);
-            document.documentElement.classList.toggle('dark', currentTheme === 'dark');
-            updateThemeIcon();
-        }
-        function updateThemeIcon() {
-            const icon = document.getElementById('themeIcon');
-            icon.setAttribute('data-lucide', currentTheme === 'light' ? 'moon' : 'sun');
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                themeIcon.setAttribute('data-lucide', 'moon');
+            } else {
+                html.classList.add('dark');
+                themeIcon.setAttribute('data-lucide', 'sun');
+            }
+            
             lucide.createIcons();
         }
-        // Language management
-        function initializeLanguage() {
-            document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
-            document.documentElement.lang = currentLanguage;
-            updateLanguageContent();
-        }
+
+        // Language toggle functionality
         function toggleLanguage() {
-            currentLanguage = currentLanguage === 'en' ? 'ar' : 'en';
-            localStorage.setItem('begad-language', currentLanguage);
-            document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
-            document.documentElement.lang = currentLanguage;
-            updateLanguageContent();
-        }
-        function updateLanguageContent() {
-            const elements = document.querySelectorAll('[data-en][data-ar]');
-            elements.forEach(element => {
-                const content = element.getAttribute(`data-${currentLanguage}`);
-                if (content) { element.textContent = content; }
-            });
-            document.body.classList.toggle('arabic', currentLanguage === 'ar');
-        }
-        
-        // Service Switcher
-        function switchService(service) {
-            activeService = service;
-            localStorage.setItem('begad-service', service);
+            const html = document.documentElement;
+            const isArabic = html.getAttribute('lang') === 'ar';
+            const languageBtn = document.getElementById('languageBtn');
             
+            if (isArabic) {
+                html.setAttribute('lang', 'en');
+                html.setAttribute('dir', 'ltr');
+                document.querySelectorAll('[data-en]').forEach(el => {
+                    el.textContent = el.getAttribute('data-en');
+                });
+                languageBtn.querySelector('span').textContent = 'عربي';
+            } else {
+                html.setAttribute('lang', 'ar');
+                html.setAttribute('dir', 'rtl');
+                document.querySelectorAll('[data-ar]').forEach(el => {
+                    el.textContent = el.getAttribute('data-ar');
+                });
+                languageBtn.querySelector('span').textContent = 'English';
+            }
+            
+            // Update button text
+            const btnText = languageBtn.querySelector('span');
+            if (isArabic) {
+                btnText.setAttribute('data-en', 'عربي');
+                btnText.setAttribute('data-ar', 'English');
+            } else {
+                btnText.setAttribute('data-en', 'English');
+                btnText.setAttribute('data-ar', 'عربي');
+            }
+        }
+
+        // Service switching functionality
+        function switchService(service) {
             // Update service switcher buttons
             document.querySelectorAll('#serviceSwitcher .btn-switch').forEach(btn => {
-                btn.classList.toggle('active', btn.getAttribute('data-service') === service);
+                btn.classList.remove('active');
             });
+            document.querySelector(`[data-service="${service}"]`).classList.add('active');
             
-            // Show/hide appropriate containers
+            // Show/hide account switcher based on service
+            const accountSwitcher = document.getElementById('accountSwitcher');
             if (service === 'perplexity') {
-                document.getElementById('perplexityAccounts').style.display = 'flex';
-                document.getElementById('epicAccount').style.display = 'none';
-                document.getElementById('accountSwitcher').style.display = 'flex';
-                // Reset to first account
-                switchAccount(0);
-            } else if (service === 'epic') {
-                document.getElementById('perplexityAccounts').style.display = 'none';
-                document.getElementById('epicAccount').style.display = 'flex';
-                document.getElementById('accountSwitcher').style.display = 'none';
+                accountSwitcher.style.display = 'flex';
+            } else {
+                accountSwitcher.style.display = 'none';
             }
             
-            lucide.createIcons();
+            // Show the selected service and hide others
+            document.getElementById('perplexityAccounts').style.display = service === 'perplexity' ? 'flex' : 'none';
+            document.getElementById('canvaAccount').style.display = service === 'canva' ? 'flex' : 'none';
+            document.getElementById('epicAccount').style.display = service === 'epic' ? 'flex' : 'none';
+            document.getElementById('appleTvAccount').style.display = service === 'apple-tv' ? 'flex' : 'none';
+            document.getElementById('appleMusicAccount').style.display = service === 'apple-music' ? 'flex' : 'none';
         }
-        
-        // Account Switcher (for Perplexity)
-        function switchAccount(idx) {
-            activeAccount = idx;
-            // Switch tab button
-            document.querySelectorAll('#accountSwitcher .btn-switch').forEach((btn, i) => {
-                if(i === idx) btn.classList.add('active');
-                else btn.classList.remove('active');
+
+        // Account switching functionality for Perplexity
+        function switchAccount(index) {
+            // Update account switcher buttons
+            document.querySelectorAll('#accountSwitcher .btn-switch').forEach(btn => {
+                btn.classList.remove('active');
             });
-            // Switch cards
-            document.querySelectorAll('#perplexityAccounts .account-card').forEach((card, i) => {
-                card.style.display = (i === idx) ? 'block' : 'none';
-                card.classList.toggle('active', i === idx);
+            document.querySelector(`[data-index="${index}"]`).classList.add('active');
+            
+            // Show the selected account and hide others
+            document.querySelectorAll('.account-card').forEach(card => {
+                card.style.display = 'none';
             });
-            lucide.createIcons();
+            document.querySelector(`.account-card[data-index="${index}"]`).style.display = 'block';
         }
-        
-        // Utility functions
-        function scrollToAccount() {
-            document.getElementById('account-section').scrollIntoView({ behavior: 'smooth' });
+
+        // Copy email to clipboard
+        function copyEmail(index) {
+            const email = document.getElementById(`accountEmail${index}`).value;
+            copyText(email);
         }
-        
-        async function copyEmail(idx) {
-            const email = accounts[idx].email;
-            try {
-                await navigator.clipboard.writeText(email);
-                showToast(currentLanguage === 'en' ? 'Email copied to clipboard!' : 'تم نسخ الإيميل!');
-                // Update copy button icon temporarily
-                const copyIcon = document.getElementById('copyIcon'+idx);
-                copyIcon.setAttribute('data-lucide', 'check');
-                lucide.createIcons();
-                setTimeout(() => {
-                    copyIcon.setAttribute('data-lucide', 'copy');
-                    lucide.createIcons();
-                }, 2000);
-            } catch (err) {
-                showToast(currentLanguage === 'en' ? 'Failed to copy email' : 'فشل في نسخ الإيميل');
-            }
+
+        // Generic copy text to clipboard
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
         }
-        
-        async function copyText(text) {
-            try {
-                await navigator.clipboard.writeText(text);
-                showToast(currentLanguage === 'en' ? 'Copied to clipboard!' : 'تم نسخ النص!');
-            } catch (err) {
-                showToast(currentLanguage === 'en' ? 'Failed to copy' : 'فشل في النسخ');
-            }
-        }
-        
+
+        // Open verification link
         function openVerificationLink(url) {
-            window.open(url, '_blank', 'noopener,noreferrer');
+            window.open(url, '_blank');
         }
+
+        // Show toast notification
         function showToast(message) {
             const toast = document.getElementById('toast');
             const toastMessage = document.getElementById('toastMessage');
+            
             toastMessage.textContent = message;
             toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
         }
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeTheme();
-            initializeLanguage();
-            lucide.createIcons();
-            // Fade-in
-            const fadeElements = document.querySelectorAll('.fade-in');
-            fadeElements.forEach((element, index) => {
-                element.style.animationDelay = `${index * 0.1}s`;
+
+        // Scroll to account section
+        function scrollToAccount() {
+            document.getElementById('account-section').scrollIntoView({ 
+                behavior: 'smooth' 
             });
-            // Initialize service switcher
-            switchService(activeService);
-        });
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('[onclick*="scrollToAccount"]')) {
-                e.preventDefault();
-                scrollToAccount();
-            }
-        });
+        }
+
+        // Initialize theme based on user preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+            document.getElementById('themeIcon').setAttribute('data-lucide', 'moon');
+        } else {
+            document.getElementById('themeIcon').setAttribute('data-lucide', 'sun');
+        }
+        
+        // Reinitialize icons after theme change
+        lucide.createIcons();
     </script>
 </body>
 </html>
