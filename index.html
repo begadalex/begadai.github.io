@@ -90,6 +90,7 @@
             border-radius: 0.5rem; display: flex; align-items: center; justify-content: center;
             color: hsl(var(--primary-foreground)); font-weight: bold; font-size: 0.875rem;
             box-shadow: 0 2px 8px hsl(var(--primary) / 0.08);
+            animation: pulse 2s infinite;
         }
         .logo-text { font-size: 1.25rem; font-weight: bold; }
         .header-controls { display: flex; align-items: center; gap: 0.5rem; }
@@ -106,10 +107,26 @@
             background-color: hsl(var(--primary)); color: hsl(var(--primary-foreground));
             padding: 0.75rem 1.5rem;
             box-shadow: 0 5px 16px hsl(var(--primary) / 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        .btn-primary:hover::before {
+            left: 100%;
         }
         .btn-primary:hover {
             background-color: hsl(var(--primary) / 0.9);
-            transform: translateY(-1px) scale(1.03);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 8px 25px hsl(var(--primary) / 0.15);
         }
         .btn-lg { padding: 1rem 2rem; font-size: 1.125rem; }
         .btn-outline {
@@ -123,9 +140,24 @@
             padding: 0.6rem 1.3rem; border: none; cursor: pointer;
             margin-right: 0.25rem; font-weight: 600; transition: all var(--transition);
             outline: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-switch::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: hsl(var(--primary));
+            transition: width 0.3s ease;
         }
         .btn-switch.active, .btn-switch:focus {
             background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); box-shadow: 0 2px 8px hsl(var(--primary) / 0.10);
+        }
+        .btn-switch.active::after, .btn-switch:focus::after {
+            width: 100%;
         }
         .btn-switch:last-child { margin-right: 0; }
 
@@ -135,10 +167,26 @@
             border-radius: 0.9rem;
             box-shadow: var(--shadow), 0 6px 40px hsl(220 20% 40% / 0.02);
             transition: box-shadow var(--transition), transform var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--primary) / 0.5));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .card:hover::before, .card.active::before {
+            opacity: 1;
         }
         .card:hover, .card.active {
             box-shadow: 0 8px 28px 0px hsl(220 15% 15% / 0.16);
-            transform: translateY(-3px) scale(1.025);
+            transform: translateY(-5px) scale(1.025);
         }
         .card-header { padding: 1.5rem 1.5rem 1rem 1.5rem; text-align: center; }
         .card-content { padding: 1rem 1.5rem 1.5rem 1.5rem; }
@@ -173,6 +221,11 @@
         /* Info boxes */
         .info-box {
             border-radius: 0.6rem; padding: 1rem; border: 1px solid; margin-top: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .info-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .info-box-blue {
             background-color: hsl(220 90% 95%);
@@ -220,6 +273,7 @@
             box-shadow: 0 2px 8px hsl(var(--success) / 0.07);
             background: hsl(var(--success) / 0.08);
             color: hsl(var(--success));
+            animation: float 3s ease-in-out infinite;
         }
         .badge-success {
             border-color: hsl(var(--success) / 0.2);
@@ -287,10 +341,12 @@
             width: 100%; padding: 0.75rem; border: 1px solid hsl(var(--border));
             border-radius: 0.375rem; background-color: hsl(var(--background));
             color: hsl(var(--foreground)); font-family: 'Courier New', monospace;
+            transition: all 0.3s ease;
         }
         .input:focus {
             outline: none; border-color: hsl(var(--ring));
-            box-shadow: 0 0 0 2px hsl(var(--ring) / 0.2);
+            box-shadow: 0 0 0 3px hsl(var(--ring) / 0.2);
+            transform: translateY(-2px);
         }
         .label {
             display: block; font-size: 0.94rem; font-weight: 600; margin-bottom: 0.38rem;
@@ -321,6 +377,8 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: gradientShift 3s ease infinite;
+            background-size: 200% 200%;
         }
         .feature-grid {
             display: grid;
@@ -353,6 +411,24 @@
         .fade-in:nth-child(2) { animation-delay: 0.1s; }
         .fade-in:nth-child(3) { animation-delay: 0.2s; }
         .fade-in:nth-child(4) { animation-delay: 0.3s; }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
         /* Toast */
         .toast {
@@ -362,8 +438,20 @@
             border-radius: 0.5rem; padding: 1rem; box-shadow: var(--shadow);
             transform: translateX(400px);
             transition: transform 0.3s ease; z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        .toast.show { transform: translateX(0); }
+        .toast.show { 
+            transform: translateX(0);
+            animation: toastBounce 0.5s ease;
+        }
+        
+        @keyframes toastBounce {
+            0% { transform: translateX(400px); }
+            70% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
 
         /* Responsive styles for service switcher */
         @media (max-width: 900px) {
@@ -393,6 +481,10 @@
             width: 2.5rem; height: 2.5rem; border-radius: 0.75rem; 
             display: flex; align-items: center; justify-content: center;
             margin: 0 auto 1rem;
+            transition: all 0.3s ease;
+        }
+        .service-icon:hover {
+            transform: scale(1.1) rotate(5deg);
         }
         .service-icon-perplexity {
             background-color: hsl(var(--primary) / 0.1);
@@ -425,6 +517,10 @@
             align-items: flex-start;
             gap: 1rem;
             margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        .tutorial-step:hover {
+            transform: translateX(10px);
         }
         .tutorial-number {
             background: hsl(var(--primary));
@@ -437,6 +533,23 @@
             justify-content: center;
             flex-shrink: 0;
             font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+        
+        /* Password reveal button */
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: hsl(var(--muted-foreground));
         }
     </style>
 </head>
@@ -558,24 +671,12 @@
                     </button>
                 </div>
 
-                <!-- Account Switcher (for Perplexity accounts) -->
-                <div class="account-switcher" id="accountSwitcher" style="display: block;">
-                    <button class="btn-switch active" data-index="0" onclick="switchAccount(0)">
-                        <i data-lucide="user-circle-2"></i>
-                        <span data-en="Account 1" data-ar="الحساب ١">Account 1</span>
-                    </button>
-                    <button class="btn-switch" data-index="1" onclick="switchAccount(1)">
-                        <i data-lucide="user-circle-2"></i>
-                        <span data-en="Account 2" data-ar="الحساب ٢">Account 2</span>
-                    </button>
-                </div>
-
                 <!-- Accounts Cards -->
                 <div class="accounts-grid" id="accountsGrid">
                     <!-- Perplexity Accounts Container -->
                     <div id="perplexityAccounts" style="display: flex; gap: 2rem; justify-content: center; width: 100%;">
-                        <!-- Account 1 -->
-                        <div class="card account-card active" data-index="0">
+                        <!-- Single Perplexity Account -->
+                        <div class="card account-card active" style="max-width: 600px;">
                             <div class="card-header">
                                 <div class="flex items-center justify-center mb-4">
                                     <div class="badge badge-success">
@@ -589,52 +690,9 @@
                                 <div class="mb-6">
                                     <label class="label" data-en="Account Email" data-ar="إيميل الحساب">Account Email</label>
                                     <div class="flex gap-2">
-                                        <input type="text" class="input" value="purplixyee611@oxaam.com" readonly id="accountEmail0">
-                                        <button class="btn btn-outline" onclick="copyEmail(0)">
-                                            <i data-lucide="copy" id="copyIcon0"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="mb-6">
-                                    <button class="btn btn-primary w-full" onclick="openVerificationLink('https://www.oxaam.com/prxlycode5.php')">
-                                        <i data-lucide="external-link"></i>
-                                        <span data-en="Get Verification Code" data-ar="احصل على رمز التحقق">Get Verification Code</span>
-                                    </button>
-                                    <p class="text-sm text-muted text-center mt-4" data-en="Click the button above to retrieve your verification code" data-ar="انقر على الزر أعلاه لاسترداد رمز التحقق">Click the button above to retrieve your verification code</p>
-                                </div>
-                                <div class="info-box info-box-blue">
-                                    <div class="flex gap-2">
-                                        <i data-lucide="shield"></i>
-                                        <div class="text-sm">
-                                            <p class="font-medium mb-2" data-en="How it works:" data-ar="كيف يعمل:">How it works:</p>
-                                            <ol style="list-style: decimal; list-style-position: inside;" class="space-y-1">
-                                                <li data-en="Copy the email address above" data-ar="انسخ عنوان البريد الإلكتروني أعلاه">Copy the email address above</li>
-                                                <li data-en="Click 'Get Verification Code' to open the verification portal" data-ar="انقر على 'احصل على رمز التحقق' لفتح بوابة التحقق">Click 'Get Verification Code' to open the verification portal</li>
-                                                <li data-en="Use the verification code to access your Perplexity Pro account" data-ar="استخدم رمز التحقق للوصول إلى حساب بيربليكسيتي برو">Use the verification code to access your Perplexity Pro account</li>
-                                            </ol>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Account 2 -->
-                        <div class="card account-card" data-index="1" style="display:none;">
-                            <div class="card-header">
-                                <div class="flex items-center justify-center mb-4">
-                                    <div class="badge badge-success">
-                                        <i data-lucide="shield-check"></i>
-                                        <span data-en="Student Verified" data-ar="طالب معتمد">Student Verified</span>
-                                    </div>
-                                </div>
-                                <h2 class="card-title" data-en="Your Free Account" data-ar="حسابك المجاني">Your Free Account</h2>
-                            </div>
-                            <div class="card-content">
-                                <div class="mb-6">
-                                    <label class="label" data-en="Account Email" data-ar="إيميل الحساب">Account Email</label>
-                                    <div class="flex gap-2">
-                                        <input type="text" class="input" value="purplixyee641@oxaam.com" readonly id="accountEmail1">
-                                        <button class="btn btn-outline" onclick="copyEmail(1)">
-                                            <i data-lucide="copy" id="copyIcon1"></i>
+                                        <input type="text" class="input" value="purplixyee641@oxaam.com" readonly id="perplexityEmail">
+                                        <button class="btn btn-outline" onclick="copyText('purplixyee641@oxaam.com')">
+                                            <i data-lucide="copy"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -664,45 +722,43 @@
                     
                     <!-- Canva Pro Account Container -->
                     <div id="canvaAccount" style="display: none; width: 100%; justify-content: center;">
-                        <div class="card" style="max-width: 600px;">
+                        <div class="card account-card" style="max-width: 600px;">
                             <div class="card-header">
                                 <div class="flex items-center justify-center mb-4">
                                     <div class="badge badge-canva">
-                                        <i data-lucide="palette"></i>
-                                        <span data-en="Design Account" data-ar="حساب تصميم">Design Account</span>
+                                        <i data-lucide="crown"></i>
+                                        <span data-en="Canva Pro" data-ar="كانفا برو">Canva Pro</span>
                                     </div>
                                 </div>
-                                <h2 class="card-title" data-en="Canva Pro Account" data-ar="حساب Canva Pro">Canva Pro Account</h2>
+                                <h2 class="card-title" data-en="Your Canva Pro Account" data-ar="حساب كانفا برو الخاص بك">Your Canva Pro Account</h2>
                             </div>
                             <div class="card-content">
                                 <div class="mb-6">
                                     <label class="label" data-en="Account Email" data-ar="إيميل الحساب">Account Email</label>
                                     <div class="flex gap-2">
-                                        <input type="text" class="input" value="Kenva9557@examtestseries.online" readonly id="canvaEmail">
-                                        <button class="btn btn-outline" onclick="copyText('Kenva9557@examtestseries.online')">
+                                        <input type="text" class="input" value="Kenva9659@examtestseries.online" readonly>
+                                        <button class="btn btn-outline" onclick="copyText('Kenva9659@examtestseries.online')">
                                             <i data-lucide="copy"></i>
                                         </button>
                                     </div>
                                 </div>
                                 <div class="mb-6">
-                                    <button class="btn btn-primary w-full" onclick="openVerificationLink('https://www.oxaam.com/kaanvahcode9.php')">
+                                    <button class="btn btn-primary w-full" onclick="openVerificationLink('https://www.oxaam.com/kaanvahcode11.php')">
                                         <i data-lucide="external-link"></i>
                                         <span data-en="Get Verification Code" data-ar="احصل على رمز التحقق">Get Verification Code</span>
                                     </button>
-                                    <p class="text-sm text-muted text-center mt-4" data-en="Click to get verification code for Canva Pro" data-ar="انقر للحصول على رمز التحقق لـ Canva Pro">Click to get verification code for Canva Pro</p>
+                                    <p class="text-sm text-muted text-center mt-4" data-en="Click the button above to retrieve your verification code" data-ar="انقر على الزر أعلاه لاسترداد رمز التحقق">Click the button above to retrieve your verification code</p>
                                 </div>
-                                
-                                <!-- Canva Pro Features -->
                                 <div class="info-box info-box-canva">
                                     <div class="flex gap-2">
-                                        <i data-lucide="sparkles"></i>
+                                        <i data-lucide="info"></i>
                                         <div class="text-sm">
-                                            <p class="font-medium mb-2" data-en="Canva Pro Features:" data-ar="مميزات Canva Pro:">Canva Pro Features:</p>
+                                            <p class="font-medium" data-en="Canva Pro Features:" data-ar="ميزات كانفا برو:">Canva Pro Features:</p>
                                             <ul style="list-style: disc; list-style-position: inside;" class="space-y-1">
-                                                <li data-en="Access to premium templates and design elements" data-ar="الوصول إلى قوالب وعناصر تصميم متميزة">Access to premium templates and design elements</li>
-                                                <li data-en="Background remover and advanced editing tools" data-ar="أداة إزالة الخلفية وأدوات تحرير متقدمة">Background remover and advanced editing tools</li>
-                                                <li data-en="Brand kit for consistent designs" data-ar="مجموعة العلامة التجارية لتصاميم متناسقة">Brand kit for consistent designs</li>
-                                                <li data-en="Magic Resize for different platforms" data-ar="تغيير الحجم السحري لمنصات مختلفة">Magic Resize for different platforms</li>
+                                                <li data-en="Access to premium templates" data-ar="الوصول إلى قوالب متميزة">Access to premium templates</li>
+                                                <li data-en="Background remover tool" data-ar="أداة إزالة الخلفية">Background remover tool</li>
+                                                <li data-en="Brand kit functionality" data-ar="وظيفة مجموعة العلامة التجارية">Brand kit functionality</li>
+                                                <li data-en="Magic Resize for different formats" data-ar="تغيير الحجم السحري للتنسيقات المختلفة">Magic Resize for different formats</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -713,32 +769,35 @@
                     
                     <!-- Epic Games Account Container -->
                     <div id="epicAccount" style="display: none; width: 100%; justify-content: center;">
-                        <div class="card" style="max-width: 600px;">
+                        <div class="card account-card" style="max-width: 600px;">
                             <div class="card-header">
                                 <div class="flex items-center justify-center mb-4">
                                     <div class="badge badge-epic">
                                         <i data-lucide="gamepad-2"></i>
-                                        <span data-en="Gaming Account" data-ar="حساب ألعاب">Gaming Account</span>
+                                        <span data-en="Epic Games" data-ar="إيبك جيمز">Epic Games</span>
                                     </div>
                                 </div>
-                                <h2 class="card-title" data-en="Epic Games Account" data-ar="حساب إيبك جيمز">Epic Games Account</h2>
+                                <h2 class="card-title" data-en="Your Epic Games Account" data-ar="حساب إيبك جيمز الخاص بك">Your Epic Games Account</h2>
                             </div>
                             <div class="card-content">
                                 <div class="mb-6">
                                     <label class="label" data-en="Account Email" data-ar="إيميل الحساب">Account Email</label>
                                     <div class="flex gap-2">
-                                        <input type="text" class="input" value="aapikgames@oxaam.com" readonly id="epicEmail">
+                                        <input type="text" class="input" value="aapikgames@oxaam.com" readonly>
                                         <button class="btn btn-outline" onclick="copyText('aapikgames@oxaam.com')">
                                             <i data-lucide="copy"></i>
                                         </button>
                                     </div>
                                 </div>
                                 <div class="mb-6">
-                                    <label class="label" data-en="Password" data-ar="كلمة المرور">Password</label>
+                                    <label class="label" data-en="Account Password" data-ar="كلمة مرور الحساب">Account Password</label>
                                     <div class="flex gap-2">
-                                        <input type="text" class="input" value="Oxaam123125#" readonly id="epicPassword">
-                                        <button class="btn btn-outline" onclick="copyText('Oxaam123125#')">
+                                        <input type="password" class="input" value="Oxaam224471#" readonly id="epicPassword">
+                                        <button class="btn btn-outline" onclick="copyText('Oxaam224471#')">
                                             <i data-lucide="copy"></i>
+                                        </button>
+                                        <button class="btn btn-outline" onclick="togglePasswordVisibility('epicPassword')">
+                                            <i data-lucide="eye"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -747,36 +806,17 @@
                                         <i data-lucide="external-link"></i>
                                         <span data-en="Get Verification Code" data-ar="احصل على رمز التحقق">Get Verification Code</span>
                                     </button>
-                                    <p class="text-sm text-muted text-center mt-4" data-en="Use if Epic Games asks for verification" data-ar="استخدم إذا طلب إيبك جيمز التحقق">Use if Epic Games asks for verification</p>
                                 </div>
-                                
-                                <!-- EA Play Subscription Info -->
-                                <div class="info-box info-box-green mb-4">
+                                <div class="info-box info-box-epic">
                                     <div class="flex gap-2">
-                                        <i data-lucide="star"></i>
+                                        <i data-lucide="crown"></i>
                                         <div class="text-sm">
-                                            <p class="font-medium mb-2" data-en="EA Play Active Subscription" data-ar="اشتراك EA Play نشط">EA Play Active Subscription</p>
+                                            <p class="font-medium" data-en="This account includes EA Play Active Subscription with access to:" data-ar="يتضمن هذا الحساب اشتراك EA Play النشط مع الوصول إلى:">This account includes EA Play Active Subscription with access to:</p>
                                             <ul style="list-style: disc; list-style-position: inside;" class="space-y-1">
-                                                <li data-en="FC 26 - 10 hours trial" data-ar="FC 26 - تجربة 10 ساعات">FC 26 - 10 hours trial</li>
+                                                <li data-en="FC 26 - 10 hours trial" data-ar="FC 26 - 10 ساعات تجريبية">FC 26 - 10 hours trial</li>
                                                 <li data-en="Full FC 25 game and older FC games" data-ar="لعبة FC 25 كاملة وألعاب FC الأقدم">Full FC 25 game and older FC games</li>
                                                 <li data-en="Star Wars Jedi Survivor" data-ar="Star Wars Jedi Survivor">Star Wars Jedi Survivor</li>
                                                 <li data-en="Access to EA games library" data-ar="الوصول إلى مكتبة ألعاب EA">Access to EA games library</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Account Features -->
-                                <div class="info-box info-box-blue">
-                                    <div class="flex gap-2">
-                                        <i data-lucide="gamepad-2"></i>
-                                        <div class="text-sm">
-                                            <p class="font-medium mb-2" data-en="Account Features:" data-ar="مميزات الحساب:">Account Features:</p>
-                                            <ul style="list-style: disc; list-style-position: inside;" class="space-y-1">
-                                                <li data-en="Free games collection" data-ar="مجموعة الألعاب المجانية">Free games collection</li>
-                                                <li data-en="Some paid games included" data-ar="بعض الألعاب المدفوعة مشمولة">Some paid games included</li>
-                                                <li data-en="Limited games library" data-ar="مكتبة ألعاب محدودة">Limited games library</li>
-                                                <li data-en="Active EA Play subscription" data-ar="اشترак EA Play نشط">Active EA Play subscription</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -787,47 +827,48 @@
                     
                     <!-- Apple TV+ Account Container -->
                     <div id="appleTvAccount" style="display: none; width: 100%; justify-content: center;">
-                        <div class="card" style="max-width: 600px;">
+                        <div class="card account-card" style="max-width: 600px;">
                             <div class="card-header">
                                 <div class="flex items-center justify-center mb-4">
                                     <div class="badge badge-apple-tv">
                                         <i data-lucide="tv"></i>
-                                        <span data-en="Streaming Account" data-ar="حساب بث">Streaming Account</span>
+                                        <span data-en="Apple TV+" data-ar="Apple TV+">Apple TV+</span>
                                     </div>
                                 </div>
-                                <h2 class="card-title" data-en="Apple TV+ Account" data-ar="حساب Apple TV+">Apple TV+ Account</h2>
+                                <h2 class="card-title" data-en="Your Apple TV+ Account" data-ar="حساب Apple TV+ الخاص بك">Your Apple TV+ Account</h2>
                             </div>
                             <div class="card-content">
                                 <div class="mb-6">
                                     <label class="label" data-en="Account Email" data-ar="إيميل الحساب">Account Email</label>
                                     <div class="flex gap-2">
-                                        <input type="text" class="input" value="aptvliv796@oxaam.com" readonly id="appleTvEmail">
+                                        <input type="text" class="input" value="aptvliv796@oxaam.com" readonly>
                                         <button class="btn btn-outline" onclick="copyText('aptvliv796@oxaam.com')">
                                             <i data-lucide="copy"></i>
                                         </button>
                                     </div>
                                 </div>
                                 <div class="mb-6">
-                                    <label class="label" data-en="Account Password" data-ar="كلمة المرور">Account Password</label>
+                                    <label class="label" data-en="Account Password" data-ar="كلمة مرور الحساب">Account Password</label>
                                     <div class="flex gap-2">
-                                        <input type="text" class="input" value="Oxaam71921#" readonly id="appleTvPassword">
+                                        <input type="password" class="input" value="Oxaam71921#" readonly id="appleTvPassword">
                                         <button class="btn btn-outline" onclick="copyText('Oxaam71921#')">
                                             <i data-lucide="copy"></i>
                                         </button>
+                                        <button class="btn btn-outline" onclick="togglePasswordVisibility('appleTvPassword')">
+                                            <i data-lucide="eye"></i>
+                                        </button>
                                     </div>
                                 </div>
-                                
-                                <!-- Apple TV+ Features -->
                                 <div class="info-box info-box-apple-tv">
                                     <div class="flex gap-2">
-                                        <i data-lucide="film"></i>
+                                        <i data-lucide="info"></i>
                                         <div class="text-sm">
-                                            <p class="font-medium mb-2" data-en="Apple TV+ Features:" data-ar="مميزات Apple TV+:">Apple TV+ Features:</p>
+                                            <p class="font-medium" data-en="Apple TV+ Features:" data-ar="ميزات Apple TV+:">Apple TV+ Features:</p>
                                             <ul style="list-style: disc; list-style-position: inside;" class="space-y-1">
-                                                <li data-en="Access to exclusive Apple Originals" data-ar="الوصول إلى محتوى Apple الأصلي الحصري">Access to exclusive Apple Originals</li>
+                                                <li data-en="Access to all Apple Originals" data-ar="الوصول إلى جميع محتويات Apple الأصلية">Access to all Apple Originals</li>
                                                 <li data-en="4K HDR and Dolby Atmos support" data-ar="دعم 4K HDR وDolby Atmos">4K HDR and Dolby Atmos support</li>
-                                                <li data-en="Download for offline viewing" data-ar="تحميل للمشاهدة بدون إنترنت">Download for offline viewing</li>
-                                                <li data-en="Family sharing for up to 6 members" data-ar="مشاركة عائلية لما يصل إلى 6 أفراد">Family sharing for up to 6 members</li>
+                                                <li data-en="Family sharing (up to 6 people)" data-ar="المشاركة العائلية (حتى 6 أشخاص)">Family sharing (up to 6 people)</li>
+                                                <li data-en="Download for offline viewing" data-ar="تحميل للمشاهدة دون اتصال">Download for offline viewing</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -838,47 +879,48 @@
                     
                     <!-- Apple Music Account Container -->
                     <div id="appleMusicAccount" style="display: none; width: 100%; justify-content: center;">
-                        <div class="card" style="max-width: 600px;">
+                        <div class="card account-card" style="max-width: 600px;">
                             <div class="card-header">
                                 <div class="flex items-center justify-center mb-4">
                                     <div class="badge badge-apple-music">
                                         <i data-lucide="music"></i>
-                                        <span data-en="Music Account" data-ar="حساب موسيقى">Music Account</span>
+                                        <span data-en="Apple Music" data-ar="Apple Music">Apple Music</span>
                                     </div>
                                 </div>
-                                <h2 class="card-title" data-en="Apple Music Account" data-ar="حساب Apple Music">Apple Music Account</h2>
+                                <h2 class="card-title" data-en="Your Apple Music Account" data-ar="حساب Apple Music الخاص بك">Your Apple Music Account</h2>
                             </div>
                             <div class="card-content">
                                 <div class="mb-6">
                                     <label class="label" data-en="Account Email" data-ar="إيميل الحساب">Account Email</label>
                                     <div class="flex gap-2">
-                                        <input type="text" class="input" value="aptmusc9@oxaam.com" readonly id="appleMusicEmail">
+                                        <input type="text" class="input" value="aptmusc9@oxaam.com" readonly>
                                         <button class="btn btn-outline" onclick="copyText('aptmusc9@oxaam.com')">
                                             <i data-lucide="copy"></i>
                                         </button>
                                     </div>
                                 </div>
                                 <div class="mb-6">
-                                    <label class="label" data-en="Account Password" data-ar="كلمة المرور">Account Password</label>
+                                    <label class="label" data-en="Account Password" data-ar="كلمة مرور الحساب">Account Password</label>
                                     <div class="flex gap-2">
-                                        <input type="text" class="input" value="Oxaam9945#" readonly id="appleMusicPassword">
+                                        <input type="password" class="input" value="Oxaam9945#" readonly id="appleMusicPassword">
                                         <button class="btn btn-outline" onclick="copyText('Oxaam9945#')">
                                             <i data-lucide="copy"></i>
                                         </button>
+                                        <button class="btn btn-outline" onclick="togglePasswordVisibility('appleMusicPassword')">
+                                            <i data-lucide="eye"></i>
+                                        </button>
                                     </div>
                                 </div>
-                                
-                                <!-- Apple Music Features -->
                                 <div class="info-box info-box-apple-music">
                                     <div class="flex gap-2">
-                                        <i data-lucide="headphones"></i>
+                                        <i data-lucide="info"></i>
                                         <div class="text-sm">
-                                            <p class="font-medium mb-2" data-en="Apple Music Features:" data-ar="مميزات Apple Music:">Apple Music Features:</p>
+                                            <p class="font-medium" data-en="Apple Music Features:" data-ar="ميزات Apple Music:">Apple Music Features:</p>
                                             <ul style="list-style: disc; list-style-position: inside;" class="space-y-1">
                                                 <li data-en="Access to over 100 million songs" data-ar="الوصول إلى أكثر من 100 مليون أغنية">Access to over 100 million songs</li>
-                                                <li data-en="Thousands of curated playlists" data-ar="الآلاف من قوائم التشغيل المنتقاة">Thousands of curated playlists</li>
-                                                <li data-en="High-quality audio with Lossless and Spatial Audio" data-ar="صوت عالي الجودة مع Lossless وSpatial Audio">High-quality audio with Lossless and Spatial Audio</li>
-                                                <li data-en="Lyrics in real-time and music videos" data-ar="كلمات الأغاني في الوقت الحقيقي ومقاطع الفيديو الموسيقية">Lyrics in real-time and music videos</li>
+                                                <li data-en="Ad-free listening" data-ar="استماع بدون إعلانات">Ad-free listening</li>
+                                                <li data-en="Download for offline listening" data-ar="تحميل للاستماع دون اتصال">Download for offline listening</li>
+                                                <li data-en="High-quality audio (Lossless and Spatial Audio)" data-ar="صوت عالي الجودة (بدون فقدان والصوت المكاني)">High-quality audio (Lossless and Spatial Audio)</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -889,48 +931,48 @@
                     
                     <!-- Crunchyroll Account Container -->
                     <div id="crunchyrollAccount" style="display: none; width: 100%; justify-content: center;">
-                        <div class="card" style="max-width: 600px;">
+                        <div class="card account-card" style="max-width: 600px;">
                             <div class="card-header">
                                 <div class="flex items-center justify-center mb-4">
                                     <div class="badge badge-crunchyroll">
                                         <i data-lucide="tv-2"></i>
-                                        <span data-en="Anime Account" data-ar="حساب أنمي">Anime Account</span>
+                                        <span data-en="Crunchyroll" data-ar="كرانشي رول">Crunchyroll</span>
                                     </div>
                                 </div>
-                                <h2 class="card-title" data-en="Crunchyroll Premium" data-ar="كرانشي رول المميز">Crunchyroll Premium</h2>
+                                <h2 class="card-title" data-en="Your Crunchyroll Account" data-ar="حساب كرانشي رول الخاص بك">Your Crunchyroll Account</h2>
                             </div>
                             <div class="card-content">
                                 <div class="mb-6">
                                     <label class="label" data-en="Account Email" data-ar="إيميل الحساب">Account Email</label>
                                     <div class="flex gap-2">
-                                        <input type="text" class="input" value="krunshyrole27@pnao.in" readonly id="crunchyrollEmail">
-                                        <button class="btn btn-outline" onclick="copyText('krunshyrole27@pnao.in')">
+                                        <input type="text" class="input" value="krunshyrole26@pnao.in" readonly>
+                                        <button class="btn btn-outline" onclick="copyText('krunshyrole26@pnao.in')">
                                             <i data-lucide="copy"></i>
                                         </button>
                                     </div>
                                 </div>
                                 <div class="mb-6">
-                                    <label class="label" data-en="Account Password" data-ar="كلمة المرور">Account Password</label>
+                                    <label class="label" data-en="Account Password" data-ar="كلمة مرور الحساب">Account Password</label>
                                     <div class="flex gap-2">
-                                        <input type="text" class="input" value="oxaam2727119" readonly id="crunchyrollPassword">
-                                        <button class="btn btn-outline" onclick="copyText('oxaam2727119')">
+                                        <input type="password" class="input" value="oxaam2626115" readonly id="crunchyrollPassword">
+                                        <button class="btn btn-outline" onclick="copyText('oxaam2626115')">
                                             <i data-lucide="copy"></i>
+                                        </button>
+                                        <button class="btn btn-outline" onclick="togglePasswordVisibility('crunchyrollPassword')">
+                                            <i data-lucide="eye"></i>
                                         </button>
                                     </div>
                                 </div>
-                                
-                                <!-- Crunchyroll Features -->
                                 <div class="info-box info-box-crunchyroll">
                                     <div class="flex gap-2">
-                                        <i data-lucide="tv-2"></i>
+                                        <i data-lucide="info"></i>
                                         <div class="text-sm">
-                                            <p class="font-medium mb-2" data-en="Crunchyroll Premium Features:" data-ar="مميزات Crunchyroll المميز:">Crunchyroll Premium Features:</p>
+                                            <p class="font-medium" data-en="Crunchyroll Premium Features:" data-ar="ميزات كرانشي رول المتميزة:">Crunchyroll Premium Features:</p>
                                             <ul style="list-style: disc; list-style-position: inside;" class="space-y-1">
-                                                <li data-en="Ad-free streaming" data-ar="بث خالٍ من الإعلانات">Ad-free streaming</li>
-                                                <li data-en="New episodes one hour after Japan" data-ar="حلقات جديدة بعد ساعة واحدة من اليابان">New episodes one hour after Japan</li>
-                                                <li data-en="Access to entire Crunchyroll library" data-ar="الوصول إلى مكتبة Crunchyroll بأكملها">Access to entire Crunchyroll library</li>
+                                                <li data-en="Ad-free streaming" data-ar="بث بدون إعلانات">Ad-free streaming</li>
+                                                <li data-en="New episodes one hour after Japan broadcast" data-ar="حلقات جديدة بعد ساعة واحدة من البث في اليابان">New episodes one hour after Japan broadcast</li>
+                                                <li data-en="Access to the entire Crunchyroll library" data-ar="الوصول إلى مكتبة كرانشي رول بأكملها">Access to the entire Crunchyroll library</li>
                                                 <li data-en="Stream on up to 4 devices simultaneously" data-ar="البث على ما يصل إلى 4 أجهزة في وقت واحد">Stream on up to 4 devices simultaneously</li>
-                                                <li data-en="Offline viewing available" data-ar="مشاهدة بدون اتصال متاحة">Offline viewing available</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -946,139 +988,45 @@
     <!-- Tutorial Section -->
     <section class="section section-muted">
         <div class="container">
-            <h2 class="text-center text-3xl font-bold mb-8" data-en="How to Use Your Accounts" data-ar="كيفية استخدام حساباتك">How to Use Your Accounts</h2>
-            
-            <div class="services-grid">
-                <div class="card">
-                    <div class="card-content">
-                        <h3 class="font-semibold mb-4 flex items-center gap-2">
-                            <i data-lucide="brain" class="text-purple-500"></i>
-                            <span data-en="Perplexity & Canva" data-ar="Perplexity وCanva">Perplexity & Canva</span>
-                        </h3>
-                        
-                        <div class="tutorial-step">
-                            <div class="tutorial-number">1</div>
-                            <div>
-                                <p class="font-medium" data-en="Copy the email address" data-ar="انسخ عنوان البريد الإلكتروني">Copy the email address</p>
-                                <p class="text-sm text-muted" data-en="Click the copy button next to the email" data-ar="انقر على زر النسخ بجوار البريد الإلكتروني">Click the copy button next to the email</p>
-                            </div>
-                        </div>
-                        
-                        <div class="tutorial-step">
-                            <div class="tutorial-number">2</div>
-                            <div>
-                                <p class="font-medium" data-en="Get verification code" data-ar="احصل على رمز التحقق">Get verification code</p>
-                                <p class="text-sm text-muted" data-en="Click the button to open the verification portal" data-ar="انقر على الزر لفتح بوابة التحقق">Click the button to open the verification portal</p>
-                            </div>
-                        </div>
-                        
-                        <div class="tutorial-step">
-                            <div class="tutorial-number">3</div>
-                            <div>
-                                <p class="font-medium" data-en="Login to the service" data-ar="تسجيل الدخول إلى الخدمة">Login to the service</p>
-                                <p class="text-sm text-muted" data-en="Use the email and verification code to access your account" data-ar="استخدم البريد الإلكتروني ورمز التحقق للوصول إلى حسابك">Use the email and verification code to access your account</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-content">
-                        <h3 class="font-semibold mb-4 flex items-center gap-2">
-                            <i data-lucide="gamepad-2" class="text-orange-500"></i>
-                            <span data-en="Epic Games & Streaming" data-ar="إيبك جيمز والبث">Epic Games & Streaming</span>
-                        </h3>
-                        
-                        <div class="tutorial-step">
-                            <div class="tutorial-number">1</div>
-                            <div>
-                                <p class="font-medium" data-en="Copy credentials" data-ar="انسخ بيانات الاعتماد">Copy credentials</p>
-                                <p class="text-sm text-muted" data-en="Copy both the email and password for the service" data-ar="انسخ كل من البريد الإلكتروني وكلمة المرور للخدمة">Copy both the email and password for the service</p>
-                            </div>
-                        </div>
-                        
-                        <div class="tutorial-step">
-                            <div class="tutorial-number">2</div>
-                            <div>
-                                <p class="font-medium" data-en="Visit the service website" data-ar="زر موقع الخدمة">Visit the service website</p>
-                                <p class="text-sm text-muted" data-en="Go to the official website of the service" data-ar="انتقل إلى الموقع الرسمي للخدمة">Go to the official website of the service</p>
-                            </div>
-                        </div>
-                        
-                        <div class="tutorial-step">
-                            <div class="tutorial-number">3</div>
-                            <div>
-                                <p class="font-medium" data-en="Login and enjoy" data-ar="سجل الدخول واستمتع">Login and enjoy</p>
-                                <p class="text-sm text-muted" data-en="Use the copied credentials to login and start using the service" data-ar="استخدم بيانات الاعتماد المنسوخة لتسجيل الدخول والبدء في استخدام الخدمة">Use the copied credentials to login and start using the service</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-content">
-                        <h3 class="font-semibold mb-4 flex items-center gap-2">
-                            <i data-lucide="shield" class="text-green-500"></i>
-                            <span data-en="Important Notes" data-ar="ملاحظات مهمة">Important Notes</span>
-                        </h3>
-                        
-                        <div class="info-box info-box-blue">
-                            <div class="flex gap-2">
-                                <i data-lucide="info"></i>
-                                <div>
-                                    <p class="font-medium" data-en="Account Sharing" data-ar="مشاركة الحساب">Account Sharing</p>
-                                    <p class="text-sm" data-en="These accounts are shared among students. Please be respectful and don't change passwords." data-ar="هذه الحسابات مشتركة بين الطلاب. يرجى الاحترام وعدم تغيير كلمات المرور.">
-                                        These accounts are shared among students. Please be respectful and don't change passwords.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="info-box info-box-green mt-4">
-                            <div class="flex gap-2">
-                                <i data-lucide="refresh-cw"></i>
-                                <div>
-                                    <p class="font-medium" data-en="Regular Updates" data-ar="تحديثات منتظمة">Regular Updates</p>
-                                    <p class="text-sm" data-en="We regularly update accounts. If one doesn't work, check back later or try another account." data-ar="نقوم بتحديث الحسابات بانتظام. إذا لم يعمل أحدها، تحقق لاحقًا أو جرب حسابًا آخر.">
-                                        We regularly update accounts. If one doesn't work, check back later or try another account.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="text-center mb-6">
+                <h2 class="text-3xl font-bold mb-2" data-en="How to Use Your Free Accounts" data-ar="كيفية استخدام حساباتك المجانية">How to Use Your Free Accounts</h2>
+                <p class="text-muted" data-en="Follow these simple steps to access your premium accounts" data-ar="اتبع هذه الخطوات البسيطة للوصول إلى حساباتك المتميزة">Follow these simple steps to access your premium accounts</p>
             </div>
-        </div>
-    </section>
 
-    <!-- FAQ Section -->
-    <section class="section">
-        <div class="container">
-            <h2 class="text-center text-3xl font-bold mb-8" data-en="Frequently Asked Questions" data-ar="الأسئلة الشائعة">Frequently Asked Questions</h2>
-            
-            <div class="services-grid">
-                <div class="card">
-                    <div class="card-content">
-                        <h3 class="font-semibold mb-4" data-en="How do I access the accounts?" data-ar="كيف يمكنني الوصول إلى الحسابات؟">How do I access the accounts?</h3>
-                        <p class="text-sm text-muted" data-en="Each service has specific instructions. For Perplexity and Canva, you'll need to get a verification code. For other services, use the provided credentials." data-ar="كل خدمة لها تعليمات محددة. بالنسبة لـ Perplexity وCanva، ستحتاج إلى الحصول على رمز التحقق. للخدمات الأخرى، استخدم بيانات الاعتماد المقدمة.">
-                            Each service has specific instructions. For Perplexity and Canva, you'll need to get a verification code. For other services, use the provided credentials.
-                        </p>
+            <div class="max-w-2xl mx-auto">
+                <div class="tutorial-step fade-in">
+                    <div class="tutorial-number">1</div>
+                    <div>
+                        <h3 class="font-semibold" data-en="Select the service you want to use" data-ar="اختر الخدمة التي تريد استخدامها">Select the service you want to use</h3>
+                        <p class="text-muted" data-en="Choose from Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, Epic Games, or Crunchyroll" data-ar="اختر من بين بيربليكسيتي AI برو، كانفا برو، Apple TV+، Apple Music، إيبك جيمز، أو كرانشي رول">Choose from Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, Epic Games, or Crunchyroll</p>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-content">
-                        <h3 class="font-semibold mb-4" data-en="Are these accounts really free?" data-ar="هل هذه الحسابات مجانية حقًا؟">Are these accounts really free?</h3>
-                        <p class="text-sm text-muted" data-en="Yes, these accounts are provided completely free for students as part of our educational support initiative." data-ar="نعم، هذه الحسابات مقدمة مجانًا تمامًا للطلاب كجزء من مبادرة الدعم التعليمي لدينا.">
-                            Yes, these accounts are provided completely free for students as part of our educational support initiative.
-                        </p>
+                <div class="tutorial-step fade-in">
+                    <div class="tutorial-number">2</div>
+                    <div>
+                        <h3 class="font-semibold" data-en="Copy the login credentials" data-ar="انسخ بيانات تسجيل الدخول">Copy the login credentials</h3>
+                        <p class="text-muted" data-en="Click the copy button next to the email and password to easily copy them to your clipboard" data-ar="انقر على زر النسخ بجوار البريد الإلكتروني وكلمة المرور لنسخها بسهولة إلى الحافظة الخاصة بك">Click the copy button next to the email and password to easily copy them to your clipboard</p>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-content">
-                        <h3 class="font-semibold mb-4" data-en="What if an account stops working?" data-ar="ماذا لو توقف حساب عن العمل؟">What if an account stops working?</h3>
-                        <p class="text-sm text-muted" data-en="We regularly update our accounts. If you encounter any issues, check back later as we add new accounts frequently." data-ar="نقوم بتحديث حساباتنا بانتظام. إذا واجهت أي مشاكل، تحقق لاحقًا حيث نضيف حسابات جديدة بشكل متكرر.">
-                            We regularly update our accounts. If you encounter any issues, check back later as we add new accounts frequently.
-                        </p>
+                <div class="tutorial-step fade-in">
+                    <div class="tutorial-number">3</div>
+                    <div>
+                        <h3 class="font-semibold" data-en="Get verification code if needed" data-ar="احصل على رمز التحقق إذا لزم الأمر">Get verification code if needed</h3>
+                        <p class="text-muted" data-en="For some services, you'll need to click the verification button to get a code" data-ar="بالنسبة لبعض الخدمات، ستحتاج إلى النقر على زر التحقق للحصول على رمز">For some services, you'll need to click the verification button to get a code</p>
+                    </div>
+                </div>
+                <div class="tutorial-step fade-in">
+                    <div class="tutorial-number">4</div>
+                    <div>
+                        <h3 class="font-semibold" data-en="Log in to the service" data-ar="سجل الدخول إلى الخدمة">Log in to the service</h3>
+                        <p class="text-muted" data-en="Use the copied credentials to log in to the service website or app" data-ar="استخدم بيانات الاعتماد التي تم نسخها لتسجيل الدخول إلى موقع الخدمة أو التطبيق">Use the copied credentials to log in to the service website or app</p>
+                    </div>
+                </div>
+                <div class="tutorial-step fade-in">
+                    <div class="tutorial-number">5</div>
+                    <div>
+                        <h3 class="font-semibold" data-en="Enjoy premium access!" data-ar="استمتع بالوصول المتميز!">Enjoy premium access!</h3>
+                        <p class="text-muted" data-en="You now have full access to all premium features of the service" data-ar="لديك الآن حق الوصول الكامل إلى جميع الميزات المتميزة للخدمة">You now have full access to all premium features of the service</p>
                     </div>
                 </div>
             </div>
@@ -1089,153 +1037,125 @@
     <footer class="footer">
         <div class="container">
             <div class="text-center">
-                <div class="flex items-center justify-center gap-2 mb-6">
+                <div class="logo" style="justify-content: center; margin-bottom: 1rem;">
                     <div class="logo-icon">B</div>
-                    <span class="text-xl font-bold" data-en="BEGAD AI" data-ar="بيجاد AI">BEGAD AI</span>
+                    <h2 class="logo-text" data-en="BEGAD AI" data-ar="بيجاد AI">BEGAD AI</h2>
                 </div>
-                <div class="max-w-2xl mx-auto mb-6">
-                    <div class="info-box info-box-green">
-                        <div class="flex gap-2">
-                            <i data-lucide="shield"></i>
-                            <p class="text-sm" data-en="This service is verified for educational use. All accounts are provided for legitimate student purposes." data-ar="هذه الخدمة موثقة للاستخدام التعليمي. جميع الحسابات مقدمة لأغراض شرعية للطلاب.">
-                                This service is verified for educational use. All accounts are provided for legitimate student purposes.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex items-center justify-center gap-2 text-muted mb-6">
-                    <i data-lucide="graduation-cap"></i>
-                    <span class="text-sm" data-en="For Students, By Students" data-ar="للطلاب، من الطلاب">For Students, By Students</span>
-                    <i data-lucide="heart" style="color: #ef4444;"></i>
-                </div>
-                <div style="padding-top: 1.5rem; border-top: 1px solid hsl(var(--border));">
-                    <p class="text-xs text-muted">© 2025 BEGAD AI. Educational use only.</p>
-                </div>
+                <p class="text-muted mb-4" data-en="Providing free access to premium services for students worldwide" data-ar="نوفر وصولاً مجانيًا إلى الخدمات المتميزة للطلاب في جميع أنحاء العالم">Providing free access to premium services for students worldwide</p>
+                <p class="text-xs text-muted" data-en="Note: These accounts are shared among students. Please be respectful and avoid changing passwords or personal settings." data-ar="ملاحظة: هذه الحسابات مشتركة بين الطلاب. يرجى الاحترام وتجنب تغيير كلمات المرور أو الإعدادات الشخصية.">Note: These accounts are shared among students. Please be respectful and avoid changing passwords or personal settings.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Toast notification -->
-    <div id="toast" class="toast">
-        <div class="flex items-center gap-2">
-            <i data-lucide="check"></i>
-            <span id="toastMessage">Copied!</span>
-        </div>
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i data-lucide="check-circle" class="text-green-500"></i>
+        <span id="toastMessage">Copied to clipboard!</span>
     </div>
 
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
-
+        
         // Theme toggle functionality
         function toggleTheme() {
-            const html = document.documentElement;
+            const body = document.body;
             const themeIcon = document.getElementById('themeIcon');
             
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
                 themeIcon.setAttribute('data-lucide', 'moon');
+                localStorage.setItem('theme', 'light');
             } else {
-                html.classList.add('dark');
+                body.classList.add('dark');
                 themeIcon.setAttribute('data-lucide', 'sun');
+                localStorage.setItem('theme', 'dark');
             }
             
             lucide.createIcons();
         }
-
-        // Language toggle functionality
-        function toggleLanguage() {
-            const html = document.documentElement;
-            const isArabic = html.getAttribute('lang') === 'ar';
-            const languageBtn = document.getElementById('languageBtn');
-            
-            if (isArabic) {
-                html.setAttribute('lang', 'en');
-                html.setAttribute('dir', 'ltr');
-                document.querySelectorAll('[data-en]').forEach(el => {
-                    el.textContent = el.getAttribute('data-en');
-                });
-                languageBtn.querySelector('span').textContent = 'عربي';
-            } else {
-                html.setAttribute('lang', 'ar');
-                html.setAttribute('dir', 'rtl');
-                document.querySelectorAll('[data-ar]').forEach(el => {
-                    el.textContent = el.getAttribute('data-ar');
-                });
-                languageBtn.querySelector('span').textContent = 'English';
-            }
-            
-            // Update button text
-            const btnText = languageBtn.querySelector('span');
-            if (isArabic) {
-                btnText.setAttribute('data-en', 'عربي');
-                btnText.setAttribute('data-ar', 'English');
-            } else {
-                btnText.setAttribute('data-en', 'English');
-                btnText.setAttribute('data-ar', 'عربي');
-            }
+        
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark');
+            document.getElementById('themeIcon').setAttribute('data-lucide', 'sun');
+        } else {
+            document.getElementById('themeIcon').setAttribute('data-lucide', 'moon');
         }
-
+        
+        // Language toggle functionality
+        let isArabic = false;
+        function toggleLanguage() {
+            isArabic = !isArabic;
+            document.body.classList.toggle('arabic');
+            
+            const elements = document.querySelectorAll('[data-en], [data-ar]');
+            elements.forEach(el => {
+                if (isArabic && el.hasAttribute('data-ar')) {
+                    el.textContent = el.getAttribute('data-ar');
+                } else if (!isArabic && el.hasAttribute('data-en')) {
+                    el.textContent = el.getAttribute('data-en');
+                }
+            });
+            
+            // Update language button text
+            const languageBtn = document.getElementById('languageBtn');
+            const span = languageBtn.querySelector('span');
+            if (isArabic) {
+                span.textContent = 'English';
+            } else {
+                span.textContent = 'عربي';
+            }
+            
+            lucide.createIcons();
+        }
+        
         // Service switching functionality
         function switchService(service) {
-            // Update service switcher buttons
-            document.querySelectorAll('#serviceSwitcher .btn-switch').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelector(`[data-service="${service}"]`).classList.add('active');
+            // Hide all account containers
+            document.getElementById('perplexityAccounts').style.display = 'none';
+            document.getElementById('canvaAccount').style.display = 'none';
+            document.getElementById('epicAccount').style.display = 'none';
+            document.getElementById('appleTvAccount').style.display = 'none';
+            document.getElementById('appleMusicAccount').style.display = 'none';
+            document.getElementById('crunchyrollAccount').style.display = 'none';
             
-            // Show/hide account switcher based on service
-            const accountSwitcher = document.getElementById('accountSwitcher');
+            // Show selected account container
             if (service === 'perplexity') {
-                accountSwitcher.style.display = 'flex';
-            } else {
-                accountSwitcher.style.display = 'none';
+                document.getElementById('perplexityAccounts').style.display = 'flex';
+            } else if (service === 'canva') {
+                document.getElementById('canvaAccount').style.display = 'flex';
+            } else if (service === 'epic') {
+                document.getElementById('epicAccount').style.display = 'flex';
+            } else if (service === 'apple-tv') {
+                document.getElementById('appleTvAccount').style.display = 'flex';
+            } else if (service === 'apple-music') {
+                document.getElementById('appleMusicAccount').style.display = 'flex';
+            } else if (service === 'crunchyroll') {
+                document.getElementById('crunchyrollAccount').style.display = 'flex';
             }
             
-            // Show the selected service and hide others
-            document.getElementById('perplexityAccounts').style.display = service === 'perplexity' ? 'flex' : 'none';
-            document.getElementById('canvaAccount').style.display = service === 'canva' ? 'flex' : 'none';
-            document.getElementById('epicAccount').style.display = service === 'epic' ? 'flex' : 'none';
-            document.getElementById('appleTvAccount').style.display = service === 'apple-tv' ? 'flex' : 'none';
-            document.getElementById('appleMusicAccount').style.display = service === 'apple-music' ? 'flex' : 'none';
-            document.getElementById('crunchyrollAccount').style.display = service === 'crunchyroll' ? 'flex' : 'none';
-        }
-
-        // Account switching functionality for Perplexity
-        function switchAccount(index) {
-            // Update account switcher buttons
-            document.querySelectorAll('#accountSwitcher .btn-switch').forEach(btn => {
-                btn.classList.remove('active');
+            // Update active button
+            const buttons = document.querySelectorAll('.btn-switch');
+            buttons.forEach(btn => {
+                if (btn.getAttribute('data-service') === service) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
             });
-            document.querySelector(`[data-index="${index}"]`).class.classList.add('active');
-            
-            // Show the selected account and hide others
-            document.querySelectorAll('.account-card').forEach(card => {
-                card.style.display = 'none';
-            });
-            document.querySelector(`.account-card[data-index="${index}"]`).style.display = 'block';
         }
-
-        // Copy email to clipboard
-        function copyEmail(index) {
-            const email = document.getElementById(`accountEmail${index}`).value;
-            copyText(email);
-        }
-
-        // Generic copy text to clipboard
+        
+        // Copy text to clipboard
         function copyText(text) {
             navigator.clipboard.writeText(text).then(() => {
                 showToast('Copied to clipboard!');
             }).catch(err => {
                 console.error('Failed to copy: ', err);
+                showToast('Failed to copy. Please try again.');
             });
         }
-
-        // Open verification link
-        function openVerificationLink(url) {
-            window.open(url, '_blank');
-        }
-
+        
         // Show toast notification
         function showToast(message) {
             const toast = document.getElementById('toast');
@@ -1248,24 +1168,56 @@
                 toast.classList.remove('show');
             }, 3000);
         }
-
+        
+        // Open verification link
+        function openVerificationLink(url) {
+            window.open(url, '_blank');
+        }
+        
+        // Toggle password visibility
+        function togglePasswordVisibility(inputId) {
+            const input = document.getElementById(inputId);
+            const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+            input.setAttribute('type', type);
+            
+            // Update icon
+            const icon = input.nextElementSibling.querySelector('i');
+            if (type === 'text') {
+                icon.setAttribute('data-lucide', 'eye-off');
+            } else {
+                icon.setAttribute('data-lucide', 'eye');
+            }
+            lucide.createIcons();
+        }
+        
         // Scroll to account section
         function scrollToAccount() {
             document.getElementById('account-section').scrollIntoView({ 
                 behavior: 'smooth' 
             });
         }
-
-        // Initialize theme based on user preference
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.classList.add('dark');
-            document.getElementById('themeIcon').setAttribute('data-lucide', 'moon');
-        } else {
-            document.getElementById('themeIcon').setAttribute('data-lucide', 'sun');
-        }
         
-        // Reinitialize icons after theme change
-        lucide.createIcons();
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate cards on scroll
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.card').forEach(card => {
+                observer.observe(card);
+            });
+        });
     </script>
 </body>
 </html>
