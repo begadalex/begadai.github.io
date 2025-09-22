@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BEGAD AI - Free Premium Access for Students</title>
-    <meta name="description" content="Get free access to Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, Epic Games, and Crunchyroll for students.">
+    <meta name="description" content="Get free access to ChatGPT Pro, Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, Epic Games, and Crunchyroll for students.">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +16,7 @@
 
     <style>
         :root {
-            --transition: 0.25s cubic-bezier(.4,0,.2,1);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             /* Light mode colors */
             --background: 220 20% 98%;
             --foreground: 220 15% 25%;
@@ -36,12 +36,13 @@
             --success: 142 70% 45%;
             --warning: 25 90% 55%;
             --info: 200 90% 55%;
+            --chatgpt: 142 70% 45%;
             --canva: 340 90% 60%;
             --apple-tv: 0 70% 50%;
             --apple-music: 320 70% 55%;
             --epic: 35 90% 55%;
             --crunchyroll: 355 90% 55%;
-            --shadow: 0px 1px 3px 0px hsl(220 15% 15% / 0.10), 0px 1px 2px -1px hsl(220 15% 15% / 0.10);
+            --shadow: 0px 4px 6px -1px hsl(220 15% 15% / 0.10), 0px 2px 4px -1px hsl(220 15% 15% / 0.06);
         }
         .dark {
             --background: 220 15% 12%;
@@ -58,7 +59,7 @@
             --card: 220 15% 14%;
             --card-foreground: 220 15% 85%;
             --input: 220 15% 35%;
-            --shadow: 0px 1px 3px 0px hsl(220 15% 5% / 0.50), 0px 1px 2px -1px hsl(220 15% 5% / 0.50);
+            --shadow: 0px 4px 6px -1px hsl(220 15% 5% / 0.20), 0px 2px 4px -1px hsl(220 15% 5% / 0.10);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -66,8 +67,9 @@
             font-family: 'Inter', sans-serif;
             background-color: hsl(var(--background));
             color: hsl(var(--foreground));
-            line-height: 1.5;
+            line-height: 1.6;
             transition: background-color var(--transition), color var(--transition);
+            overflow-x: hidden;
         }
         .arabic { font-family: 'Noto Sans Arabic', 'Inter', sans-serif; }
 
@@ -78,6 +80,7 @@
             backdrop-filter: blur(10px);
             border-bottom: 1px solid hsl(var(--border));
             transition: all var(--transition);
+            animation: slideDown 0.5s ease;
         }
         .header-content {
             display: flex; align-items: center; justify-content: space-between;
@@ -86,29 +89,40 @@
         .logo { display: flex; align-items: center; gap: 0.5rem; }
         .logo-icon {
             width: 2rem; height: 2rem;
-            background-color: hsl(var(--primary));
+            background: linear-gradient(135deg, hsl(var(--primary)), #8b5cf6);
             border-radius: 0.5rem; display: flex; align-items: center; justify-content: center;
             color: hsl(var(--primary-foreground)); font-weight: bold; font-size: 0.875rem;
-            box-shadow: 0 2px 8px hsl(var(--primary) / 0.08);
-            animation: pulse 2s infinite;
+            box-shadow: 0 4px 12px hsl(var(--primary) / 0.15);
+            animation: pulse 2s infinite, rotate 10s linear infinite;
         }
-        .logo-text { font-size: 1.25rem; font-weight: bold; }
+        .logo-text { 
+            font-size: 1.25rem; 
+            font-weight: bold; 
+            background: linear-gradient(135deg, hsl(var(--primary)), #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
         .header-controls { display: flex; align-items: center; gap: 0.5rem; }
         .btn {
             display: inline-flex; align-items: center; justify-content: center;
-            border-radius: 0.375rem; font-size: 0.875rem; font-weight: 500;
-            transition: all 0.18s; cursor: pointer; border: none; text-decoration: none; gap: 0.5rem;
+            border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500;
+            transition: all 0.3s; cursor: pointer; border: none; text-decoration: none; gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
         }
         .btn-ghost {
             background-color: transparent; color: hsl(var(--foreground)); padding: 0.5rem;
         }
-        .btn-ghost:hover { background-color: hsl(var(--accent)); }
+        .btn-ghost:hover { 
+            background-color: hsl(var(--accent)); 
+            transform: translateY(-2px);
+        }
         .btn-primary {
-            background-color: hsl(var(--primary)); color: hsl(var(--primary-foreground));
+            background: linear-gradient(135deg, hsl(var(--primary)), #8b5cf6);
+            color: hsl(var(--primary-foreground));
             padding: 0.75rem 1.5rem;
-            box-shadow: 0 5px 16px hsl(var(--primary) / 0.08);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 5px 16px hsl(var(--primary) / 0.15);
         }
         .btn-primary::before {
             content: '';
@@ -124,21 +138,23 @@
             left: 100%;
         }
         .btn-primary:hover {
-            background-color: hsl(var(--primary) / 0.9);
-            transform: translateY(-2px) scale(1.03);
-            box-shadow: 0 8px 25px hsl(var(--primary) / 0.15);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 25px hsl(var(--primary) / 0.25);
         }
         .btn-lg { padding: 1rem 2rem; font-size: 1.125rem; }
         .btn-outline {
             background-color: transparent; border: 1px solid hsl(var(--border));
             color: hsl(var(--foreground)); padding: 0.75rem 1.5rem;
         }
-        .btn-outline:hover { background-color: hsl(var(--accent)); }
+        .btn-outline:hover { 
+            background-color: hsl(var(--accent)); 
+            transform: translateY(-2px);
+        }
         .btn-switch {
-            font-size: 1rem; border-radius: 0.375rem 0.375rem 0 0;
+            font-size: 0.9rem; border-radius: 0.5rem;
             background: hsl(var(--muted) / 0.7); color: hsl(var(--foreground));
-            padding: 0.6rem 1.3rem; border: none; cursor: pointer;
-            margin-right: 0.25rem; font-weight: 600; transition: all var(--transition);
+            padding: 0.7rem 1.2rem; border: none; cursor: pointer;
+            margin-right: 0.5rem; font-weight: 600; transition: all var(--transition);
             outline: none;
             position: relative;
             overflow: hidden;
@@ -154,7 +170,9 @@
             transition: width 0.3s ease;
         }
         .btn-switch.active, .btn-switch:focus {
-            background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); box-shadow: 0 2px 8px hsl(var(--primary) / 0.10);
+            background: hsl(var(--primary)); 
+            color: hsl(var(--primary-foreground)); 
+            box-shadow: 0 4px 12px hsl(var(--primary) / 0.15);
         }
         .btn-switch.active::after, .btn-switch:focus::after {
             width: 100%;
@@ -164,9 +182,9 @@
         .card {
             background-color: hsl(var(--card));
             border: 1px solid hsl(var(--border));
-            border-radius: 0.9rem;
-            box-shadow: var(--shadow), 0 6px 40px hsl(220 20% 40% / 0.02);
-            transition: box-shadow var(--transition), transform var(--transition);
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
         }
@@ -185,12 +203,21 @@
             opacity: 1;
         }
         .card:hover, .card.active {
-            box-shadow: 0 8px 28px 0px hsl(220 15% 15% / 0.16);
-            transform: translateY(-5px) scale(1.025);
+            box-shadow: 0 20px 40px -10px hsl(220 15% 15% / 0.2);
+            transform: translateY(-8px) scale(1.02);
         }
         .card-header { padding: 1.5rem 1.5rem 1rem 1.5rem; text-align: center; }
         .card-content { padding: 1rem 1.5rem 1.5rem 1.5rem; }
-        .card-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+        .card-title { 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            margin-bottom: 0.5rem; 
+            letter-spacing: -0.01em;
+            background: linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--muted-foreground)));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
         /* Service Grid */
         .services-grid {
@@ -204,6 +231,7 @@
         .account-switcher {
             display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 2rem;
             flex-wrap: wrap;
+            animation: fadeIn 0.8s ease;
         }
         @media (max-width: 600px) {
             .account-switcher { flex-direction: column; gap: 0.3rem; }
@@ -213,6 +241,7 @@
         /* Account Cards Grid */
         .accounts-grid {
             display: flex; gap: 2rem; justify-content: center;
+            animation: fadeInUp 0.8s ease;
         }
         @media (max-width: 900px) {
             .accounts-grid { flex-direction: column; gap: 1.25rem; }
@@ -220,12 +249,13 @@
 
         /* Info boxes */
         .info-box {
-            border-radius: 0.6rem; padding: 1rem; border: 1px solid; margin-top: 1rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 0.75rem; padding: 1.25rem; border: 1px solid; margin-top: 1rem;
+            transition: all 0.4s ease;
+            animation: slideInLeft 0.6s ease;
         }
         .info-box:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
         .info-box-blue {
             background-color: hsl(220 90% 95%);
@@ -241,6 +271,11 @@
             background-color: hsl(var(--success) / 0.1);
             border-color: hsl(var(--success) / 0.3);
             color: hsl(var(--success));
+        }
+        .info-box-chatgpt {
+            background-color: hsl(var(--chatgpt) / 0.1);
+            border-color: hsl(var(--chatgpt) / 0.3);
+            color: hsl(var(--chatgpt));
         }
         .info-box-canva {
             background-color: hsl(var(--canva) / 0.1);
@@ -269,11 +304,15 @@
         }
         .badge {
             display: inline-flex; align-items: center; gap: 0.25rem;
-            padding: 0.25rem 0.75rem; font-size: 0.78rem; font-weight: 600; border-radius: 1rem; border: 1.5px solid;
-            box-shadow: 0 2px 8px hsl(var(--success) / 0.07);
+            padding: 0.35rem 0.9rem; font-size: 0.8rem; font-weight: 600; border-radius: 1rem; border: 1.5px solid;
+            box-shadow: 0 4px 10px hsl(var(--success) / 0.1);
             background: hsl(var(--success) / 0.08);
             color: hsl(var(--success));
-            animation: float 3s ease-in-out infinite;
+            animation: float 4s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+        .badge:hover {
+            transform: translateY(-3px);
         }
         .badge-success {
             border-color: hsl(var(--success) / 0.2);
@@ -282,6 +321,11 @@
             background-color: hsl(var(--warning) / 0.09);
             color: hsl(var(--warning));
             border-color: hsl(var(--warning) / 0.2);
+        }
+        .badge-chatgpt {
+            background-color: hsl(var(--chatgpt) / 0.09);
+            color: hsl(var(--chatgpt));
+            border-color: hsl(var(--chatgpt) / 0.2);
         }
         .badge-canva {
             background-color: hsl(var(--canva) / 0.09);
@@ -338,10 +382,11 @@
 
         /* Input fields */
         .input {
-            width: 100%; padding: 0.75rem; border: 1px solid hsl(var(--border));
-            border-radius: 0.375rem; background-color: hsl(var(--background));
+            width: 100%; padding: 0.85rem; border: 1px solid hsl(var(--border));
+            border-radius: 0.5rem; background-color: hsl(var(--background));
             color: hsl(var(--foreground)); font-family: 'Courier New', monospace;
             transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
         .input:focus {
             outline: none; border-color: hsl(var(--ring));
@@ -349,13 +394,14 @@
             transform: translateY(-2px);
         }
         .label {
-            display: block; font-size: 0.94rem; font-weight: 600; margin-bottom: 0.38rem;
+            display: block; font-size: 0.94rem; font-weight: 600; margin-bottom: 0.5rem;
             color: hsl(var(--foreground));
         }
 
         /* Hero and sections */
         .hero {
-            padding: 5rem 1rem 4rem 1rem; text-align: center; position: relative; overflow: hidden;
+            padding: 6rem 1rem 5rem 1rem; text-align: center; position: relative; overflow: hidden;
+            animation: fadeIn 1s ease;
         }
         .hero::before {
             content: '';
@@ -365,19 +411,19 @@
             z-index: -1;
         }
         .hero-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
             font-weight: bold; margin-bottom: 1.5rem; line-height: 1.1;
         }
         .hero-subtitle {
-            font-size: 1.25rem; color: hsl(var(--muted-foreground));
-            margin-bottom: 2rem; max-width: 40rem; margin-left: auto; margin-right: auto;
+            font-size: 1.3rem; color: hsl(var(--muted-foreground));
+            margin-bottom: 2.5rem; max-width: 45rem; margin-left: auto; margin-right: auto;
         }
         .gradient-text {
-            background: linear-gradient(135deg, hsl(var(--primary)), #8b5cf6);
+            background: linear-gradient(135deg, hsl(var(--primary)), #8b5cf6, hsl(var(--primary)));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradientShift 3s ease infinite;
+            animation: gradientShift 4s ease infinite;
             background-size: 200% 200%;
         }
         .feature-grid {
@@ -389,7 +435,7 @@
             margin-left: auto;
             margin-right: auto;
         }
-        .section { padding: 4rem 1rem; }
+        .section { padding: 5rem 1rem; }
         .section-muted { background-color: hsl(var(--muted) / 0.5); }
         .section-content { max-width: 32rem; margin: 0 auto; }
 
@@ -403,24 +449,36 @@
         /* Animations */
         .fade-in {
             opacity: 0; transform: translateY(20px);
-            animation: fadeIn 0.6s ease forwards;
+            animation: fadeIn 0.8s ease forwards;
         }
         @keyframes fadeIn {
             to { opacity: 1; transform: translateY(0); }
         }
-        .fade-in:nth-child(2) { animation-delay: 0.1s; }
-        .fade-in:nth-child(3) { animation-delay: 0.2s; }
-        .fade-in:nth-child(4) { animation-delay: 0.3s; }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
         
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% { transform: scale(1); box-shadow: 0 4px 12px hsl(var(--primary) / 0.15); }
+            50% { transform: scale(1.05); box-shadow: 0 6px 20px hsl(var(--primary) / 0.25); }
+            100% { transform: scale(1); box-shadow: 0 4px 12px hsl(var(--primary) / 0.15); }
         }
         
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-8px); }
             100% { transform: translateY(0px); }
         }
         
@@ -429,33 +487,39 @@
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
 
         /* Toast */
         .toast {
             position: fixed; bottom: 2rem; right: 2rem;
             background-color: hsl(var(--card));
             border: 1px solid hsl(var(--border));
-            border-radius: 0.5rem; padding: 1rem; box-shadow: var(--shadow);
+            border-radius: 0.75rem; padding: 1rem; box-shadow: var(--shadow);
             transform: translateX(400px);
-            transition: transform 0.3s ease; z-index: 100;
+            transition: transform 0.4s ease; z-index: 100;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            max-width: 300px;
         }
         .toast.show { 
             transform: translateX(0);
-            animation: toastBounce 0.5s ease;
+            animation: toastBounce 0.6s ease;
         }
         
         @keyframes toastBounce {
             0% { transform: translateX(400px); }
-            70% { transform: translateX(-10px); }
+            70% { transform: translateX(-15px); }
             100% { transform: translateX(0); }
         }
 
         /* Responsive styles for service switcher */
         @media (max-width: 900px) {
-            #perplexityAccounts { flex-direction: column; gap: 1.25rem; }
+            #perplexityAccounts, #chatgptAccount { flex-direction: column; gap: 1.25rem; }
             .services-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 600px) {
@@ -468,7 +532,7 @@
         /* Responsive */
         @media (max-width: 768px) {
             .header-content { padding: 0 0.5rem; }
-            .hero { padding: 3rem 0.5rem; }
+            .hero { padding: 4rem 0.5rem; }
             .section { padding: 3rem 0.5rem; }
             .feature-grid { grid-template-columns: 1fr; gap: 1rem; }
             .accounts-grid { flex-direction: column; gap: 1rem; }
@@ -478,13 +542,18 @@
         
         /* Service icons */
         .service-icon {
-            width: 2.5rem; height: 2.5rem; border-radius: 0.75rem; 
+            width: 3rem; height: 3rem; border-radius: 1rem; 
             display: flex; align-items: center; justify-content: center;
             margin: 0 auto 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            font-size: 1.5rem;
         }
         .service-icon:hover {
-            transform: scale(1.1) rotate(5deg);
+            transform: scale(1.2) rotate(10deg);
+        }
+        .service-icon-chatgpt {
+            background-color: hsl(var(--chatgpt) / 0.1);
+            color: hsl(var(--chatgpt));
         }
         .service-icon-perplexity {
             background-color: hsl(var(--primary) / 0.1);
@@ -515,24 +584,28 @@
         .tutorial-step {
             display: flex;
             align-items: flex-start;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            transition: transform 0.3s ease;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.4s ease;
+            padding: 1rem;
+            border-radius: 0.75rem;
         }
         .tutorial-step:hover {
-            transform: translateX(10px);
+            transform: translateX(15px);
+            background-color: hsl(var(--muted) / 0.3);
         }
         .tutorial-number {
-            background: hsl(var(--primary));
+            background: linear-gradient(135deg, hsl(var(--primary)), #8b5cf6);
             color: white;
-            width: 2rem;
-            height: 2rem;
+            width: 2.5rem;
+            height: 2.5rem;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
             font-weight: bold;
+            font-size: 1.1rem;
             animation: pulse 2s infinite;
         }
         
@@ -550,10 +623,56 @@
             border: none;
             cursor: pointer;
             color: hsl(var(--muted-foreground));
+            transition: color 0.3s ease;
+        }
+        .password-toggle:hover {
+            color: hsl(var(--foreground));
+        }
+        
+        /* Warning box */
+        .warning-box {
+            background-color: hsl(var(--warning) / 0.1);
+            border: 1px solid hsl(var(--warning) / 0.3);
+            color: hsl(var(--warning));
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            animation: shake 0.5s ease;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        /* Floating particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .particle {
+            position: absolute;
+            background: linear-gradient(135deg, hsl(var(--primary) / 0.1), hsl(var(--primary) / 0.05));
+            border-radius: 50%;
+            animation: floatParticle 15s infinite linear;
+        }
+        
+        @keyframes floatParticle {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); }
+            100% { transform: translateY(-100vh) translateX(100px) rotate(360deg); }
         }
     </style>
 </head>
 <body>
+    <!-- Floating particles -->
+    <div class="particles" id="particles"></div>
+
     <!-- Header -->
     <header class="header">
         <div class="container">
@@ -587,11 +706,11 @@
 
             <h1 class="hero-title">
                 <span data-en="Get Free Access to" data-ar="احصل على وصول مجاني إلى">Get Free Access to</span><br>
-                <span class="gradient-text" data-en="Premium Services" data-ar="الخدمات المتميزة">Premium Services</span>
+                <span class="gradient-text" data-en="Premium AI & Services" data-ar="الذكاء الاصطناعي والخدمات المتميزة">Premium AI & Services</span>
             </h1>
 
-            <p class="hero-subtitle" data-en="Access Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, Epic Games, and Crunchyroll with premium features - completely free for students" data-ar="الوصول إلى Perplexity AI Pro وCanva Pro وApple TV+ وApple Music وإيبك جيمز وCrunchyroll مع الميزات المتميزة - مجاني تماماً للطلاب">
-                Access Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, Epic Games, and Crunchyroll with premium features - completely free for students
+            <p class="hero-subtitle" data-en="Access ChatGPT Pro, Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, Epic Games, and Crunchyroll with premium features - completely free for students" data-ar="الوصول إلى ChatGPT Pro وPerplexity AI Pro وCanva Pro وApple TV+ وApple Music وإيبك جيمز وCrunchyroll مع الميزات المتميزة - مجاني تماماً للطلاب">
+                Access ChatGPT Pro, Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, Epic Games, and Crunchyroll with premium features - completely free for students
             </p>
 
             <button class="btn btn-primary btn-lg" onclick="scrollToAccount()">
@@ -601,6 +720,17 @@
 
             <!-- Feature cards -->
             <div class="feature-grid">
+                <div class="card fade-in">
+                    <div class="card-content text-center">
+                        <div class="service-icon service-icon-chatgpt">
+                            <i data-lucide="message-square"></i>
+                        </div>
+                        <h3 class="font-semibold mb-2" data-en="ChatGPT Pro" data-ar="ChatGPT برو">ChatGPT Pro</h3>
+                        <p class="text-sm text-muted" data-en="Advanced AI conversations with GPT-4 access" data-ar="محادثات ذكاء اصطناعي متقدمة مع الوصول إلى GPT-4">
+                            Advanced AI conversations with GPT-4 access
+                        </p>
+                    </div>
+                </div>
                 <div class="card fade-in">
                     <div class="card-content text-center">
                         <div class="service-icon service-icon-perplexity">
@@ -623,17 +753,6 @@
                         </p>
                     </div>
                 </div>
-                <div class="card fade-in">
-                    <div class="card-content text-center">
-                        <div class="service-icon service-icon-crunchyroll">
-                            <i data-lucide="tv-2"></i>
-                        </div>
-                        <h3 class="font-semibold mb-2" data-en="Anime Streaming" data-ar="بث الأنمي">Anime Streaming</h3>
-                        <p class="text-sm text-muted" data-en="Ad-free anime with Crunchyroll Premium" data-ar="أنمي خالي من الإعلانات مع Crunchyroll Premium">
-                            Ad-free anime with Crunchyroll Premium
-                        </p>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -645,7 +764,11 @@
 
                 <!-- Service Switcher -->
                 <div class="account-switcher" id="serviceSwitcher">
-                    <button class="btn-switch active" data-service="perplexity" onclick="switchService('perplexity')">
+                    <button class="btn-switch active" data-service="chatgpt" onclick="switchService('chatgpt')">
+                        <i data-lucide="message-square"></i>
+                        <span data-en="ChatGPT Pro" data-ar="ChatGPT برو">ChatGPT Pro</span>
+                    </button>
+                    <button class="btn-switch" data-service="perplexity" onclick="switchService('perplexity')">
                         <i data-lucide="brain"></i>
                         <span data-en="Perplexity AI Pro" data-ar="بيربليكسيتي AI برو">Perplexity AI Pro</span>
                     </button>
@@ -673,10 +796,82 @@
 
                 <!-- Accounts Cards -->
                 <div class="accounts-grid" id="accountsGrid">
-                    <!-- Perplexity Accounts Container -->
-                    <div id="perplexityAccounts" style="display: flex; gap: 2rem; justify-content: center; width: 100%;">
-                        <!-- Single Perplexity Account -->
+                    <!-- ChatGPT Pro Account Container -->
+                    <div id="chatgptAccount" style="display: flex; gap: 2rem; justify-content: center; width: 100%;">
                         <div class="card account-card active" style="max-width: 600px;">
+                            <div class="card-header">
+                                <div class="flex items-center justify-center mb-4">
+                                    <div class="badge badge-chatgpt">
+                                        <i data-lucide="zap"></i>
+                                        <span data-en="AI Pro Account" data-ar="حساب AI برو">AI Pro Account</span>
+                                    </div>
+                                </div>
+                                <h2 class="card-title" data-en="ChatGPT Pro Account" data-ar="حساب ChatGPT برو">ChatGPT Pro Account</h2>
+                            </div>
+                            <div class="card-content">
+                                <div class="warning-box">
+                                    <div class="flex gap-2">
+                                        <i data-lucide="alert-triangle"></i>
+                                        <div>
+                                            <p class="font-medium" data-en="Important Notice" data-ar="ملاحظة هامة">Important Notice</p>
+                                            <p class="text-sm" data-en="This ChatGPT account may not work properly due to high demand. If you encounter issues, try again later or use the Perplexity AI Pro account as an alternative." data-ar="قد لا يعمل حساب ChatGPT هذا بشكل صحيح بسبب الطلب العالي. إذا واجهت مشاكل، حاول مرة أخرى لاحقًا أو استخدم حساب Perplexity AI Pro كبديل.">This ChatGPT account may not work properly due to high demand. If you encounter issues, try again later or use the Perplexity AI Pro account as an alternative.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6 mt-4">
+                                    <label class="label" data-en="Account Email" data-ar="إيميل الحساب">Account Email</label>
+                                    <div class="flex gap-2">
+                                        <input type="text" class="input" value="oxaamgbpn5365@oxaam.com" readonly>
+                                        <button class="btn btn-outline" onclick="copyText('oxaamgbpn5365@oxaam.com')">
+                                            <i data-lucide="copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <label class="label" data-en="Account Password" data-ar="كلمة مرور الحساب">Account Password</label>
+                                    <div class="flex gap-2">
+                                        <input type="password" class="input" value="oxaam6604999" readonly id="chatgptPassword">
+                                        <button class="btn btn-outline" onclick="copyText('oxaam6604999')">
+                                            <i data-lucide="copy"></i>
+                                        </button>
+                                        <button class="btn btn-outline" onclick="togglePasswordVisibility('chatgptPassword')">
+                                            <i data-lucide="eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <button class="btn btn-primary w-full" onclick="openVerificationLink('https://www.oxaam.com/cgcode12.php')">
+                                        <i data-lucide="external-link"></i>
+                                        <span data-en="Get Verification Code" data-ar="احصل على رمز التحقق">Get Verification Code</span>
+                                    </button>
+                                    <p class="text-sm text-muted text-center mt-4" data-en="Click if ChatGPT asks for verification" data-ar="انقر إذا طلب ChatGPT التحقق">Click if ChatGPT asks for verification</p>
+                                </div>
+                                
+                                <div class="info-box info-box-chatgpt">
+                                    <div class="flex gap-2">
+                                        <i data-lucide="info"></i>
+                                        <div class="text-sm">
+                                            <p class="font-medium" data-en="ChatGPT Pro Features:" data-ar="ميزات ChatGPT برو:">ChatGPT Pro Features:</p>
+                                            <ul style="list-style: disc; list-style-position: inside;" class="space-y-1">
+                                                <li data-en="Access to GPT-4 model" data-ar="الوصول إلى نموذج GPT-4">Access to GPT-4 model</li>
+                                                <li data-en="Faster response times" data-ar="أوقات استجابة أسرع">Faster response times</li>
+                                                <li data-en="Priority access during peak times" data-ar="وصول مميز خلال أوقات الذروة">Priority access during peak times</li>
+                                                <li data-en="Advanced data analysis capabilities" data-ar="قدرات متقدمة لتحليل البيانات">Advanced data analysis capabilities</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Perplexity Accounts Container -->
+                    <div id="perplexityAccounts" style="display: none; gap: 2rem; justify-content: center; width: 100%;">
+                        <!-- Single Perplexity Account -->
+                        <div class="card account-card" style="max-width: 600px;">
                             <div class="card-header">
                                 <div class="flex items-center justify-center mb-4">
                                     <div class="badge badge-success">
@@ -720,6 +915,7 @@
                         </div>
                     </div>
                     
+                    <!-- Other service containers remain the same but with updated styling -->
                     <!-- Canva Pro Account Container -->
                     <div id="canvaAccount" style="display: none; width: 100%; justify-content: center;">
                         <div class="card account-card" style="max-width: 600px;">
@@ -998,7 +1194,7 @@
                     <div class="tutorial-number">1</div>
                     <div>
                         <h3 class="font-semibold" data-en="Select the service you want to use" data-ar="اختر الخدمة التي تريد استخدامها">Select the service you want to use</h3>
-                        <p class="text-muted" data-en="Choose from Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, Epic Games, or Crunchyroll" data-ar="اختر من بين بيربليكسيتي AI برو، كانفا برو، Apple TV+، Apple Music، إيبك جيمز، أو كرانشي رول">Choose from Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, Epic Games, or Crunchyroll</p>
+                        <p class="text-muted" data-en="Choose from ChatGPT Pro, Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, Epic Games, or Crunchyroll" data-ar="اختر من بين ChatGPT برو، بيربليكسيتي AI برو، كانفا برو، Apple TV+، Apple Music، إيبك جيمز، أو كرانشي رول">Choose from ChatGPT Pro, Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, Epic Games, or Crunchyroll</p>
                     </div>
                 </div>
                 <div class="tutorial-step fade-in">
@@ -1057,6 +1253,29 @@
         // Initialize Lucide icons
         lucide.createIcons();
         
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 15;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 60 + 20;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                particle.style.animationDuration = `${Math.random() * 10 + 15}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
         // Theme toggle functionality
         function toggleTheme() {
             const body = document.body;
@@ -1113,6 +1332,7 @@
         // Service switching functionality
         function switchService(service) {
             // Hide all account containers
+            document.getElementById('chatgptAccount').style.display = 'none';
             document.getElementById('perplexityAccounts').style.display = 'none';
             document.getElementById('canvaAccount').style.display = 'none';
             document.getElementById('epicAccount').style.display = 'none';
@@ -1121,7 +1341,9 @@
             document.getElementById('crunchyrollAccount').style.display = 'none';
             
             // Show selected account container
-            if (service === 'perplexity') {
+            if (service === 'chatgpt') {
+                document.getElementById('chatgptAccount').style.display = 'flex';
+            } else if (service === 'perplexity') {
                 document.getElementById('perplexityAccounts').style.display = 'flex';
             } else if (service === 'canva') {
                 document.getElementById('canvaAccount').style.display = 'flex';
@@ -1197,8 +1419,11 @@
             });
         }
         
-        // Initialize animations
+        // Initialize animations and particles
         document.addEventListener('DOMContentLoaded', function() {
+            // Create floating particles
+            createParticles();
+            
             // Animate cards on scroll
             const observerOptions = {
                 root: null,
@@ -1217,6 +1442,9 @@
             document.querySelectorAll('.card').forEach(card => {
                 observer.observe(card);
             });
+            
+            // Start with ChatGPT selected
+            switchService('chatgpt');
         });
     </script>
 </body>
