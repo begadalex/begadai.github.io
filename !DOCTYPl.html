@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEGAD AI - Free Premium Access for Students</title>
+    <meta name="description" content="Get free access to ChatGPT Pro, Perplexity AI Pro, Canva Pro, Apple TV+, Apple Music, Epic Games, Crunchyroll, and Veed AI for students.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <style>
+        :root {
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Light mode colors */
+            --background: 220 20% 98%; --background-rgb: 249, 250, 251;
+            --foreground: 220 15% 25%;
+            --primary: 260 85% 65%; --primary-rgb: 128, 62, 237;
+            --primary-foreground: 220 20% 98%;
+            --border: 220 15% 90%; --border-rgb: 229, 231, 235;
+            --card: 220 20% 96%; --card-rgb: 244, 245, 246;
+            --muted-foreground: 220 15% 45%;
+            --shadow: 0px 4px 6px -1px hsl(220 15% 15% / 0.10), 0px 2px 4px -1px hsl(220 15% 15% / 0.06);
+        }
+        .dark {
+            --background: 220 15% 12%; --background-rgb: 28, 29, 33;
+            --foreground: 220 15% 85%;
+            --border: 220 15% 22%; --border-rgb: 50, 52, 58;
+            --card: 220 15% 14%; --card-rgb: 33, 34, 38;
+            --muted-foreground: 220 15% 65%;
+            --shadow: 0px 4px 6px -1px hsl(220 15% 5% / 0.20), 0px 2px 4px -1px hsl(220 15% 5% / 0.10);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        ::selection { background-color: hsla(var(--primary-rgb), 0.3); }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            line-height: 1.6;
+            transition: background-color var(--transition), color var(--transition);
+            overflow-x: hidden;
+            position: relative;
+        }
+        .arabic { font-family: 'Noto Sans Arabic', 'Inter', sans-serif; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; position: relative; z-index: 2; }
+        
+        /* Header */
+        .header {
+            position: sticky; top: 0; z-index: 50;
+            background-color: hsl(var(--background) / 0.8);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid hsl(var(--border));
+            transition: all var(--transition);
+        }
+        .header-content { display: flex; align-items: center; justify-content: space-between; height: 4rem; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; }
+        .logo-icon {
+            width: 2rem; height: 2rem;
+            background: linear-gradient(135deg, hsl(var(--primary)), #8b5cf6);
+            border-radius: 0.5rem; display: flex; align-items: center; justify-content: center;
+            color: hsl(var(--primary-foreground)); font-weight: bold; font-size: 0.875rem;
+            box-shadow: 0 4px 12px hsl(var(--primary) / 0.15);
+            animation: pulse 2.5s infinite;
+        }
+        .logo-text { font-size: 1.25rem; font-weight: bold; }
+        .header-controls { display: flex; align-items: center; gap: 0.25rem; }
+        
+        /* Buttons */
+        .btn { display: inline-flex; align-items: center; justify-content: center; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; transition: all 0.2s; cursor: pointer; border: none; text-decoration: none; gap: 0.5rem; position: relative; overflow: hidden; }
+        .btn-ghost { background-color: transparent; color: hsl(var(--foreground)); padding: 0.5rem; }
+        .btn-ghost:hover { background-color: hsl(var(--border)); transform: translateY(-1px); }
+        .btn-primary { background: linear-gradient(135deg, hsl(var(--primary)), #8b5cf6); color: hsl(var(--primary-foreground)); padding: 0.75rem 1.5rem; box-shadow: 0 5px 16px hsl(var(--primary) / 0.2); }
+        .btn-primary:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 8px 25px hsl(var(--primary) / 0.3); }
+        .btn-outline { background-color: transparent; border: 1px solid hsl(var(--border)); color: hsl(var(--foreground)); padding: 0.75rem 1rem; }
+        .btn-outline:hover { background-color: hsl(var(--border)); border-color: hsl(var(--muted-foreground)); }
+        
+        /* Service Switcher */
+        .account-switcher { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .btn-switch { font-size: 0.9rem; border-radius: 0.5rem; background: transparent; color: hsl(var(--muted-foreground)); padding: 0.7rem 1.2rem; border: 1px solid transparent; cursor: pointer; font-weight: 600; transition: all var(--transition); position: relative; }
+        .btn-switch:hover { color: hsl(var(--foreground)); background: hsl(var(--border)); }
+        .btn-switch.active { color: hsl(var(--primary-foreground)); background: hsl(var(--primary)); border-color: hsl(var(--primary)); }
+        
+        /* Card */
+        .card { background-color: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: 1rem; box-shadow: var(--shadow); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden; }
+        .card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 15px 30px -10px hsl(220 15% 15% / 0.15); }
+        .card-header { padding: 1.5rem; text-align: center; }
+        .card-content { padding: 0 1.5rem 1.5rem; }
+        .card-title { font-size: 1.5rem; font-weight: 700; }
+
+        /* Account Containers */
+        .account-container { width: 100%; max-width: 550px; will-change: transform, opacity; }
+        .account-container:not(.active) { display: none; }
+        
+        /* Hero */
+        .hero { padding: 6rem 1rem 5rem; text-align: center; }
+        .hero-title { font-size: clamp(2.8rem, 6vw, 4.5rem); font-weight: bold; margin: 1rem 0 1.5rem; line-height: 1.1; }
+        .hero-subtitle { font-size: 1.2rem; color: hsl(var(--muted-foreground)); margin-bottom: 2.5rem; max-width: 45rem; margin-left: auto; margin-right: auto; }
+        .gradient-text { background: linear-gradient(135deg, hsl(var(--primary)), #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        
+        /* Accordion for Tutorial */
+        details { border: 1px solid hsl(var(--border)); border-radius: 0.75rem; padding: 0.5rem 1rem; margin-bottom: 1.5rem; transition: background-color 0.2s; }
+        details[open] { background-color: hsla(var(--border-rgb), 0.5); }
+        summary { cursor: pointer; font-weight: 500; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.5rem; color: hsl(var(--muted-foreground)); transition: transform 0.2s; }
+        details[open] summary::after { transform: rotate(45deg); }
+        .tutorial-content { padding-top: 1rem; }
+        .tutorial-list { list-style-position: inside; padding-left: 0.5rem; margin-top: 0.75rem; color: hsl(var(--muted-foreground)); font-size: 0.9rem; }
+
+        /* General & Utilities */
+        .input { width: 100%; padding: 0.85rem; border: 1px solid hsl(var(--border)); border-radius: 0.5rem; background-color: hsl(var(--card)); color: hsl(var(--foreground)); transition: all 0.2s; font-size: 0.9rem; }
+        .input:focus { outline: none; border-color: hsl(var(--primary)); box-shadow: 0 0 0 3px hsl(var(--primary) / 0.2); }
+        .label { display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem; }
+        hr { border: none; height: 1px; background-color: hsl(var(--border)); margin: 1.5rem 0; }
+        
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); box-shadow: 0 4px 12px hsl(var(--primary) / 0.15); } 50% { transform: scale(1.05); box-shadow: 0 6px 20px hsl(var(--primary) / 0.25); } }
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; opacity: 0; }
+        .hero > * { opacity: 0; animation: fadeIn 0.6s ease-out forwards; }
+        .hero h1 { animation-delay: 0.1s; } .hero p { animation-delay: 0.2s; } .hero button { animation-delay: 0.3s; }
+        .account-switcher .btn-switch { opacity: 0; animation: fadeIn 0.5s ease-out forwards; }
+        
+        /* Staggered animation for switcher buttons */
+        .btn-switch:nth-child(1) { animation-delay: 0.3s; } .btn-switch:nth-child(2) { animation-delay: 0.35s; }
+        .btn-switch:nth-child(3) { animation-delay: 0.4s; } .btn-switch:nth-child(4) { animation-delay: 0.45s; }
+        .btn-switch:nth-child(5) { animation-delay: 0.5s; } .btn-switch:nth-child(6) { animation-delay: 0.55s; }
+        .btn-switch:nth-child(7) { animation-delay: 0.6s; } .btn-switch:nth-child(8) { animation-delay: 0.65s; }
+        
+        /* Toast */
+        .toast { position: fixed; bottom: 2rem; right: 2rem; background-color: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: 0.75rem; padding: 1rem; box-shadow: var(--shadow); transition: transform 0.4s ease, opacity 0.4s; z-index: 100; opacity: 0; transform: translateY(20px); }
+        .toast.show { opacity: 1; transform: translateY(0); }
+        
+        /* Experimental UI: Liquid Glass */
+        .experimental-ui #ambient-background { opacity: 1; }
+        #ambient-background {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden; z-index: -1; opacity: 0; transition: opacity 0.8s ease;
+        }
+        .aurora-shape { position: absolute; border-radius: 50%; filter: blur(120px); }
+        .aurora-1 { width: 500px; height: 500px; background: hsla(260, 85%, 65%, 0.15); top: -10%; left: -10%; animation: move1 25s infinite alternate ease-in-out; }
+        .aurora-2 { width: 600px; height: 600px; background: hsla(180, 85%, 65%, 0.1); bottom: -15%; right: -15%; animation: move2 30s infinite alternate ease-in-out; }
+        .aurora-3 { width: 400px; height: 400px; background: hsla(340, 90%, 60%, 0.1); top: 40%; left: 30%; animation: move3 28s infinite alternate ease-in-out; }
+        @keyframes move1 { to { transform: translate(100px, 80px) scale(1.1); } }
+        @keyframes move2 { to { transform: translate(-120px, -60px) scale(0.9); } }
+        @keyframes move3 { to { transform: translate(80px, -120px); } }
+        
+        .experimental-ui .header { background-color: rgba(var(--background-rgb), 0.6); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-bottom-color: rgba(var(--border-rgb), 0.3); }
+        .experimental-ui .card {
+            background-color: rgba(var(--card-rgb), 0.5);
+            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+        }
+        .dark .experimental-ui .card { border: 1px solid rgba(255, 255, 255, 0.08); }
+
+        /* Interactive Glow Effect */
+        .card::before {
+            content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+            border-radius: inherit; opacity: 0; transition: opacity 0.5s;
+            background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), hsla(var(--primary-rgb), 0.2), transparent 40%);
+        }
+        .experimental-ui .card:hover::before { opacity: 1; }
+        
+        @media (max-width: 600px) { .account-switcher { flex-direction: column; gap: 0.3rem; } .btn-switch { width: 100%; } }
+    </style>
+</head>
+<body>
+    <div id="ambient-background">
+        <div class="aurora-shape aurora-1"></div>
+        <div class="aurora-shape aurora-2"></div>
+        <div class="aurora-shape aurora-3"></div>
+    </div>
+
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">B</div>
+                <h1 class="logo-text gradient-text" data-en="BEGAD AI" data-ar="بيجاد AI">BEGAD AI</h1>
+            </div>
+            <div class="header-controls">
+                <button class="btn btn-ghost" onclick="toggleLanguage()" title="Switch Language"><i data-lucide="globe"></i></button>
+                <button class="btn btn-ghost" onclick="toggleTheme()" title="Switch Theme" id="themeBtn"><i data-lucide="sun" id="themeIcon"></i></button>
+                <button class="btn btn-ghost" onclick="toggleExperimentalUI()" title="Toggle Experimental UI" id="uiModeBtn"><i data-lucide="flask-conical" id="uiModeIcon"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1 class="hero-title">
+                <span data-en="Free Access to" data-ar="وصول مجاني إلى">Free Access to</span><br>
+                <span class="gradient-text" data-en="Premium AI & Services" data-ar="الخدمات والذكاء الاصطناعي">Premium AI & Services</span>
+            </h1>
+            <p class="hero-subtitle" data-en="Unlock pro features for the best creative, productivity, and entertainment tools. Free for students." data-ar="افتح الميزات الاحترافية لأفضل الأدوات الإبداعية والإنتاجية والترفيهية. مجاني للطلاب.">Unlock pro features for the best creative, productivity, and entertainment tools. Free for students.</p>
+        </section>
+
+        <section id="account-section" style="padding: 2rem 0 4rem;">
+            <div class="account-switcher">
+                <button class="btn-switch" data-service="chatgpt" onclick="switchService('chatgpt')"><i data-lucide="message-square"></i> <span data-en="ChatGPT" data-ar="ChatGPT">ChatGPT</span></button>
+                <button class="btn-switch" data-service="perplexity" onclick="switchService('perplexity')"><i data-lucide="brain"></i> <span data-en="Perplexity" data-ar="Perplexity">Perplexity</span></button>
+                <button class="btn-switch" data-service="canva" onclick="switchService('canva')"><i data-lucide="palette"></i> <span data-en="Canva" data-ar="Canva">Canva</span></button>
+                <button class="btn-switch" data-service="veed" onclick="switchService('veed')"><i data-lucide="video"></i> <span data-en="Veed.io" data-ar="Veed.io">Veed.io</span></button>
+                <button class="btn-switch" data-service="epic" onclick="switchService('epic')"><i data-lucide="gamepad-2"></i> <span data-en="Epic Games" data-ar="Epic Games">Epic Games</span></button>
+                <button class="btn-switch" data-service="apple-tv" onclick="switchService('apple-tv')"><i data-lucide="tv"></i> <span data-en="Apple TV+" data-ar="Apple TV+">Apple TV+</span></button>
+                <button class="btn-switch" data-service="apple-music" onclick="switchService('apple-music')"><i data-lucide="music"></i> <span data-en="Apple Music" data-ar="Apple Music">Apple Music</span></button>
+                <button class="btn-switch" data-service="crunchyroll" onclick="switchService('crunchyroll')"><i data-lucide="tv-2"></i> <span data-en="Crunchyroll" data-ar="Crunchyroll">Crunchyroll</span></button>
+            </div>
+
+            <div class="accounts-grid" id="accountsGrid" style="display: flex; justify-content: center;">
+                
+                <div id="chatgptAccount" class="account-container">
+                    <div class="card">
+                        <div class="card-header"><h2 class="card-title" data-en="ChatGPT Pro" data-ar="ChatGPT برو">ChatGPT Pro</h2></div>
+                        <div class="card-content">
+                            <details>
+                                <summary><span data-en="About & How to Login" data-ar="عن الخدمة وكيفية الدخول">About & How to Login</span></summary>
+                                <div class="tutorial-content">
+                                    <p data-en="A powerful AI chatbot with faster responses and priority access to new features like GPT-4." data-ar="روبوت محادثة قوي مع استجابات أسرع ووصول مميز للميزات الجديدة مثل GPT-4.">A powerful AI chatbot with faster responses and priority access to new features like GPT-4.</p>
+                                    <ol class="tutorial-list">
+                                        <li data-en="Go to the official ChatGPT website." data-ar="اذهب لموقع ChatGPT الرسمي.">Go to the official ChatGPT website.</li>
+                                        <li data-en="Copy & paste the email and password." data-ar="انسخ والصق الإيميل وكلمة المرور.">Copy & paste the email and password.</li>
+                                        <li data-en="If asked for a code, use the verification button." data-ar="إذا طُلب منك رمز، استخدم زر التحقق.">If asked for a code, use the verification button.</li>
+                                    </ol>
+                                </div>
+                            </details>
+                            <div><label class="label" data-en="Email" data-ar="الإيميل">Email</label><div style="display:flex; gap: 0.5rem;"><input type="text" class="input" value="oxaamgbpn5365@oxaam.com" readonly><button class="btn btn-outline" onclick="copyText(this.previousElementSibling.value)"><i data-lucide="copy"></i></button></div></div>
+                            <div style="margin-top: 1rem;"><label class="label" data-en="Password" data-ar="كلمة المرور">Password</label><div style="display:flex; gap: 0.5rem;"><input type="password" class="input" value="oxaam6604999" readonly id="chatgptPassword"><button class="btn btn-outline" onclick="togglePasswordVisibility(this.previousElementSibling)"><i data-lucide="eye"></i></button><button class="btn btn-outline" onclick="copyText(this.previousElementSibling.previousElementSibling.value)"><i data-lucide="copy"></i></button></div></div>
+                            <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;" onclick="openVerificationLink('https://www.oxaam.com/cgcode12.php')"><i data-lucide="external-link"></i> <span data-en="Get Verification Code" data-ar="الحصول على رمز التحقق">Get Verification Code</span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="perplexityAccount" class="account-container">
+                    <div class="card">
+                        <div class="card-header"><h2 class="card-title" data-en="Perplexity AI Pro" data-ar="Perplexity AI برو">Perplexity AI Pro</h2></div>
+                        <div class="card-content">
+                            <details><summary><span data-en="About & How to Login" data-ar="عن الخدمة وكيفية الدخول">About & How to Login</span></summary><div class="tutorial-content"><p data-en="A conversational search engine for research. Pro offers unlimited file uploads and access to the latest AI models." data-ar="محرك بحث حواري للبحث. يتيح الإصدار Pro تحميلات غير محدودة للملفات والوصول إلى أحدث نماذج الذكاء الاصطناعي.">A conversational search engine for research. Pro offers unlimited file uploads and access to the latest AI models.</p><ol class="tutorial-list"><li data-en="On Perplexity, choose to log in with email." data-ar="في Perplexity، اختر تسجيل الدخول بالبريد الإلكتروني.">On Perplexity, choose to log in with email.</li><li data-en="Copy the email and paste it in." data-ar="انسخ البريد الإلكتروني وألصقه.">Copy the email and paste it in.</li><li data-en="Click 'Get Verification Code' here to get your code." data-ar="انقر على 'الحصول على رمز التحقق' هنا للحصول على الرمز.">Click 'Get Verification Code' here to get your code.</li></ol></div></details>
+                            <div><label class="label" data-en="Email" data-ar="الإيميل">Email</label><div style="display:flex; gap: 0.5rem;"><input type="text" class="input" value="purplixyee641@oxaam.com" readonly><button class="btn btn-outline" onclick="copyText(this.previousElementSibling.value)"><i data-lucide="copy"></i></button></div></div>
+                            <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;" onclick="openVerificationLink('https://www.oxaam.com/prxlycode5.php')"><i data-lucide="external-link"></i> <span data-en="Get Verification Code" data-ar="الحصول على رمز التحقق">Get Verification Code</span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="canvaAccount" class="account-container"> <div class="card"> <div class="card-header"><h2 class="card-title" data-en="Canva Pro" data-ar="Canva برو">Canva Pro</h2></div> <div class="card-content"> <details><summary><span data-en="About & How to Login" data-ar="عن الخدمة وكيفية الدخول">About & How to Login</span></summary><div class="tutorial-content"><p data-en="A user-friendly design tool. Pro unlocks premium templates, background remover, and other powerful features." data-ar="أداة تصميم سهلة الاستخدام. يفتح الإصدار Pro القوالب المتميزة ومزيل الخلفية وميزات قوية أخرى.">A user-friendly design tool. Pro unlocks premium templates, background remover, and other powerful features.</p><ol class="tutorial-list"><li data-en="On Canva, choose to log in with email." data-ar="في Canva، اختر تسجيل الدخول بالبريد الإلكتروني.">On Canva, choose to log in with email.</li><li data-en="Copy the email and use the verification button for the code." data-ar="انسخ البريد الإلكتروني واستخدم زر التحقق للحصول على الرمز.">Copy the email and use the verification button for the code.</li></ol></div></details> <div><label class="label" data-en="Email" data-ar="الإيميل">Email</label><div style="display:flex; gap: 0.5rem;"><input type="text" class="input" value="Kenva9659@examtestseries.online" readonly><button class="btn btn-outline" onclick="copyText(this.previousElementSibling.value)"><i data-lucide="copy"></i></button></div></div> <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;" onclick="openVerificationLink('https://www.oxaam.com/kaanvahcode11.php')"><i data-lucide="external-link"></i> <span data-en="Get Verification Code" data-ar="الحصول على رمز التحقق">Get Verification Code</span></button> </div> </div> </div>
+                <div id="veedAccount" class="account-container"> <div class="card"> <div class="card-header"><h2 class="card-title" data-en="Veed.io Pro" data-ar="Veed.io برو">Veed.io Pro</h2></div> <div class="card-content"> <details><summary><span data-en="About & How to Login" data-ar="عن الخدمة وكيفية الدخول">About & How to Login</span></summary><div class="tutorial-content"><p data-en="An online video editing platform. Pro removes watermarks and provides access to premium features." data-ar="منصة لتحرير الفيديو عبر الإنترنت. يزيل الإصدار Pro العلامات المائية ويوفر الوصول إلى الميزات المتميزة.">An online video editing platform. Pro removes watermarks and provides access to premium features.</p><ol class="tutorial-list"><li data-en="On Veed.io, choose to log in." data-ar="في Veed.io، اختر تسجيل الدخول.">On Veed.io, choose to log in.</li><li data-en="Copy the email and get the verification code to sign in." data-ar="انسخ البريد الإلكتروني واحصل على رمز التحقق لتسجيل الدخول.">Copy the email and get the verification code to sign in.</li></ol></div></details> <div><label class="label" data-en="Email" data-ar="الإيميل">Email</label><div style="display:flex; gap: 0.5rem;"><input type="text" class="input" value="videoai5@oxaam.com" readonly><button class="btn btn-outline" onclick="copyText(this.previousElementSibling.value)"><i data-lucide="copy"></i></button></div></div> <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;" onclick="openVerificationLink('https://www.oxaam.com/vdoaicode5.php')"><i data-lucide="external-link"></i> <span data-en="Get Verification Code" data-ar="الحصول على رمز التحقق">Get Verification Code</span></button> </div> </div> </div>
+                <div id="epicAccount" class="account-container"> <div class="card"> <div class="card-header"><h2 class="card-title" data-en="Epic Games" data-ar="Epic Games">Epic Games</h2></div> <div class="card-content"> <details><summary><span data-en="About & How to Login" data-ar="عن الخدمة وكيفية الدخول">About & How to Login</span></summary><div class="tutorial-content"><p data-en="A digital storefront for PC games. This account includes an active EA Play subscription." data-ar="متجر رقمي لألعاب الكمبيوتر. يتضمن هذا الحساب اشتراكًا نشطًا في EA Play.">A digital storefront for PC games. This account includes an active EA Play subscription.</p><ol class="tutorial-list"><li data-en="Log in on the Epic Games website or launcher." data-ar="سجل الدخول على موقع Epic Games أو المشغل.">Log in on the Epic Games website or launcher.</li><li data-en="Copy & paste the email and password." data-ar="انسخ والصق الإيميل وكلمة المرور.">Copy & paste the email and password.</li></ol></div></details> <div><label class="label" data-en="Email" data-ar="الإيميل">Email</label><div style="display:flex; gap: 0.5rem;"><input type="text" class="input" value="aapikgames@oxaam.com" readonly><button class="btn btn-outline" onclick="copyText(this.previousElementSibling.value)"><i data-lucide="copy"></i></button></div></div> <div style="margin-top: 1rem;"><label class="label" data-en="Password" data-ar="كلمة المرور">Password</label><div style="display:flex; gap: 0.5rem;"><input type="password" class="input" value="Oxaam7714912#" readonly id="epicPassword"><button class="btn btn-outline" onclick="togglePasswordVisibility(this.previousElementSibling)"><i data-lucide="eye"></i></button><button class="btn btn-outline" onclick="copyText(this.previousElementSibling.previousElementSibling.value)"><i data-lucide="copy"></i></button></div></div> <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;" onclick="openVerificationLink('https://www.oxaam.com/aapikcode.php')"><i data-lucide="external-link"></i> <span data-en="Get Verification Code" data-ar="الحصول على رمز التحقق">Get Verification Code</span></button> </div> </div> </div>
+                <div id="appleTvAccount" class="account-container"> <div class="card"> <div class="card-header"><h2 class="card-title" data-en="Apple TV+" data-ar="Apple TV+">Apple TV+</h2></div> <div class="card-content"> <details><summary><span data-en="About & How to Login" data-ar="عن الخدمة وكيفية الدخول">About & How to Login</span></summary><div class="tutorial-content"><p data-en="A streaming service with original TV shows, movies, and documentaries, all ad-free." data-ar="خدمة بث مع برامج تلفزيونية وأفلام ووثائقيات أصلية، كلها بدون إعلانات.">A streaming service with original TV shows, movies, and documentaries, all ad-free.</p><ol class="tutorial-list"><li data-en="Use the email & password on the Apple TV app or website." data-ar="استخدم البريد الإلكتروني وكلمة المرور على تطبيق Apple TV أو الموقع.">Use the email & password on the Apple TV app or website.</li></ol></div></details> <div><label class="label" data-en="Email" data-ar="الإيميل">Email</label><div style="display:flex; gap: 0.5rem;"><input type="text" class="input" value="aptvliv915@oxaam.com" readonly><button class="btn btn-outline" onclick="copyText(this.previousElementSibling.value)"><i data-lucide="copy"></i></button></div></div> <div style="margin-top: 1rem;"><label class="label" data-en="Password" data-ar="كلمة المرور">Password</label><div style="display:flex; gap: 0.5rem;"><input type="password" class="input" value="Oxaam915671#" readonly id="appleTvPassword"><button class="btn btn-outline" onclick="togglePasswordVisibility(this.previousElementSibling)"><i data-lucide="eye"></i></button><button class="btn btn-outline" onclick="copyText(this.previousElementSibling.previousElementSibling.value)"><i data-lucide="copy"></i></button></div></div> </div> </div> </div>
+                <div id="appleMusicAccount" class="account-container"> <div class="card"> <div class="card-header"><h2 class="card-title" data-en="Apple Music" data-ar="Apple Music">Apple Music</h2></div> <div class="card-content"> <details><summary><span data-en="About & How to Login" data-ar="عن الخدمة وكيفية الدخول">About & How to Login</span></summary><div class="tutorial-content"><p data-en="Access over 100 million songs ad-free. Listen online or off with high-quality audio." data-ar="الوصول إلى أكثر من 100 مليون أغنية بدون إعلانات. استمع عبر الإنترنت أو دون اتصال بصوت عالي الجودة.">Access over 100 million songs ad-free. Listen online or off with high-quality audio.</p><ol class="tutorial-list"><li data-en="Use the email & password on the Apple Music app or website." data-ar="استخدم البريد الإلكتروني وكلمة المرور على تطبيق Apple Music أو الموقع.">Use the email & password on the Apple Music app or website.</li></ol></div></details> <div><label class="label" data-en="Email" data-ar="الإيميل">Email</label><div style="display:flex; gap: 0.5rem;"><input type="text" class="input" value="aptmusc9@oxaam.com" readonly><button class="btn btn-outline" onclick="copyText(this.previousElementSibling.value)"><i data-lucide="copy"></i></button></div></div> <div style="margin-top: 1rem;"><label class="label" data-en="Password" data-ar="كلمة المرور">Password</label><div style="display:flex; gap: 0.5rem;"><input type="password" class="input" value="Oxaam9945#" readonly id="appleMusicPassword"><button class="btn btn-outline" onclick="togglePasswordVisibility(this.previousElementSibling)"><i data-lucide="eye"></i></button><button class="btn btn-outline" onclick="copyText(this.previousElementSibling.previousElementSibling.value)"><i data-lucide="copy"></i></button></div></div> </div> </div> </div>
+                <div id="crunchyrollAccount" class="account-container"> <div class="card"> <div class="card-header"><h2 class="card-title" data-en="Crunchyroll" data-ar="Crunchyroll">Crunchyroll</h2></div> <div class="card-content"> <details><summary><span data-en="About & How to Login" data-ar="عن الخدمة وكيفية الدخول">About & How to Login</span></summary><div class="tutorial-content"><p data-en="The world's largest destination for anime and manga, available to stream ad-free." data-ar="أكبر وجهة في العالم للأنمي والمانجا، متاحة للبث بدون إعلانات.">The world's largest destination for anime and manga, available to stream ad-free.</p><ol class="tutorial-list"><li data-en="Log in on the Crunchyroll app or website with the credentials." data-ar="سجل الدخول على تطبيق Crunchyroll أو الموقع باستخدام البيانات.">Log in on the Crunchyroll app or website with the credentials.</li></ol></div></details> <div><label class="label" data-en="Email" data-ar="الإيميل">Email</label><div style="display:flex; gap: 0.5rem;"><input type="text" class="input" value="krunshyrole39@pnao.in" readonly><button class="btn btn-outline" onclick="copyText(this.previousElementSibling.value)"><i data-lucide="copy"></i></button></div></div> <div style="margin-top: 1rem;"><label class="label" data-en="Password" data-ar="كلمة المرور">Password</label><div style="display:flex; gap: 0.5rem;"><input type="password" class="input" value="oxaam3939115" readonly id="crunchyrollPassword"><button class="btn btn-outline" onclick="togglePasswordVisibility(this.previousElementSibling)"><i data-lucide="eye"></i></button><button class="btn btn-outline" onclick="copyText(this.previousElementSibling.previousElementSibling.value)"><i data-lucide="copy"></i></button></div></div> </div> </div> </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const settings = {
+                theme: localStorage.getItem('theme') || 'light',
+                uiMode: localStorage.getItem('uiMode') || 'default',
+                lang: 'en'
+            };
+
+            const app = {
+                init() {
+                    this.applyTheme();
+                    this.applyUIMode();
+                    this.setupEventListeners();
+                    switchService('chatgpt');
+                    lucide.createIcons();
+                },
+                applyTheme() {
+                    document.body.classList.toggle('dark', settings.theme === 'dark');
+                    document.getElementById('themeIcon').setAttribute('data-lucide', settings.theme === 'dark' ? 'sun' : 'moon');
+                    lucide.createIcons();
+                },
+                applyUIMode() {
+                    document.body.classList.toggle('experimental-ui', settings.uiMode === 'experimental');
+                },
+                applyLanguage() {
+                    const isArabic = settings.lang === 'ar';
+                    document.body.classList.toggle('arabic', isArabic);
+                    document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
+                    document.querySelectorAll('[data-en]').forEach(el => {
+                        el.textContent = el.dataset[settings.lang];
+                    });
+                },
+                setupEventListeners() {
+                    window.toggleTheme = () => {
+                        settings.theme = (settings.theme === 'light') ? 'dark' : 'light';
+                        localStorage.setItem('theme', settings.theme);
+                        this.applyTheme();
+                    };
+                    window.toggleExperimentalUI = () => {
+                        settings.uiMode = (settings.uiMode === 'default') ? 'experimental' : 'default';
+                        localStorage.setItem('uiMode', settings.uiMode);
+                        this.applyUIMode();
+                    };
+                    window.toggleLanguage = () => {
+                        settings.lang = (settings.lang === 'en') ? 'ar' : 'en';
+                        this.applyLanguage();
+                    };
+                    document.querySelectorAll('.card').forEach(card => {
+                        card.onmousemove = e => {
+                            const rect = card.getBoundingClientRect();
+                            const x = e.clientX - rect.left;
+                            const y = e.clientY - rect.top;
+                            card.style.setProperty('--mouse-x', `${x}px`);
+                            card.style.setProperty('--mouse-y', `${y}px`);
+                        };
+                    });
+                }
+            };
+            app.init();
+        });
+
+        let currentService = '';
+        function switchService(service) {
+            if (service === currentService) return;
+
+            const serviceButtons = document.querySelectorAll('.btn-switch');
+            serviceButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.service === service));
+            
+            const container = document.getElementById('accountsGrid');
+            const newId = service.replace(/-(\w)/g, (_, c) => c.toUpperCase()) + 'Account';
+            const newEl = document.getElementById(newId);
+            const oldEl = currentService ? document.getElementById(currentService.replace(/-(\w)/g, (_, c) => c.toUpperCase()) + 'Account') : null;
+
+            if (oldEl) {
+                oldEl.classList.remove('active');
+                oldEl.style.animation = 'fadeOut 0.2s ease-out forwards';
+                setTimeout(() => {
+                    oldEl.style.display = 'none';
+                    if (newEl) {
+                        newEl.style.display = 'block';
+                        newEl.style.animation = 'fadeIn 0.3s ease-in forwards';
+                        newEl.classList.add('active');
+                    }
+                }, 200);
+            } else if (newEl) {
+                newEl.style.display = 'block';
+                newEl.style.animation = 'fadeIn 0.3s ease-in forwards';
+                newEl.classList.add('active');
+            }
+            currentService = service;
+        }
+
+        // Add fadeOut keyframes to style
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `@keyframes fadeOut { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.98); } }`;
+        document.head.appendChild(styleSheet);
+
+
+        function copyText(element) {
+            navigator.clipboard.writeText(element.value).then(() => showToast('Copied to clipboard!')).catch(err => showToast('Failed to copy.'));
+        }
+        
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+        
+        function openVerificationLink(url) {
+            window.open(url, '_blank');
+        }
+        
+        function togglePasswordVisibility(input) {
+            const icon = input.nextElementSibling.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.setAttribute('data-lucide', 'eye-off');
+            } else {
+                input.type = 'password';
+                icon.setAttribute('data-lucide', 'eye');
+            }
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
