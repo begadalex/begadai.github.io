@@ -24,7 +24,7 @@
             direction: rtl;
         }
 
-        /* Animated Background */
+        /* Enhanced Animated Background */
         .bg-animation {
             position: fixed;
             inset: 0;
@@ -33,13 +33,20 @@
             z-index: 0;
         }
 
+        .bg-particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: floatParticle 20s linear infinite;
+        }
+
         .bg-circle-1 {
             position: absolute;
             top: -50%;
             left: -50%;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
             border-radius: 50%;
             animation: pulse 4s ease-in-out infinite;
         }
@@ -50,14 +57,37 @@
             right: -50%;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, transparent 70%);
             border-radius: 50%;
             animation: pulse 4s ease-in-out infinite 1s;
+        }
+
+        .bg-circle-3 {
+            position: absolute;
+            top: 30%;
+            left: 70%;
+            width: 40%;
+            height: 40%;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite 0.5s;
         }
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); opacity: 0.5; }
             50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-100px) translateX(100px) rotate(360deg); opacity: 0; }
         }
 
         @keyframes fadeInUp {
@@ -71,6 +101,27 @@
             }
         }
 
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(147, 51, 234, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(147, 51, 234, 0.7); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
         /* Header */
         header {
             position: relative;
@@ -78,6 +129,7 @@
             backdrop-filter: blur(12px);
             background: rgba(255, 255, 255, 0.05);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            animation: slideInRight 0.8s ease-out;
         }
 
         .header-container {
@@ -95,6 +147,12 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .logo-section:hover {
+            transform: scale(1.05) rotate(-2deg);
         }
 
         .logo-icon {
@@ -102,6 +160,7 @@
             background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
             border-radius: 0.75rem;
             box-shadow: 0 10px 25px rgba(147, 51, 234, 0.5);
+            animation: glow 2s ease-in-out infinite;
         }
 
         .logo-icon svg {
@@ -112,34 +171,38 @@
 
         .logo-text h1 {
             font-size: 1.5rem;
-            font-weight: bold;
+            font-weight: 800;
             background: linear-gradient(to right, #60a5fa, #a78bfa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .logo-text p {
             font-size: 0.875rem;
             color: #9ca3af;
+            font-weight: 500;
         }
 
         .lang-toggle {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 1.25rem;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 9999px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 600;
+            backdrop-filter: blur(10px);
         }
 
         .lang-toggle:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.05);
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
         .lang-toggle svg {
@@ -158,6 +221,7 @@
 
         section {
             margin-bottom: 3rem;
+            animation: fadeInUp 0.6s ease-out both;
         }
 
         .section-header {
@@ -170,14 +234,35 @@
         .section-header svg {
             width: 2rem;
             height: 2rem;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
         }
 
         .section-header h2 {
             font-size: 1.875rem;
-            font-weight: bold;
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        /* Cards Grid */
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            border-radius: 2px;
+            animation: widthGrow 1s ease-out 0.5s both;
+        }
+
+        @keyframes widthGrow {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+
+        /* Enhanced Cards Grid */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -192,14 +277,31 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 1.5rem;
-            transition: all 0.5s;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             animation: fadeInUp 0.6s ease-out both;
         }
 
         .card:hover {
-            transform: scale(1.05);
+            transform: translateY(-10px) scale(1.05);
             border-color: rgba(255, 255, 255, 0.3);
             box-shadow: 0 20px 60px rgba(147, 51, 234, 0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
         }
 
         .card-gradient {
@@ -207,6 +309,7 @@
             inset: 0;
             opacity: 0;
             transition: opacity 0.5s;
+            z-index: -1;
         }
 
         .card:hover .card-gradient {
@@ -229,6 +332,11 @@
             padding: 0.75rem;
             border-radius: 0.75rem;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card:hover .card-icon {
+            transform: rotate(15deg) scale(1.1);
         }
 
         .card-icon svg {
@@ -240,22 +348,27 @@
             font-size: 0.875rem;
             font-weight: 600;
             color: #9ca3af;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
         }
 
         .card h3 {
             font-size: 1.125rem;
-            font-weight: bold;
+            font-weight: 700;
             margin-bottom: 0.5rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         .card-lessons {
             font-size: 1.5rem;
-            font-weight: bold;
+            font-weight: 800;
             background: linear-gradient(to right, #60a5fa, #a78bfa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .download-btn {
@@ -269,17 +382,43 @@
             font-weight: 600;
             text-decoration: none;
             color: white;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            font-size: 0.875rem;
+            letter-spacing: 0.5px;
+        }
+
+        .download-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .download-btn:hover::after {
+            left: 100%;
         }
 
         .download-btn svg {
             width: 1.25rem;
             height: 1.25rem;
+            transition: transform 0.3s;
+        }
+
+        .download-btn:hover svg {
+            transform: translateY(-2px);
         }
 
         .download-btn:hover {
             box-shadow: 0 10px 25px rgba(147, 51, 234, 0.5);
-            transform: scale(1.05);
+            transform: translateY(-2px);
         }
 
         /* Teacher Book Card */
@@ -291,11 +430,11 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(16, 185, 129, 0.3);
             padding: 2rem;
-            transition: all 0.5s;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .teacher-card:hover {
-            transform: scale(1.05);
+            transform: translateY(-10px) scale(1.05);
             border-color: rgba(16, 185, 129, 0.5);
             box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
         }
@@ -308,6 +447,7 @@
             height: 16rem;
             background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
             border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
         }
 
         .teacher-content {
@@ -330,6 +470,12 @@
             background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
             border-radius: 1rem;
             box-shadow: 0 10px 25px rgba(16, 185, 129, 0.5);
+            animation: glow 2s ease-in-out infinite;
+            transition: transform 0.3s;
+        }
+
+        .teacher-card:hover .teacher-icon {
+            transform: rotate(10deg);
         }
 
         .teacher-icon svg {
@@ -339,12 +485,521 @@
 
         .teacher-text h3 {
             font-size: 1.5rem;
-            font-weight: bold;
+            font-weight: 800;
             margin-bottom: 0.25rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .teacher-text p {
             color: #d1d5db;
+            font-weight: 500;
+        }
+
+        /* Mini Game Section */
+        .game-section {
+            margin-top: 4rem;
+            padding: 2.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .game-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .game-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .game-icon {
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.5);
+            animation: shake 0.5s ease-in-out infinite alternate, bounce 2s ease-in-out infinite;
+        }
+
+        .game-icon svg {
+            width: 2rem;
+            height: 2rem;
+        }
+
+        .game-title-text h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #f97316, #ef4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-title-text p {
+            color: #9ca3af;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .game-stats {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            min-width: 120px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fbbf24;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #9ca3af;
+            font-weight: 600;
+        }
+
+        .game-container {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .game-preview {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .game-canvas-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        #gameCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .game-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-out;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .game-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .game-overlay h3 {
+            font-size: 2.5rem;
+            color: #ef4444;
+            animation: shake 0.5s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+            font-weight: 800;
+        }
+
+        .game-overlay p {
+            font-size: 1.5rem;
+            color: #fbbf24;
+            font-weight: 700;
+        }
+
+        .game-controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .game-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .game-btn.primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .game-btn.danger {
+            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .game-btn.success {
+            background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .game-btn.gold {
+            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .game-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .game-btn svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            transition: transform 0.3s;
+        }
+
+        .game-btn:hover svg {
+            transform: translateY(-2px);
+        }
+
+        .leaderboard {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .leaderboard-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .leaderboard-header svg {
+            width: 2rem;
+            height: 2rem;
+            color: #fbbf24;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .leaderboard-header h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .leaderboard-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.75rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .leaderboard-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .leaderboard-item.you {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        .rank {
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            font-weight: 800;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+
+        .rank-1 { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #000; box-shadow: 0 0 20px rgba(251, 191, 36, 0.5); }
+        .rank-2 { background: linear-gradient(135deg, #d1d5db, #9ca3af); color: #000; }
+        .rank-3 { background: linear-gradient(135deg, #92400e, #78350f); color: #fff; }
+
+        .player-info {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .player-avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.125rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .player-name {
+            font-weight: 700;
+        }
+
+        .player-score {
+            font-weight: 800;
+            color: #fbbf24;
+            font-size: 1.125rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .coin-counter {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            border: 2px solid #fbbf24;
+            backdrop-filter: blur(5px);
+            z-index: 1;
+        }
+
+        .coin-counter svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: #fbbf24;
+            animation: bounce 2s infinite;
+        }
+
+        .coin-count {
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: #fbbf24;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Skin Shop */
+        .skin-shop {
+            margin-top: 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .skin-shop-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .skin-shop-header h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .skin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .skin-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .skin-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .skin-item.selected {
+            border-color: #3b82f6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+
+        .skin-item.owned {
+            border-color: #10b981;
+        }
+
+        .skin-item.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .skin-preview {
+            width: 60px;
+            height: 80px;
+            margin: 0 auto 0.5rem;
+            border-radius: 0.5rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+        }
+
+        .skin-name {
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .skin-price {
+            color: #fbbf24;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .skin-price.free {
+            color: #10b981;
+        }
+
+        .touch-controls {
+            display: none;
+            position: absolute;
+            bottom: 1rem;
+            left: 0;
+            right: 0;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+
+        .touch-btn {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            user-select: none;
+            backdrop-filter: blur(5px);
+            transition: all 0.2s;
+        }
+
+        .touch-btn:active {
+            transform: scale(0.9);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Fullscreen Game */
+        #gameFullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+        }
+
+        .fullscreen-header {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #fullscreenCanvas {
+            flex: 1;
+            width: 100%;
         }
 
         /* Footer */
@@ -357,11 +1012,13 @@
             background: rgba(255, 255, 255, 0.05);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
+            animation: fadeInUp 0.6s ease-out 0.4s both;
         }
 
         .footer-credit {
             color: #9ca3af;
             margin-bottom: 0.5rem;
+            font-weight: 500;
         }
 
         .footer-info {
@@ -371,6 +1028,7 @@
             gap: 0.5rem;
             font-size: 0.875rem;
             color: #6b7280;
+            font-weight: 500;
         }
 
         .footer-info svg {
@@ -391,6 +1049,11 @@
             .section-header h2 { font-size: 1.5rem; }
             .teacher-icon svg { width: 2rem; height: 2rem; }
             .teacher-text h3 { font-size: 1.25rem; }
+            .touch-controls { display: flex; }
+            .game-btn { padding: 0.5rem 1rem; font-size: 0.875rem; }
+            .stat-box { min-width: 100px; padding: 0.5rem 1rem; }
+            .game-section { padding: 1.5rem; }
+            .game-title-text h3 { font-size: 1.5rem; }
         }
 
         @media (min-width: 640px) {
@@ -400,20 +1063,22 @@
 
         @media (min-width: 1024px) {
             .cards-grid { grid-template-columns: repeat(3, 1fr); }
+            .skin-grid { grid-template-columns: repeat(4, 1fr); }
         }
     </style>
 </head>
 <body id="app">
     <!-- Animated Background -->
-    <div class="bg-animation">
+    <div class="bg-animation" id="bgAnimation">
         <div class="bg-circle-1"></div>
         <div class="bg-circle-2"></div>
+        <div class="bg-circle-3"></div>
     </div>
 
     <!-- Header -->
     <header>
         <div class="header-container">
-            <div class="logo-section">
+            <div class="logo-section" onclick="scrollToTop()">
                 <div class="logo-icon">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
@@ -425,7 +1090,7 @@
                 </div>
             </div>
             
-            <button class="lang-toggle" onclick="toggleLanguage()">
+            <button class="lang-toggle" id="langToggle">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
@@ -446,6 +1111,7 @@
             </div>
             
             <div class="cards-grid">
+                <!-- Cards 1-5 (same as before) -->
                 <!-- Card 1 -->
                 <div class="card" style="animation-delay: 0s">
                     <div class="card-gradient gradient-blue"></div>
@@ -596,7 +1262,141 @@
                 </div>
             </div>
         </section>
+
+        <!-- Mini Game Section -->
+        <section class="game-section">
+            <div class="game-header">
+                <div class="game-title">
+                    <div class="game-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <div class="game-title-text">
+                        <h3 id="gameTitle">🏃 Ahmed and Nahla - احمد و نهلة</h3>
+                        <p id="gameDesc">Run from the scary teacher! Collect coins, avoid Nahla, and climb the leaderboard!</p>
+                    </div>
+                </div>
+                <div class="game-stats">
+                    <div class="stat-box">
+                        <div class="stat-value" id="currentScore">0</div>
+                        <div class="stat-label" id="scoreLabel">Score</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="highScore">0</div>
+                        <div class="stat-label" id="highScoreLabel">High Score</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="coins">0</div>
+                        <div class="stat-label" id="coinsLabel">Coins</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="game-container">
+                <div class="game-preview">
+                    <div class="game-canvas-container">
+                        <canvas id="gameCanvas" width="800" height="450"></canvas>
+                        <div class="coin-counter">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span class="coin-count" id="gameCoins">0</span>
+                        </div>
+                        <div class="game-overlay" id="gameOverlay">
+                            <h3 id="gameOverText">GAME OVER!</h3>
+                            <p id="gameOverScore">Score: 0</p>
+                            <div class="game-controls">
+                                <button class="game-btn success" onclick="restartGame()" id="restartBtn">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                    </svg>
+                                    <span id="restartText">Restart</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="touch-controls">
+                            <div class="touch-btn" id="touchLeft">←</div>
+                            <div class="touch-btn" id="touchRight">→</div>
+                        </div>
+                    </div>
+                    
+                    <div class="game-controls">
+                        <button class="game-btn primary" onclick="startGame()" id="startBtn">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span id="startText">Start Game</span>
+                        </button>
+                        <button class="game-btn danger" onclick="toggleFullscreen()" id="fullscreenBtn">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"></path>
+                            </svg>
+                            <span id="fullscreenText">Fullscreen</span>
+                        </button>
+                        <button class="game-btn gold" onclick="openShop()" id="shopBtn">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                            </svg>
+                            <span id="shopText">Shop</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="leaderboard">
+                    <div class="leaderboard-header">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                        <h3 id="leaderboardTitle">Leaderboard</h3>
+                    </div>
+                    <div class="leaderboard-list" id="leaderboardList">
+                        <!-- Leaderboard items will be dynamically generated -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Skin Shop -->
+            <div class="skin-shop" id="skinShop" style="display: none;">
+                <div class="skin-shop-header">
+                    <h3 id="shopTitle">Skin Shop</h3>
+                    <button class="game-btn danger" onclick="closeShop()" id="closeShopBtn">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                        <span id="closeText">Close</span>
+                    </button>
+                </div>
+                <div class="skin-grid" id="skinGrid">
+                    <!-- Skins will be dynamically generated -->
+                </div>
+            </div>
+        </section>
     </main>
+
+    <!-- Fullscreen Game Container -->
+    <div id="gameFullscreen">
+        <div class="fullscreen-header">
+            <button class="game-btn danger" onclick="toggleFullscreen()" id="exitFullscreenBtn">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                <span id="exitFullscreenText">Exit Fullscreen</span>
+            </button>
+            <div class="coin-counter">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="coin-count" id="fullscreenCoins">0</span>
+            </div>
+        </div>
+        <canvas id="fullscreenCanvas"></canvas>
+        <div class="touch-controls">
+            <div class="touch-btn" id="fullscreenTouchLeft">←</div>
+            <div class="touch-btn" id="fullscreenTouchRight">→</div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -605,4 +1405,1013 @@
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
             </svg>
-            <span>American English File
+            <span>American English File Level 5 - Course Materials</span>
+        </div>
+    </footer>
+
+    <script>
+        // Language Toggle Functionality
+        let isEnglish = true;
+        const langToggle = document.getElementById('langToggle');
+        const langText = document.getElementById('langText');
+        const app = document.getElementById('app');
+        
+        const translations = {
+            en: {
+                title: "COURSEGUIDE",
+                subtitle: "Your Complete Learning Companion",
+                studentBookTitle: "Student Book Audio",
+                teacherBookTitle: "Teacher's Book",
+                teacherTitle: "Level 5 Teacher's Book",
+                teacherDesc: "Complete teaching guide and resources",
+                downloadTeacher: "Download",
+                credit: "Created by Begad",
+                lessonsLabel: "Lessons",
+                downloadBtn: "Download",
+                gameTitle: "🏃 Ahmed and Nahla - احمد و نهلة",
+                gameDesc: "Run from the scary teacher! Collect coins, avoid Nahla, and climb the leaderboard!",
+                scoreLabel: "Score",
+                highScoreLabel: "High Score",
+                coinsLabel: "Coins",
+                startText: "Start Game",
+                fullscreenText: "Fullscreen",
+                shopText: "Shop",
+                restartText: "Restart",
+                leaderboardTitle: "Leaderboard",
+                shopTitle: "Skin Shop",
+                closeText: "Close",
+                exitFullscreenText: "Exit Fullscreen",
+                gameOverMessages: [
+                    "NAHLA CAUGHT YOU!",
+                    "YOU FAILED THE TEST!",
+                    "BETTER LUCK NEXT TIME!",
+                    "TEACHER'S PET CAUGHT!",
+                    "BACK TO CLASS!"
+                ],
+                skinNames: {
+                    default: "Default Ahmed",
+                    ninja: "Ninja Ahmed",
+                    super: "Super Student",
+                    flash: "Flash Runner",
+                    robot: "Robot Ahmed",
+                    king: "King Ahmed",
+                    ghost: "Ghost Ahmed",
+                    gold: "Golden Ahmed"
+                },
+                skinDescriptions: {
+                    default: "The basic student",
+                    ninja: "Silent and fast",
+                    super: "With cape powers",
+                    flash: "Super speed",
+                    robot: "Metal body",
+                    king: "Royal treatment",
+                    ghost: "Can phase through",
+                    gold: "Shiny and rich"
+                }
+            },
+            ar: {
+                title: "دليل الدورة",
+                subtitle: "رفيقك التعليمي الكامل",
+                studentBookTitle: "كتاب الطالب الصوتي",
+                teacherBookTitle: "كتاب المعلم",
+                teacherTitle: "كتاب المعلم المستوى الخامس",
+                teacherDesc: "دليل تدريس كامل والموارد",
+                downloadTeacher: "تحميل",
+                credit: "صنع بواسطة بيجاد",
+                lessonsLabel: "الدروس",
+                downloadBtn: "تحميل",
+                gameTitle: "🏃 أحمد و نهلة",
+                gameDesc: "اهرب من المعلمة المخيفة! اجمع العملات، تجنب نهلة، وتسلق لوحة المتصدرين!",
+                scoreLabel: "النقاط",
+                highScoreLabel: "أعلى نقاط",
+                coinsLabel: "العملات",
+                startText: "ابدأ اللعبة",
+                fullscreenText: "ملء الشاشة",
+                shopText: "المتجر",
+                restartText: "إعادة",
+                leaderboardTitle: "لوحة المتصدرين",
+                shopTitle: "متجر المظهر",
+                closeText: "إغلاق",
+                exitFullscreenText: "خروج من ملء الشاشة",
+                gameOverMessages: [
+                    "نهلة أمسكت بك!",
+                    "فشلت في الاختبار!",
+                    "حظ أوفر في المرة القادمة!",
+                    "تلميذ المفضل تم القبض عليه!",
+                    "العودة إلى الفصل!"
+                ],
+                skinNames: {
+                    default: "أحمد الأساسي",
+                    ninja: "أحمد النينجا",
+                    super: "الطالب الخارق",
+                    flash: "عداء سريع",
+                    robot: "أحمد الآلي",
+                    king: "الملك أحمد",
+                    ghost: "أحمد الشبح",
+                    gold: "أحمد الذهبي"
+                },
+                skinDescriptions: {
+                    default: "الطالب الأساسي",
+                    ninja: "سريع وهادئ",
+                    super: "بقوى الرداء",
+                    flash: "سرعة خارقة",
+                    robot: "جسم معدني",
+                    king: "معاملة ملكية",
+                    ghost: "يمكنه المرور عبر الأشياء",
+                    gold: "لامع وغني"
+                }
+            }
+        };
+        
+        function toggleLanguage() {
+            isEnglish = !isEnglish;
+            const lang = isEnglish ? 'en' : 'ar';
+            const text = isEnglish ? 'العربية' : 'English';
+            
+            langText.textContent = text;
+            
+            if (lang === 'ar') {
+                app.classList.add('rtl');
+            } else {
+                app.classList.remove('rtl');
+            }
+            
+            // Update all translatable elements
+            document.getElementById('title').textContent = translations[lang].title;
+            document.getElementById('subtitle').textContent = translations[lang].subtitle;
+            document.getElementById('studentBookTitle').textContent = translations[lang].studentBookTitle;
+            document.getElementById('teacherBookTitle').textContent = translations[lang].teacherBookTitle;
+            document.getElementById('teacherTitle').textContent = translations[lang].teacherTitle;
+            document.getElementById('teacherDesc').textContent = translations[lang].teacherDesc;
+            document.getElementById('downloadTeacher').textContent = translations[lang].downloadTeacher;
+            document.getElementById('credit').textContent = translations[lang].credit;
+            
+            // Update game elements
+            document.getElementById('gameTitle').textContent = translations[lang].gameTitle;
+            document.getElementById('gameDesc').textContent = translations[lang].gameDesc;
+            document.getElementById('scoreLabel').textContent = translations[lang].scoreLabel;
+            document.getElementById('highScoreLabel').textContent = translations[lang].highScoreLabel;
+            document.getElementById('coinsLabel').textContent = translations[lang].coinsLabel;
+            document.getElementById('startText').textContent = translations[lang].startText;
+            document.getElementById('fullscreenText').textContent = translations[lang].fullscreenText;
+            document.getElementById('shopText').textContent = translations[lang].shopText;
+            document.getElementById('restartText').textContent = translations[lang].restartText;
+            document.getElementById('leaderboardTitle').textContent = translations[lang].leaderboardTitle;
+            document.getElementById('shopTitle').textContent = translations[lang].shopTitle;
+            document.getElementById('closeText').textContent = translations[lang].closeText;
+            document.getElementById('exitFullscreenText').textContent = translations[lang].exitFullscreenText;
+            
+            // Update all lesson labels and download buttons
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById(`lessonsLabel${i}`).textContent = translations[lang].lessonsLabel;
+                document.getElementById(`downloadBtn${i}`).textContent = translations[lang].downloadBtn;
+            }
+            
+            // Update skins in shop
+            updateSkinShopDisplay();
+        }
+        
+        // Initialize language toggle
+        langToggle.addEventListener('click', toggleLanguage);
+
+        // Enhanced Game Variables
+        let gameRunning = false;
+        let gameScore = 0;
+        let coins = 0;
+        let highScore = localStorage.getItem('ahmedNahlaHighScore') || 0;
+        let totalCoins = localStorage.getItem('ahmedNahlaCoins') || 0;
+        let gameSpeed = 5;
+        let gameFrame = 0;
+        let gameAnimationId = null;
+        let currentSkin = localStorage.getItem('ahmedNahlaSkin') || 'default';
+
+        // Enhanced Player Object with better jumping
+        const player = {
+            x: 100,
+            y: 300,
+            width: 50,
+            height: 70,
+            color: '#3B82F6',
+            speed: 8,
+            direction: 0,
+            jumping: false,
+            jumpHeight: 0,
+            maxJumpHeight: 150, // Increased from 100 to 150
+            jumpSpeed: 12, // Increased from 10 to 12
+            jumpDuration: 0, // Track jump duration
+            maxJumpDuration: 40, // How long to stay in air (frames)
+            skin: 'default'
+        };
+
+        // Enhanced Teacher Object
+        const teacher = {
+            x: 800,
+            y: 310,
+            width: 60,
+            height: 80,
+            color: '#EF4444',
+            speed: 6,
+            angry: false,
+            angryTime: 0,
+            angryMessages: [
+                "أحضروا الواجب!",
+                "إلى المدير!",
+                "لماذا تتأخر؟",
+                "إجابتك خاطئة!",
+                "المزيد من الواجب!"
+            ]
+        };
+
+        // Skins Database
+        const skins = [
+            {
+                id: 'default',
+                name: translations[isEnglish ? 'en' : 'ar'].skinNames.default,
+                description: translations[isEnglish ? 'en' : 'ar'].skinDescriptions.default,
+                color: '#3B82F6',
+                price: 0,
+                jumpBonus: 1.0
+            },
+            {
+                id: 'ninja',
+                name: translations[isEnglish ? 'en' : 'ar'].skinNames.ninja,
+                description: translations[isEnglish ? 'en' : 'ar'].skinDescriptions.ninja,
+                color: '#1F2937',
+                price: 100,
+                jumpBonus: 1.2,
+                owned: localStorage.getItem('skin_ninja') === 'true'
+            },
+            {
+                id: 'super',
+                name: translations[isEnglish ? 'en' : 'ar'].skinNames.super,
+                description: translations[isEnglish ? 'en' : 'ar'].skinDescriptions.super,
+                color: '#8B5CF6',
+                price: 200,
+                jumpBonus: 1.3,
+                owned: localStorage.getItem('skin_super') === 'true'
+            },
+            {
+                id: 'flash',
+                name: translations[isEnglish ? 'en' : 'ar'].skinNames.flash,
+                description: translations[isEnglish ? 'en' : 'ar'].skinDescriptions.flash,
+                color: '#F59E0B',
+                price: 300,
+                jumpBonus: 1.4,
+                owned: localStorage.getItem('skin_flash') === 'true'
+            },
+            {
+                id: 'robot',
+                name: translations[isEnglish ? 'en' : 'ar'].skinNames.robot,
+                description: translations[isEnglish ? 'en' : 'ar'].skinDescriptions.robot,
+                color: '#6B7280',
+                price: 500,
+                jumpBonus: 1.1,
+                owned: localStorage.getItem('skin_robot') === 'true'
+            },
+            {
+                id: 'king',
+                name: translations[isEnglish ? 'en' : 'ar'].skinNames.king,
+                description: translations[isEnglish ? 'en' : 'ar'].skinDescriptions.king,
+                color: '#FBBF24',
+                price: 1000,
+                jumpBonus: 1.5,
+                owned: localStorage.getItem('skin_king') === 'true'
+            },
+            {
+                id: 'ghost',
+                name: translations[isEnglish ? 'en' : 'ar'].skinNames.ghost,
+                description: translations[isEnglish ? 'en' : 'ar'].skinDescriptions.ghost,
+                color: '#A5B4FC',
+                price: 1500,
+                jumpBonus: 1.6,
+                owned: localStorage.getItem('skin_ghost') === 'true'
+            },
+            {
+                id: 'gold',
+                name: translations[isEnglish ? 'en' : 'ar'].skinNames.gold,
+                description: translations[isEnglish ? 'en' : 'ar'].skinDescriptions.gold,
+                color: '#FBBF24',
+                price: 5000,
+                jumpBonus: 2.0,
+                owned: localStorage.getItem('skin_gold') === 'true'
+            }
+        ];
+
+        // Update skin display
+        function updateSkinShopDisplay() {
+            const skinGrid = document.getElementById('skinGrid');
+            const lang = isEnglish ? 'en' : 'ar';
+            const t = translations[lang];
+            
+            skinGrid.innerHTML = '';
+            
+            skins.forEach(skin => {
+                const skinItem = document.createElement('div');
+                skinItem.className = `skin-item ${skin.owned ? 'owned' : 'locked'} ${currentSkin === skin.id ? 'selected' : ''}`;
+                skinItem.onclick = () => selectSkin(skin);
+                
+                const isOwned = skin.id === 'default' || skin.owned;
+                const canAfford = totalCoins >= skin.price;
+                
+                if (!isOwned && !canAfford) {
+                    skinItem.classList.add('locked');
+                }
+                
+                skinItem.innerHTML = `
+                    <div class="skin-preview" style="background: linear-gradient(135deg, ${skin.color}, ${skin.color}99);"></div>
+                    <div class="skin-name">${skin.name}</div>
+                    <div class="skin-description" style="font-size: 0.75rem; color: #9CA3AF; margin-bottom: 0.5rem;">${skin.description}</div>
+                    <div class="skin-price ${skin.price === 0 ? 'free' : ''}">
+                        ${skin.price === 0 ? 'مجاني' : skin.price + ' عملات'}
+                    </div>
+                    ${skin.jumpBonus > 1 ? `<div style="font-size: 0.75rem; color: #10B981;">قفزة ×${skin.jumpBonus}</div>` : ''}
+                `;
+                
+                skinGrid.appendChild(skinItem);
+            });
+        }
+
+        // Select skin function
+        function selectSkin(skin) {
+            const isOwned = skin.id === 'default' || skin.owned;
+            const canAfford = totalCoins >= skin.price;
+            
+            if (!isOwned && !canAfford) {
+                alert(isEnglish ? "Not enough coins!" : "لا تملك عملات كافية!");
+                return;
+            }
+            
+            if (!isOwned) {
+                if (confirm(isEnglish ? `Buy ${skin.name} for ${skin.price} coins?` : `شراء ${skin.name} بـ ${skin.price} عملات؟`)) {
+                    totalCoins -= skin.price;
+                    localStorage.setItem('ahmedNahlaCoins', totalCoins);
+                    localStorage.setItem(`skin_${skin.id}`, 'true');
+                    skin.owned = true;
+                    updateUI();
+                    updateSkinShopDisplay();
+                } else {
+                    return;
+                }
+            }
+            
+            currentSkin = skin.id;
+            localStorage.setItem('ahmedNahlaSkin', skin.id);
+            player.color = skin.color;
+            player.maxJumpHeight = 150 * skin.jumpBonus;
+            player.jumpSpeed = 12 * skin.jumpBonus;
+            
+            updateSkinShopDisplay();
+            
+            if (isEnglish) {
+                alert(`Equipped ${skin.name}!`);
+            } else {
+                alert(`تم ارتداء ${skin.name}!`);
+            }
+        }
+
+        // Initialize current skin
+        const currentSkinData = skins.find(s => s.id === currentSkin);
+        if (currentSkinData) {
+            player.color = currentSkinData.color;
+            player.maxJumpHeight = 150 * currentSkinData.jumpBonus;
+            player.jumpSpeed = 12 * currentSkinData.jumpBonus;
+        }
+
+        // Game Arrays
+        const coinsArray = [];
+        const obstacles = [];
+
+        // Leaderboard
+        const leaderboard = [
+            { name: "Asser", score: Math.floor(Math.random() * 5000) + 1000, coins: Math.floor(Math.random() * 200) + 50 },
+            { name: "Begad", score: Math.floor(Math.random() * 4000) + 800, coins: Math.floor(Math.random() * 150) + 30 },
+            { name: "Omnia", score: Math.floor(Math.random() * 3000) + 600, coins: Math.floor(Math.random() * 100) + 20 },
+            { name: "Salma", score: Math.floor(Math.random() * 2500) + 500, coins: Math.floor(Math.random() * 80) + 15 },
+            { name: "Asmaa", score: Math.floor(Math.random() * 2000) + 400, coins: Math.floor(Math.random() * 60) + 10 },
+            { name: "Rahma", score: Math.floor(Math.random() * 1500) + 300, coins: Math.floor(Math.random() * 40) + 5 },
+            { name: isEnglish ? "You" : "أنت", score: highScore, coins: parseInt(totalCoins) }
+        ];
+
+        // Update UI
+        function updateUI() {
+            document.getElementById('currentScore').textContent = gameScore;
+            document.getElementById('highScore').textContent = highScore;
+            document.getElementById('coins').textContent = totalCoins;
+            document.getElementById('gameCoins').textContent = coins;
+            document.getElementById('fullscreenCoins').textContent = coins;
+        }
+
+        // Enhanced Draw Player with Skin Effects
+        function drawPlayer(ctx, x, y) {
+            const skin = skins.find(s => s.id === currentSkin) || skins[0];
+            
+            // Draw player body with skin color
+            ctx.fillStyle = player.color;
+            ctx.fillRect(x, y - player.jumpHeight, player.width, player.height);
+            
+            // Draw special effects based on skin
+            switch(currentSkin) {
+                case 'ninja':
+                    // Draw ninja mask
+                    ctx.fillStyle = '#000000';
+                    ctx.fillRect(x + 10, y - player.jumpHeight + 5, 30, 20);
+                    // Draw eyes
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.fillRect(x + 15, y - player.jumpHeight + 10, 5, 5);
+                    ctx.fillRect(x + 30, y - player.jumpHeight + 10, 5, 5);
+                    break;
+                    
+                case 'super':
+                    // Draw cape
+                    ctx.fillStyle = '#8B5CF6';
+                    ctx.beginPath();
+                    ctx.moveTo(x - 10, y - player.jumpHeight + 10);
+                    ctx.lineTo(x, y - player.jumpHeight);
+                    ctx.lineTo(x, y - player.jumpHeight + player.height);
+                    ctx.lineTo(x - 20, y - player.jumpHeight + player.height - 20);
+                    ctx.closePath();
+                    ctx.fill();
+                    // Draw S logo
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.font = 'bold 20px Arial';
+                    ctx.fillText('S', x + 15, y - player.jumpHeight + 30);
+                    break;
+                    
+                case 'flash':
+                    // Draw speed lines
+                    ctx.strokeStyle = '#F59E0B';
+                    ctx.lineWidth = 2;
+                    for (let i = 0; i < 3; i++) {
+                        ctx.beginPath();
+                        ctx.moveTo(x + player.width + i * 5, y - player.jumpHeight + 20 + i * 10);
+                        ctx.lineTo(x + player.width + 20 + i * 10, y - player.jumpHeight + 20 + i * 10);
+                        ctx.stroke();
+                    }
+                    break;
+                    
+                default:
+                    // Default face
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.fillRect(x + 10, y - player.jumpHeight + 10, 10, 10);
+                    ctx.fillRect(x + 30, y - player.jumpHeight + 10, 10, 10);
+                    // Mouth
+                    ctx.beginPath();
+                    ctx.arc(x + 25, y - player.jumpHeight + 30, 8, 0, Math.PI);
+                    ctx.strokeStyle = '#FFFFFF';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+            }
+        }
+
+        // Enhanced Draw Teacher
+        function drawTeacher(ctx, x, y) {
+            ctx.fillStyle = teacher.color;
+            if (teacher.angry) {
+                ctx.fillStyle = '#DC2626';
+                // Angry glow effect
+                ctx.shadowColor = '#DC2626';
+                ctx.shadowBlur = 20;
+            }
+            
+            ctx.fillRect(x, y, teacher.width, teacher.height);
+            ctx.shadowBlur = 0;
+            
+            // Draw face
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(x + 10, y + 10, 15, 15);
+            ctx.fillRect(x + 35, y + 10, 15, 15);
+            
+            // Draw angry eyebrows
+            ctx.beginPath();
+            ctx.moveTo(x + 8, y + 8);
+            ctx.lineTo(x + 23, y + 8);
+            ctx.moveTo(x + 37, y + 8);
+            ctx.lineTo(x + 52, y + 8);
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            
+            // Draw angry mouth
+            ctx.beginPath();
+            ctx.arc(x + 30, y + 40, 10, 0.2, Math.PI - 0.2);
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            
+            // Draw angry speech bubble in Arabic when angry
+            if (teacher.angry && gameFrame % 60 < 30) {
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillRect(x - 100, y - 40, 120, 30);
+                ctx.fillStyle = '#000000';
+                ctx.font = 'bold 14px Arial';
+                ctx.textAlign = 'center';
+                const message = teacher.angryMessages[Math.floor(Math.random() * teacher.angryMessages.length)];
+                ctx.fillText(message, x - 40, y - 20);
+            }
+        }
+
+        // Enhanced Game Draw Function
+        function drawGame(ctx, canvas) {
+            // Clear canvas with gradient background
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#0F172A');
+            gradient.addColorStop(1, '#1E293B');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw animated background particles
+            if (gameFrame % 2 === 0) {
+                for (let i = 0; i < 3; i++) {
+                    const particle = {
+                        x: canvas.width,
+                        y: Math.random() * canvas.height,
+                        size: Math.random() * 3 + 1,
+                        speed: Math.random() * 2 + 1
+                    };
+                    ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.2})`;
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            // Draw ground with texture
+            ctx.fillStyle = '#334155';
+            ctx.fillRect(0, 370, canvas.width, 80);
+            
+            // Draw grass with animation
+            ctx.fillStyle = '#10B981';
+            for (let i = 0; i < canvas.width; i += 20) {
+                const height = 10 + Math.sin(gameFrame * 0.05 + i * 0.1) * 3;
+                ctx.fillRect(i, 370, 20, height);
+            }
+            
+            // Draw player
+            drawPlayer(ctx, player.x, player.y);
+            
+            // Draw teacher
+            drawTeacher(ctx, teacher.x, teacher.y);
+            
+            // Draw coins with animation
+            for (const coin of coinsArray) {
+                ctx.fillStyle = '#FBBF24';
+                ctx.shadowColor = '#FBBF24';
+                ctx.shadowBlur = 10;
+                ctx.beginPath();
+                ctx.arc(coin.x, coin.y, 8, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+                
+                // Draw coin shine
+                ctx.fillStyle = '#FFFFFF';
+                ctx.beginPath();
+                ctx.arc(coin.x - 2, coin.y - 2, 3, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Coin animation
+                coin.y += Math.sin(gameFrame * 0.1 + coin.x * 0.01) * 2;
+            }
+            
+            // Draw obstacles
+            for (const obstacle of obstacles) {
+                // Obstacle with texture
+                ctx.fillStyle = '#6B7280';
+                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+                
+                // Add warning sign
+                if (obstacle.x < player.x + 300 && obstacle.x > player.x - 50) {
+                    ctx.fillStyle = '#EF4444';
+                    ctx.fillRect(obstacle.x + obstacle.width/2 - 5, obstacle.y - 20, 10, 15);
+                }
+            }
+            
+            // Draw score with effects
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = 'bold 24px Arial';
+            ctx.shadowColor = '#000000';
+            ctx.shadowBlur = 5;
+            ctx.fillText(`${isEnglish ? 'Score:' : 'النقاط:'} ${gameScore}`, 20, 30);
+            ctx.fillStyle = '#FBBF24';
+            ctx.fillText(`${isEnglish ? 'High Score:' : 'أعلى نقاط:'} ${highScore}`, 20, 60);
+            ctx.shadowBlur = 0;
+            
+            // Draw current skin indicator
+            const skin = skins.find(s => s.id === currentSkin);
+            if (skin && skin.id !== 'default') {
+                ctx.fillStyle = skin.color;
+                ctx.font = 'bold 16px Arial';
+                ctx.fillText(`${skin.name}`, 20, 90);
+            }
+        }
+
+        // Enhanced Game Update with better jumping physics
+        function updateGame() {
+            if (!gameRunning) return;
+            
+            gameFrame++;
+            gameScore += 1;
+            
+            // Move player
+            player.x += player.direction * player.speed;
+            player.x = Math.max(0, Math.min(player.x, (gameRunningInFullscreen ? window.innerWidth : 800) - player.width));
+            
+            // Enhanced Jumping Physics - Stay longer in air
+            if (player.jumping) {
+                player.jumpDuration++;
+                if (player.jumpHeight < player.maxJumpHeight) {
+                    player.jumpHeight += player.jumpSpeed;
+                }
+                // Stay at max height for longer
+                if (player.jumpHeight >= player.maxJumpHeight && player.jumpDuration < player.maxJumpDuration) {
+                    // Stay in air
+                } else if (player.jumpDuration >= player.maxJumpDuration) {
+                    player.jumping = false;
+                }
+            } else if (player.jumpHeight > 0) {
+                // Slower descent for floatier feel
+                player.jumpHeight -= player.jumpSpeed * 0.8;
+                if (player.jumpHeight < 0) player.jumpHeight = 0;
+            }
+            
+            // Reset jump duration when on ground
+            if (player.jumpHeight === 0) {
+                player.jumpDuration = 0;
+            }
+            
+            // Move teacher with variable speed
+            teacher.x -= teacher.speed + Math.sin(gameFrame * 0.05) * 0.5;
+            
+            // Angry mode
+            if (teacher.angry) {
+                teacher.x -= 3;
+                teacher.angryTime--;
+                if (teacher.angryTime <= 0) {
+                    teacher.angry = false;
+                }
+            }
+            
+            // Reset teacher
+            if (teacher.x < -teacher.width) {
+                teacher.x = (gameRunningInFullscreen ? window.innerWidth : 800) + 100;
+                teacher.speed = Math.min(teacher.speed + 0.1, 12);
+                
+                // Random events
+                if (Math.random() < 0.25) {
+                    teacher.angry = true;
+                    teacher.angryTime = 90;
+                }
+            }
+            
+            // Generate coins
+            if (gameFrame % 45 === 0) {
+                coinsArray.push({
+                    x: (gameRunningInFullscreen ? window.innerWidth : 800),
+                    y: Math.random() * 300 + 50,
+                    value: Math.random() < 0.1 ? 50 : 10, // 10% chance for big coin
+                    collected: false
+                });
+            }
+            
+            // Generate obstacles less frequently for easier gameplay
+            if (gameFrame % 180 === 0) {
+                obstacles.push({
+                    x: (gameRunningInFullscreen ? window.innerWidth : 800),
+                    y: 320,
+                    width: 40,
+                    height: 50
+                });
+            }
+            
+            // Update coins
+            for (let i = coinsArray.length - 1; i >= 0; i--) {
+                coinsArray[i].x -= gameSpeed;
+                
+                // Collect coin
+                if (!coinsArray[i].collected &&
+                    coinsArray[i].x < player.x + player.width &&
+                    coinsArray[i].x + 16 > player.x &&
+                    coinsArray[i].y < (player.y - player.jumpHeight) + player.height &&
+                    coinsArray[i].y + 16 > player.y - player.jumpHeight) {
+                    
+                    coinsArray[i].collected = true;
+                    coins += coinsArray[i].value;
+                    totalCoins = parseInt(totalCoins) + coinsArray[i].value;
+                    localStorage.setItem('ahmedNahlaCoins', totalCoins);
+                    
+                    // Visual feedback for big coins
+                    if (coinsArray[i].value === 50) {
+                        // Add special effect
+                    }
+                    
+                    coinsArray.splice(i, 1);
+                    updateUI();
+                }
+                
+                // Remove off-screen coins
+                if (coinsArray[i] && coinsArray[i].x < -20) {
+                    coinsArray.splice(i, 1);
+                }
+            }
+            
+            // Update obstacles
+            for (let i = obstacles.length - 1; i >= 0; i--) {
+                obstacles[i].x -= gameSpeed;
+                
+                // Check collision with player (with jump immunity)
+                if (!player.jumping && player.jumpHeight < 50) {
+                    if (obstacles[i].x < player.x + player.width &&
+                        obstacles[i].x + obstacles[i].width > player.x &&
+                        obstacles[i].y < (player.y - player.jumpHeight) + player.height &&
+                        obstacles[i].y + obstacles[i].height > player.y - player.jumpHeight) {
+                        
+                        gameOver();
+                        return;
+                    }
+                }
+                
+                // Remove off-screen obstacles
+                if (obstacles[i].x < -50) {
+                    obstacles.splice(i, 1);
+                }
+            }
+            
+            // Check collision with teacher
+            if (teacher.x < player.x + player.width &&
+                teacher.x + teacher.width > player.x &&
+                teacher.y < (player.y - player.jumpHeight) + player.height &&
+                teacher.y + teacher.height > player.y - player.jumpHeight) {
+                
+                gameOver();
+                return;
+            }
+            
+            // Gradually increase game speed
+            if (gameFrame % 300 === 0) {
+                gameSpeed = Math.min(gameSpeed + 0.2, 10);
+            }
+            
+            updateUI();
+        }
+
+        // Game Loop
+        function gameLoop() {
+            const canvas = gameRunningInFullscreen ? fullscreenCanvas : gameCanvas;
+            const ctx = canvas.getContext('2d');
+            
+            updateGame();
+            drawGame(ctx, canvas);
+            
+            if (gameRunning) {
+                gameAnimationId = requestAnimationFrame(gameLoop);
+            }
+        }
+
+        // Start Game
+        function startGame() {
+            if (gameRunning) return;
+            
+            gameRunning = true;
+            gameScore = 0;
+            coins = 0;
+            gameSpeed = 5;
+            gameFrame = 0;
+            
+            player.x = 100;
+            player.direction = 0;
+            player.jumpHeight = 0;
+            player.jumpDuration = 0;
+            
+            teacher.x = 800;
+            teacher.speed = 6;
+            teacher.angry = false;
+            
+            coinsArray.length = 0;
+            obstacles.length = 0;
+            
+            gameOverlay.classList.remove('active');
+            startBtn.textContent = isEnglish ? 'Playing...' : 'يلعب...';
+            startBtn.disabled = true;
+            
+            updateUI();
+            
+            if (gameRunningInFullscreen) {
+                fullscreenCanvas.width = window.innerWidth;
+                fullscreenCanvas.height = window.innerHeight - 60;
+                player.x = 100;
+                teacher.x = window.innerWidth + 100;
+            }
+            
+            gameLoop();
+        }
+
+        // Game Over with random messages
+        function gameOver() {
+            gameRunning = false;
+            
+            if (gameScore > highScore) {
+                highScore = gameScore;
+                localStorage.setItem('ahmedNahlaHighScore', highScore);
+                leaderboard.find(p => p.name === (isEnglish ? "You" : "أنت")).score = highScore;
+                updateLeaderboard();
+            }
+            
+            // Random game over message
+            const messages = translations[isEnglish ? 'en' : 'ar'].gameOverMessages;
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            gameOverText.textContent = randomMessage;
+            gameOverScore.textContent = `${isEnglish ? 'Score:' : 'النقاط:'} ${gameScore}`;
+            gameOverlay.classList.add('active');
+            startBtn.textContent = translations[isEnglish ? 'en' : 'ar'].startText;
+            startBtn.disabled = false;
+            
+            if (gameAnimationId) {
+                cancelAnimationFrame(gameAnimationId);
+            }
+            
+            updateUI();
+        }
+
+        // Restart Game
+        function restartGame() {
+            gameOverlay.classList.remove('active');
+            startGame();
+        }
+
+        // Shop Functions
+        function openShop() {
+            document.getElementById('skinShop').style.display = 'block';
+            updateSkinShopDisplay();
+        }
+
+        function closeShop() {
+            document.getElementById('skinShop').style.display = 'none';
+        }
+
+        // Fullscreen functionality
+        let gameRunningInFullscreen = false;
+        
+        function toggleFullscreen() {
+            if (gameFullscreen.style.display === 'flex') {
+                gameFullscreen.style.display = 'none';
+                document.exitFullscreen?.();
+                gameRunningInFullscreen = false;
+                
+                if (gameRunning) {
+                    gameRunning = false;
+                    if (gameAnimationId) cancelAnimationFrame(gameAnimationId);
+                    setTimeout(startGame, 100);
+                }
+            } else {
+                gameFullscreen.style.display = 'flex';
+                gameFullscreen.requestFullscreen?.();
+                gameRunningInFullscreen = true;
+                
+                fullscreenCanvas.width = window.innerWidth;
+                fullscreenCanvas.height = window.innerHeight - 60;
+                
+                if (gameRunning) {
+                    gameRunning = false;
+                    if (gameAnimationId) cancelAnimationFrame(gameAnimationId);
+                    setTimeout(startGame, 100);
+                }
+            }
+        }
+
+        // Update Leaderboard
+        function updateLeaderboard() {
+            leaderboard.sort((a, b) => b.score - a.score);
+            leaderboardList.innerHTML = '';
+            
+            leaderboard.forEach((player, index) => {
+                const item = document.createElement('div');
+                item.className = `leaderboard-item ${player.name === (isEnglish ? "You" : "أنت") ? "you" : ""}`;
+                
+                item.innerHTML = `
+                    <div class="rank ${index < 3 ? `rank-${index + 1}` : ''}">${index + 1}</div>
+                    <div class="player-info">
+                        <div class="player-avatar">${player.name.charAt(0)}</div>
+                        <div>
+                            <div class="player-name">${player.name}</div>
+                            <div style="font-size: 0.75rem; color: #9CA3AF;">${player.coins} ${isEnglish ? 'coins' : 'عملات'}</div>
+                        </div>
+                    </div>
+                    <div class="player-score">${player.score}</div>
+                `;
+                
+                leaderboardList.appendChild(item);
+            });
+        }
+
+        // Initialize
+        updateLeaderboard();
+        updateUI();
+        updateSkinShopDisplay();
+
+        // Create background particles
+        function createBackgroundParticles() {
+            const bgAnimation = document.getElementById('bgAnimation');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'bg-particle';
+                particle.style.width = `${Math.random() * 4 + 1}px`;
+                particle.style.height = particle.style.width;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 20}s`;
+                particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                bgAnimation.appendChild(particle);
+            }
+        }
+
+        // Player controls
+        document.addEventListener('keydown', (e) => {
+            if (!gameRunning) return;
+            
+            switch(e.key) {
+                case 'ArrowLeft':
+                case 'a':
+                    player.direction = -1;
+                    break;
+                case 'ArrowRight':
+                case 'd':
+                    player.direction = 1;
+                    break;
+                case ' ':
+                case 'ArrowUp':
+                case 'w':
+                    if (!player.jumping && player.jumpHeight === 0) {
+                        player.jumping = true;
+                        player.jumpDuration = 0;
+                    }
+                    break;
+            }
+        });
+        
+        document.addEventListener('keyup', (e) => {
+            switch(e.key) {
+                case 'ArrowLeft':
+                case 'a':
+                case 'ArrowRight':
+                case 'd':
+                    player.direction = 0;
+                    break;
+            }
+        });
+        
+        // Touch controls
+        function setupTouchControls(touchLeftBtn, touchRightBtn) {
+            touchLeftBtn.addEventListener('touchstart', () => player.direction = -1);
+            touchLeftBtn.addEventListener('touchend', () => player.direction = 0);
+            touchLeftBtn.addEventListener('mousedown', () => player.direction = -1);
+            touchLeftBtn.addEventListener('mouseup', () => player.direction = 0);
+            touchLeftBtn.addEventListener('mouseleave', () => player.direction = 0);
+            
+            touchRightBtn.addEventListener('touchstart', () => player.direction = 1);
+            touchRightBtn.addEventListener('touchend', () => player.direction = 0);
+            touchRightBtn.addEventListener('mousedown', () => player.direction = 1);
+            touchRightBtn.addEventListener('mouseup', () => player.direction = 0);
+            touchRightBtn.addEventListener('mouseleave', () => player.direction = 0);
+            
+            const jumpArea = gameRunningInFullscreen ? fullscreenCanvas : gameCanvas;
+            jumpArea.addEventListener('click', () => {
+                if (!player.jumping && player.jumpHeight === 0) {
+                    player.jumping = true;
+                    player.jumpDuration = 0;
+                }
+            });
+        }
+        
+        // Initialize
+        gameCanvas.width = 800;
+        gameCanvas.height = 450;
+        createBackgroundParticles();
+        
+        const ctx = gameCanvas.getContext('2d');
+        drawGame(ctx, gameCanvas);
+        
+        // Draw start screen
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = 'bold 30px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(isEnglish ? 'Ahmed and Nahla' : 'أحمد و نهلة', 400, 150);
+        ctx.font = '20px Arial';
+        ctx.fillText(isEnglish ? 'Run from the scary teacher!' : 'اهرب من المعلمة المخيفة!', 400, 200);
+        ctx.fillText(isEnglish ? 'Use ← → arrows to move, SPACE to jump' : 'استخدم ← → للحركة، SPACE للقفز', 400, 250);
+        ctx.fillText(isEnglish ? 'Click Start Game to begin' : 'انقر ابدأ اللعبة للبدء', 400, 300);
+        
+        // Setup touch controls
+        setupTouchControls(
+            document.getElementById('touchLeft'),
+            document.getElementById('touchRight')
+        );
+        setupTouchControls(
+            document.getElementById('fullscreenTouchLeft'),
+            document.getElementById('fullscreenTouchRight')
+        );
+        
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
