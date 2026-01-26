@@ -2,13 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1e293b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="COURSEGUIDE">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
     <title>COURSEGUIDE - Your Complete Learning Companion</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        html {
+            height: 100%;
+            overflow-x: hidden;
         }
 
         body {
@@ -18,6 +32,7 @@
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
+            touch-action: manipulation;
         }
 
         body.rtl {
@@ -48,7 +63,7 @@
             height: 100%;
             background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
             border-radius: 50%;
-            animation: pulse 4s ease-in-out infinite;
+            animation: pulse 6s ease-in-out infinite;
         }
 
         .bg-circle-2 {
@@ -59,7 +74,7 @@
             height: 100%;
             background: radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, transparent 70%);
             border-radius: 50%;
-            animation: pulse 4s ease-in-out infinite 1s;
+            animation: pulse 6s ease-in-out infinite 2s;
         }
 
         .bg-circle-3 {
@@ -70,12 +85,12 @@
             height: 40%;
             background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
             border-radius: 50%;
-            animation: float 6s ease-in-out infinite 0.5s;
+            animation: float 8s ease-in-out infinite 1s;
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.6; }
         }
 
         @keyframes float {
@@ -85,8 +100,8 @@
 
         @keyframes floatParticle {
             0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.5; }
-            90% { opacity: 0.5; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
             100% { transform: translateY(-100px) translateX(100px) rotate(360deg); opacity: 0; }
         }
 
@@ -120,6 +135,16 @@
         @keyframes slideInRight {
             from { transform: translateX(50px); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes powerupGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.8); }
+        }
+
+        @keyframes coinSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         /* Header */
@@ -160,7 +185,7 @@
             background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
             border-radius: 0.75rem;
             box-shadow: 0 10px 25px rgba(147, 51, 234, 0.5);
-            animation: glow 2s ease-in-out infinite;
+            animation: glow 3s ease-in-out infinite;
         }
 
         .logo-icon svg {
@@ -470,7 +495,7 @@
             background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
             border-radius: 1rem;
             box-shadow: 0 10px 25px rgba(16, 185, 129, 0.5);
-            animation: glow 2s ease-in-out infinite;
+            animation: glow 3s ease-in-out infinite;
             transition: transform 0.3s;
         }
 
@@ -495,7 +520,7 @@
             font-weight: 500;
         }
 
-        /* Mini Game Section */
+        /* Enhanced Mini Game Section */
         .game-section {
             margin-top: 4rem;
             padding: 2.5rem;
@@ -527,7 +552,7 @@
             background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
             border-radius: 1rem;
             box-shadow: 0 10px 25px rgba(239, 68, 68, 0.5);
-            animation: shake 0.5s ease-in-out infinite alternate, bounce 2s ease-in-out infinite;
+            animation: shake 0.5s ease-in-out infinite alternate, bounce 3s ease-in-out infinite;
         }
 
         .game-icon svg {
@@ -619,12 +644,14 @@
             width: 100%;
             height: 100%;
             display: block;
+            touch-action: none;
         }
 
+        /* Enhanced Game Overlay for Both Modes */
         .game-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.9);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -635,6 +662,7 @@
             transition: opacity 0.3s ease-out;
             padding: 2rem;
             text-align: center;
+            z-index: 100;
         }
 
         .game-overlay.active {
@@ -661,6 +689,7 @@
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .game-btn {
@@ -676,6 +705,8 @@
             font-size: 0.875rem;
             letter-spacing: 0.5px;
             text-transform: uppercase;
+            min-height: 44px; /* Mobile friendly tap target */
+            min-width: 44px;
         }
 
         .game-btn.primary {
@@ -702,6 +733,12 @@
             box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
         }
 
+        .game-btn.purple {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+
         .game-btn:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
@@ -720,6 +757,56 @@
         .game-btn:hover svg {
             transform: translateY(-2px);
         }
+
+        /* Power-ups Display */
+        .powerups-container {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            max-width: 200px;
+            z-index: 1;
+        }
+
+        .powerup-indicator {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 2px solid;
+            animation: powerupGlow 2s infinite;
+        }
+
+        .powerup-indicator.invincible { border-color: #3b82f6; color: #3b82f6; }
+        .powerup-indicator.slowmo { border-color: #8b5cf6; color: #8b5cf6; }
+        .powerup-indicator.magnet { border-color: #fbbf24; color: #fbbf24; }
+        .powerup-indicator.highjump { border-color: #10b981; color: #10b981; }
+
+        /* Power-up Items in Game */
+        .powerup-item {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.25rem;
+            animation: bounce 1s infinite, coinSpin 2s infinite linear;
+            z-index: 2;
+        }
+
+        .powerup-item.invincible { background: #3b82f6; color: white; }
+        .powerup-item.slowmo { background: #8b5cf6; color: white; }
+        .powerup-item.magnet { background: #fbbf24; color: black; }
+        .powerup-item.highjump { background: #10b981; color: white; }
 
         .leaderboard {
             flex: 1;
@@ -859,6 +946,75 @@
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
+        /* Enhanced Mobile Touch Controls */
+        .touch-controls {
+            position: absolute;
+            bottom: 1rem;
+            left: 0;
+            right: 0;
+            display: none;
+            justify-content: space-between;
+            padding: 0 2rem;
+            z-index: 10;
+        }
+
+        .touch-controls.active {
+            display: flex;
+        }
+
+        .touch-btn {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            user-select: none;
+            backdrop-filter: blur(5px);
+            transition: all 0.1s;
+            touch-action: manipulation;
+        }
+
+        .touch-btn:active {
+            transform: scale(0.9);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .touch-jump {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.3);
+            border: 2px solid rgba(16, 185, 129, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            user-select: none;
+            backdrop-filter: blur(5px);
+            z-index: 10;
+        }
+
+        .touch-jump.active {
+            display: flex;
+        }
+
+        .touch-jump:active {
+            transform: translateX(-50%) scale(0.9);
+            background: rgba(16, 185, 129, 0.5);
+        }
+
         /* Skin Shop */
         .skin-shop {
             margin-top: 2rem;
@@ -898,6 +1054,7 @@
             cursor: pointer;
             transition: all 0.3s;
             border: 2px solid transparent;
+            touch-action: manipulation;
         }
 
         .skin-item:hover {
@@ -931,6 +1088,7 @@
         .skin-name {
             font-weight: 700;
             margin-bottom: 0.25rem;
+            font-size: 0.875rem;
         }
 
         .skin-price {
@@ -943,39 +1101,7 @@
             color: #10b981;
         }
 
-        .touch-controls {
-            display: none;
-            position: absolute;
-            bottom: 1rem;
-            left: 0;
-            right: 0;
-            justify-content: space-between;
-            padding: 0 2rem;
-        }
-
-        .touch-btn {
-            width: 4rem;
-            height: 4rem;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: white;
-            user-select: none;
-            backdrop-filter: blur(5px);
-            transition: all 0.2s;
-        }
-
-        .touch-btn:active {
-            transform: scale(0.9);
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        /* Fullscreen Game */
+        /* Fullscreen Game - Fixed UI */
         #gameFullscreen {
             position: fixed;
             top: 0;
@@ -995,11 +1121,168 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1001;
+        }
+
+        .fullscreen-game-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-out;
+            padding: 2rem;
+            text-align: center;
+            z-index: 1002;
+        }
+
+        .fullscreen-game-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+            animation: fadeInUp 0.5s ease-out;
         }
 
         #fullscreenCanvas {
             flex: 1;
             width: 100%;
+            touch-action: none;
+        }
+
+        /* PWA Install Prompt */
+        .pwa-prompt {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #3b82f6;
+            border-radius: 1rem;
+            padding: 1rem;
+            max-width: 300px;
+            z-index: 10000;
+            animation: slideInRight 0.5s ease-out;
+            backdrop-filter: blur(10px);
+        }
+
+        .pwa-prompt.hidden {
+            display: none;
+        }
+
+        .pwa-prompt h4 {
+            color: #3b82f6;
+            margin-bottom: 0.5rem;
+        }
+
+        .pwa-prompt p {
+            font-size: 0.875rem;
+            color: #9ca3af;
+            margin-bottom: 1rem;
+        }
+
+        .pwa-buttons {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+        }
+
+        /* Mobile-specific optimizations */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0.75rem 1rem;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.25rem;
+            }
+            
+            .logo-text p {
+                font-size: 0.75rem;
+            }
+            
+            main {
+                padding: 1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .game-section {
+                padding: 1rem;
+                margin-top: 2rem;
+            }
+            
+            .game-title-text h3 {
+                font-size: 1.5rem;
+            }
+            
+            .stat-box {
+                min-width: 90px;
+                padding: 0.75rem;
+            }
+            
+            .stat-value {
+                font-size: 1.25rem;
+            }
+            
+            .game-controls {
+                flex-direction: column;
+            }
+            
+            .game-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .touch-controls {
+                padding: 0 1rem;
+            }
+            
+            .touch-btn {
+                width: 3.5rem;
+                height: 3.5rem;
+            }
+            
+            .powerups-container {
+                max-width: 150px;
+            }
+            
+            .powerup-indicator {
+                font-size: 0.7rem;
+                padding: 0.25rem 0.5rem;
+            }
+        }
+
+        /* Very small screens */
+        @media (max-width: 480px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .game-container {
+                flex-direction: column;
+            }
+            
+            .leaderboard {
+                min-width: 100%;
+            }
+            
+            .skin-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .touch-btn {
+                width: 3rem;
+                height: 3rem;
+                font-size: 1.25rem;
+            }
         }
 
         /* Footer */
@@ -1042,29 +1325,6 @@
         .gradient-emerald { background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%); }
         .gradient-orange { background: linear-gradient(135deg, #f97316 0%, #ef4444 100%); }
         .gradient-indigo { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); }
-
-        /* Responsive */
-        @media (max-width: 640px) {
-            .logo-text h1 { font-size: 1.25rem; }
-            .section-header h2 { font-size: 1.5rem; }
-            .teacher-icon svg { width: 2rem; height: 2rem; }
-            .teacher-text h3 { font-size: 1.25rem; }
-            .touch-controls { display: flex; }
-            .game-btn { padding: 0.5rem 1rem; font-size: 0.875rem; }
-            .stat-box { min-width: 100px; padding: 0.5rem 1rem; }
-            .game-section { padding: 1.5rem; }
-            .game-title-text h3 { font-size: 1.5rem; }
-        }
-
-        @media (min-width: 640px) {
-            .logo-icon svg { width: 2.5rem; height: 2.5rem; }
-            main { padding: 3rem 1.5rem; }
-        }
-
-        @media (min-width: 1024px) {
-            .cards-grid { grid-template-columns: repeat(3, 1fr); }
-            .skin-grid { grid-template-columns: repeat(4, 1fr); }
-        }
     </style>
 </head>
 <body id="app">
@@ -1073,6 +1333,16 @@
         <div class="bg-circle-1"></div>
         <div class="bg-circle-2"></div>
         <div class="bg-circle-3"></div>
+    </div>
+
+    <!-- PWA Install Prompt -->
+    <div class="pwa-prompt hidden" id="pwaPrompt">
+        <h4>📱 Install COURSEGUIDE App</h4>
+        <p>Install this app on your device for a better experience. It works offline too!</p>
+        <div class="pwa-buttons">
+            <button class="game-btn danger" onclick="hidePwaPrompt()">Later</button>
+            <button class="game-btn success" onclick="installPWA()">Install</button>
+        </div>
     </div>
 
     <!-- Header -->
@@ -1111,7 +1381,6 @@
             </div>
             
             <div class="cards-grid">
-                <!-- Cards 1-5 (same as before) -->
                 <!-- Card 1 -->
                 <div class="card" style="animation-delay: 0s">
                     <div class="card-gradient gradient-blue"></div>
@@ -1297,12 +1566,19 @@
                 <div class="game-preview">
                     <div class="game-canvas-container">
                         <canvas id="gameCanvas" width="800" height="450"></canvas>
+                        
+                        <!-- Power-ups Display -->
+                        <div class="powerups-container" id="powerupsContainer"></div>
+                        
+                        <!-- Coin Counter -->
                         <div class="coin-counter">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                             <span class="coin-count" id="gameCoins">0</span>
                         </div>
+                        
+                        <!-- Game Over Overlay -->
                         <div class="game-overlay" id="gameOverlay">
                             <h3 id="gameOverText">GAME OVER!</h3>
                             <p id="gameOverScore">Score: 0</p>
@@ -1315,10 +1591,13 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="touch-controls">
+                        
+                        <!-- Touch Controls -->
+                        <div class="touch-controls" id="touchControls">
                             <div class="touch-btn" id="touchLeft">←</div>
                             <div class="touch-btn" id="touchRight">→</div>
                         </div>
+                        <div class="touch-jump" id="touchJump">↑</div>
                     </div>
                     
                     <div class="game-controls">
@@ -1392,9 +1671,35 @@
             </div>
         </div>
         <canvas id="fullscreenCanvas"></canvas>
-        <div class="touch-controls">
+        
+        <!-- Fullscreen Power-ups Display -->
+        <div class="powerups-container" id="fullscreenPowerups" style="top: 4rem;"></div>
+        
+        <!-- Fullscreen Touch Controls -->
+        <div class="touch-controls active" id="fullscreenTouchControls">
             <div class="touch-btn" id="fullscreenTouchLeft">←</div>
             <div class="touch-btn" id="fullscreenTouchRight">→</div>
+        </div>
+        <div class="touch-jump active" id="fullscreenTouchJump">↑</div>
+        
+        <!-- Fullscreen Game Over Overlay -->
+        <div class="fullscreen-game-overlay" id="fullscreenGameOverlay">
+            <h3 id="fullscreenGameOverText">GAME OVER!</h3>
+            <p id="fullscreenGameOverScore">Score: 0</p>
+            <div class="game-controls">
+                <button class="game-btn success" onclick="restartGame()" id="fullscreenRestartBtn">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                    </svg>
+                    <span>Restart</span>
+                </button>
+                <button class="game-btn danger" onclick="toggleFullscreen()">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    <span>Exit Fullscreen</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1410,6 +1715,53 @@
     </footer>
 
     <script>
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(registration => {
+                    console.log('ServiceWorker registration successful');
+                }).catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+
+        // Show PWA Install Prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            setTimeout(() => {
+                showPwaPrompt();
+            }, 5000);
+        });
+
+        function showPwaPrompt() {
+            const pwaPrompt = document.getElementById('pwaPrompt');
+            if (pwaPrompt && !localStorage.getItem('pwaPromptDismissed')) {
+                pwaPrompt.classList.remove('hidden');
+            }
+        }
+
+        function hidePwaPrompt() {
+            const pwaPrompt = document.getElementById('pwaPrompt');
+            pwaPrompt.classList.add('hidden');
+            localStorage.setItem('pwaPromptDismissed', 'true');
+        }
+
+        function installPWA() {
+            hidePwaPrompt();
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        }
+
         // Language Toggle Functionality
         let isEnglish = true;
         const langToggle = document.getElementById('langToggle');
@@ -1467,6 +1819,12 @@
                     king: "Royal treatment",
                     ghost: "Can phase through",
                     gold: "Shiny and rich"
+                },
+                powerupNames: {
+                    invincible: "Invincibility",
+                    slowmo: "Slow Motion",
+                    magnet: "Coin Magnet",
+                    highjump: "High Jump"
                 }
             },
             ar: {
@@ -1519,6 +1877,12 @@
                     king: "معاملة ملكية",
                     ghost: "يمكنه المرور عبر الأشياء",
                     gold: "لامع وغني"
+                },
+                powerupNames: {
+                    invincible: "المناعة",
+                    slowmo: "حركة بطيئة",
+                    magnet: "مغناطيس العملات",
+                    highjump: "قفزة عالية"
                 }
             }
         };
@@ -1580,37 +1944,47 @@
         let coins = 0;
         let highScore = localStorage.getItem('ahmedNahlaHighScore') || 0;
         let totalCoins = localStorage.getItem('ahmedNahlaCoins') || 0;
-        let gameSpeed = 5;
+        let gameSpeed = 3; // Slower initial speed
         let gameFrame = 0;
         let gameAnimationId = null;
         let currentSkin = localStorage.getItem('ahmedNahlaSkin') || 'default';
+        let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-        // Enhanced Player Object with better jumping
+        // Power-ups System
+        const powerups = {
+            invincible: { active: false, duration: 0, maxDuration: 300 }, // 5 seconds at 60fps
+            slowmo: { active: false, duration: 0, maxDuration: 450 }, // 7.5 seconds
+            magnet: { active: false, duration: 0, maxDuration: 600 }, // 10 seconds
+            highjump: { active: false, duration: 0, maxDuration: 300 } // 5 seconds
+        };
+
+        // Enhanced Player Object with better jumping and power-ups
         const player = {
             x: 100,
             y: 300,
             width: 50,
             height: 70,
             color: '#3B82F6',
-            speed: 8,
+            speed: 6, // Slower speed
             direction: 0,
             jumping: false,
             jumpHeight: 0,
-            maxJumpHeight: 150, // Increased from 100 to 150
-            jumpSpeed: 12, // Increased from 10 to 12
-            jumpDuration: 0, // Track jump duration
-            maxJumpDuration: 40, // How long to stay in air (frames)
-            skin: 'default'
+            maxJumpHeight: 180, // Increased for higher jumps
+            jumpSpeed: 10,
+            jumpDuration: 0,
+            maxJumpDuration: 60, // Longer air time
+            skin: 'default',
+            isInvincible: false
         };
 
-        // Enhanced Teacher Object
+        // Enhanced Teacher Object - Slower
         const teacher = {
             x: 800,
             y: 310,
             width: 60,
             height: 80,
             color: '#EF4444',
-            speed: 6,
+            speed: 4, // Slower teacher
             angry: false,
             angryTime: 0,
             angryMessages: [
@@ -1638,7 +2012,7 @@
                 description: translations[isEnglish ? 'en' : 'ar'].skinDescriptions.ninja,
                 color: '#1F2937',
                 price: 100,
-                jumpBonus: 1.2,
+                jumpBonus: 1.3,
                 owned: localStorage.getItem('skin_ninja') === 'true'
             },
             {
@@ -1647,7 +2021,7 @@
                 description: translations[isEnglish ? 'en' : 'ar'].skinDescriptions.super,
                 color: '#8B5CF6',
                 price: 200,
-                jumpBonus: 1.3,
+                jumpBonus: 1.5,
                 owned: localStorage.getItem('skin_super') === 'true'
             },
             {
@@ -1656,7 +2030,7 @@
                 description: translations[isEnglish ? 'en' : 'ar'].skinDescriptions.flash,
                 color: '#F59E0B',
                 price: 300,
-                jumpBonus: 1.4,
+                jumpBonus: 1.7,
                 owned: localStorage.getItem('skin_flash') === 'true'
             },
             {
@@ -1665,7 +2039,7 @@
                 description: translations[isEnglish ? 'en' : 'ar'].skinDescriptions.robot,
                 color: '#6B7280',
                 price: 500,
-                jumpBonus: 1.1,
+                jumpBonus: 1.4,
                 owned: localStorage.getItem('skin_robot') === 'true'
             },
             {
@@ -1674,7 +2048,7 @@
                 description: translations[isEnglish ? 'en' : 'ar'].skinDescriptions.king,
                 color: '#FBBF24',
                 price: 1000,
-                jumpBonus: 1.5,
+                jumpBonus: 2.0,
                 owned: localStorage.getItem('skin_king') === 'true'
             },
             {
@@ -1683,7 +2057,7 @@
                 description: translations[isEnglish ? 'en' : 'ar'].skinDescriptions.ghost,
                 color: '#A5B4FC',
                 price: 1500,
-                jumpBonus: 1.6,
+                jumpBonus: 2.2,
                 owned: localStorage.getItem('skin_ghost') === 'true'
             },
             {
@@ -1692,10 +2066,15 @@
                 description: translations[isEnglish ? 'en' : 'ar'].skinDescriptions.gold,
                 color: '#FBBF24',
                 price: 5000,
-                jumpBonus: 2.0,
+                jumpBonus: 2.5,
                 owned: localStorage.getItem('skin_gold') === 'true'
             }
         ];
+
+        // Game Arrays
+        const coinsArray = [];
+        const obstacles = [];
+        const powerupsArray = [];
 
         // Update skin display
         function updateSkinShopDisplay() {
@@ -1757,8 +2136,8 @@
             currentSkin = skin.id;
             localStorage.setItem('ahmedNahlaSkin', skin.id);
             player.color = skin.color;
-            player.maxJumpHeight = 150 * skin.jumpBonus;
-            player.jumpSpeed = 12 * skin.jumpBonus;
+            player.maxJumpHeight = 180 * skin.jumpBonus;
+            player.jumpSpeed = 10 * skin.jumpBonus;
             
             updateSkinShopDisplay();
             
@@ -1773,24 +2152,122 @@
         const currentSkinData = skins.find(s => s.id === currentSkin);
         if (currentSkinData) {
             player.color = currentSkinData.color;
-            player.maxJumpHeight = 150 * currentSkinData.jumpBonus;
-            player.jumpSpeed = 12 * currentSkinData.jumpBonus;
+            player.maxJumpHeight = 180 * currentSkinData.jumpBonus;
+            player.jumpSpeed = 10 * currentSkinData.jumpBonus;
         }
 
-        // Game Arrays
-        const coinsArray = [];
-        const obstacles = [];
+        // Power-ups Functions
+        function activatePowerup(type) {
+            powerups[type].active = true;
+            powerups[type].duration = powerups[type].maxDuration;
+            
+            // Apply powerup effects
+            switch(type) {
+                case 'invincible':
+                    player.isInvincible = true;
+                    player.color = '#60A5FA'; // Lighter blue
+                    break;
+                case 'slowmo':
+                    gameSpeed = Math.max(1, gameSpeed * 0.5);
+                    teacher.speed = Math.max(2, teacher.speed * 0.5);
+                    break;
+                case 'highjump':
+                    player.maxJumpHeight *= 1.5;
+                    player.jumpSpeed *= 1.3;
+                    break;
+            }
+            
+            updatePowerupsDisplay();
+        }
 
-        // Leaderboard
-        const leaderboard = [
-            { name: "Asser", score: Math.floor(Math.random() * 5000) + 1000, coins: Math.floor(Math.random() * 200) + 50 },
-            { name: "Begad", score: Math.floor(Math.random() * 4000) + 800, coins: Math.floor(Math.random() * 150) + 30 },
-            { name: "Omnia", score: Math.floor(Math.random() * 3000) + 600, coins: Math.floor(Math.random() * 100) + 20 },
-            { name: "Salma", score: Math.floor(Math.random() * 2500) + 500, coins: Math.floor(Math.random() * 80) + 15 },
-            { name: "Asmaa", score: Math.floor(Math.random() * 2000) + 400, coins: Math.floor(Math.random() * 60) + 10 },
-            { name: "Rahma", score: Math.floor(Math.random() * 1500) + 300, coins: Math.floor(Math.random() * 40) + 5 },
-            { name: isEnglish ? "You" : "أنت", score: highScore, coins: parseInt(totalCoins) }
-        ];
+        function updatePowerups() {
+            for (const type in powerups) {
+                if (powerups[type].active) {
+                    powerups[type].duration--;
+                    
+                    if (powerups[type].duration <= 0) {
+                        deactivatePowerup(type);
+                    }
+                }
+            }
+        }
+
+        function deactivatePowerup(type) {
+            powerups[type].active = false;
+            powerups[type].duration = 0;
+            
+            // Remove powerup effects
+            switch(type) {
+                case 'invincible':
+                    player.isInvincible = false;
+                    player.color = currentSkinData ? currentSkinData.color : '#3B82F6';
+                    break;
+                case 'slowmo':
+                    gameSpeed = 3; // Reset to base slow speed
+                    teacher.speed = 4;
+                    break;
+                case 'highjump':
+                    player.maxJumpHeight = 180 * (currentSkinData ? currentSkinData.jumpBonus : 1);
+                    player.jumpSpeed = 10 * (currentSkinData ? currentSkinData.jumpBonus : 1);
+                    break;
+                case 'magnet':
+                    // Magnet effect handled in coin collection
+                    break;
+            }
+            
+            updatePowerupsDisplay();
+        }
+
+        function updatePowerupsDisplay() {
+            const containers = ['powerupsContainer', 'fullscreenPowerups'];
+            const lang = isEnglish ? 'en' : 'ar';
+            
+            containers.forEach(containerId => {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                
+                container.innerHTML = '';
+                
+                for (const type in powerups) {
+                    if (powerups[type].active) {
+                        const indicator = document.createElement('div');
+                        indicator.className = `powerup-indicator ${type}`;
+                        const remaining = Math.ceil(powerups[type].duration / 60);
+                        
+                        let icon = '';
+                        switch(type) {
+                            case 'invincible': icon = '🛡️'; break;
+                            case 'slowmo': icon = '🐌'; break;
+                            case 'magnet': icon = '🧲'; break;
+                            case 'highjump': icon = '🚀'; break;
+                        }
+                        
+                        indicator.innerHTML = `
+                            ${icon} 
+                            ${translations[lang].powerupNames[type]}
+                            <span style="margin-left: 0.25rem; font-size: 0.7rem;">${remaining}s</span>
+                        `;
+                        container.appendChild(indicator);
+                    }
+                }
+            });
+        }
+
+        // Magnet effect for coins
+        function applyMagnetEffect() {
+            if (powerups.magnet.active) {
+                for (const coin of coinsArray) {
+                    const dx = player.x - coin.x;
+                    const dy = (player.y - player.jumpHeight) - coin.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 200) { // Magnet radius
+                        coin.x += dx * 0.1;
+                        coin.y += dy * 0.1;
+                    }
+                }
+            }
+        }
 
         // Update UI
         function updateUI() {
@@ -1801,249 +2278,81 @@
             document.getElementById('fullscreenCoins').textContent = coins;
         }
 
-        // Enhanced Draw Player with Skin Effects
+        // Enhanced Draw Player with Power-up Effects
         function drawPlayer(ctx, x, y) {
             const skin = skins.find(s => s.id === currentSkin) || skins[0];
             
-            // Draw player body with skin color
-            ctx.fillStyle = player.color;
-            ctx.fillRect(x, y - player.jumpHeight, player.width, player.height);
-            
-            // Draw special effects based on skin
-            switch(currentSkin) {
-                case 'ninja':
-                    // Draw ninja mask
-                    ctx.fillStyle = '#000000';
-                    ctx.fillRect(x + 10, y - player.jumpHeight + 5, 30, 20);
-                    // Draw eyes
-                    ctx.fillStyle = '#FFFFFF';
-                    ctx.fillRect(x + 15, y - player.jumpHeight + 10, 5, 5);
-                    ctx.fillRect(x + 30, y - player.jumpHeight + 10, 5, 5);
-                    break;
-                    
-                case 'super':
-                    // Draw cape
-                    ctx.fillStyle = '#8B5CF6';
-                    ctx.beginPath();
-                    ctx.moveTo(x - 10, y - player.jumpHeight + 10);
-                    ctx.lineTo(x, y - player.jumpHeight);
-                    ctx.lineTo(x, y - player.jumpHeight + player.height);
-                    ctx.lineTo(x - 20, y - player.jumpHeight + player.height - 20);
-                    ctx.closePath();
-                    ctx.fill();
-                    // Draw S logo
-                    ctx.fillStyle = '#FFFFFF';
-                    ctx.font = 'bold 20px Arial';
-                    ctx.fillText('S', x + 15, y - player.jumpHeight + 30);
-                    break;
-                    
-                case 'flash':
-                    // Draw speed lines
-                    ctx.strokeStyle = '#F59E0B';
-                    ctx.lineWidth = 2;
-                    for (let i = 0; i < 3; i++) {
-                        ctx.beginPath();
-                        ctx.moveTo(x + player.width + i * 5, y - player.jumpHeight + 20 + i * 10);
-                        ctx.lineTo(x + player.width + 20 + i * 10, y - player.jumpHeight + 20 + i * 10);
-                        ctx.stroke();
-                    }
-                    break;
-                    
-                default:
-                    // Default face
-                    ctx.fillStyle = '#FFFFFF';
-                    ctx.fillRect(x + 10, y - player.jumpHeight + 10, 10, 10);
-                    ctx.fillRect(x + 30, y - player.jumpHeight + 10, 10, 10);
-                    // Mouth
-                    ctx.beginPath();
-                    ctx.arc(x + 25, y - player.jumpHeight + 30, 8, 0, Math.PI);
-                    ctx.strokeStyle = '#FFFFFF';
-                    ctx.lineWidth = 2;
-                    ctx.stroke();
-            }
-        }
-
-        // Enhanced Draw Teacher
-        function drawTeacher(ctx, x, y) {
-            ctx.fillStyle = teacher.color;
-            if (teacher.angry) {
-                ctx.fillStyle = '#DC2626';
-                // Angry glow effect
-                ctx.shadowColor = '#DC2626';
+            // Draw player with invincibility effect
+            if (player.isInvincible) {
+                ctx.shadowColor = '#3B82F6';
                 ctx.shadowBlur = 20;
             }
             
-            ctx.fillRect(x, y, teacher.width, teacher.height);
+            ctx.fillStyle = player.color;
+            ctx.fillRect(x, y - player.jumpHeight, player.width, player.height);
             ctx.shadowBlur = 0;
             
-            // Draw face
-            ctx.fillStyle = '#FFFFFF';
-            ctx.fillRect(x + 10, y + 10, 15, 15);
-            ctx.fillRect(x + 35, y + 10, 15, 15);
-            
-            // Draw angry eyebrows
-            ctx.beginPath();
-            ctx.moveTo(x + 8, y + 8);
-            ctx.lineTo(x + 23, y + 8);
-            ctx.moveTo(x + 37, y + 8);
-            ctx.lineTo(x + 52, y + 8);
-            ctx.strokeStyle = '#000000';
-            ctx.lineWidth = 3;
-            ctx.stroke();
-            
-            // Draw angry mouth
-            ctx.beginPath();
-            ctx.arc(x + 30, y + 40, 10, 0.2, Math.PI - 0.2);
-            ctx.strokeStyle = '#000000';
-            ctx.lineWidth = 3;
-            ctx.stroke();
-            
-            // Draw angry speech bubble in Arabic when angry
-            if (teacher.angry && gameFrame % 60 < 30) {
-                ctx.fillStyle = '#FFFFFF';
-                ctx.fillRect(x - 100, y - 40, 120, 30);
-                ctx.fillStyle = '#000000';
-                ctx.font = 'bold 14px Arial';
-                ctx.textAlign = 'center';
-                const message = teacher.angryMessages[Math.floor(Math.random() * teacher.angryMessages.length)];
-                ctx.fillText(message, x - 40, y - 20);
+            // Draw special effects based on skin and power-ups
+            if (powerups.highjump.active) {
+                // Draw rocket effect
+                ctx.fillStyle = '#EF4444';
+                ctx.fillRect(x + player.width/2 - 5, y - player.jumpHeight + player.height, 10, 15);
             }
+            
+            // Default face
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(x + 10, y - player.jumpHeight + 10, 10, 10);
+            ctx.fillRect(x + 30, y - player.jumpHeight + 10, 10, 10);
+            
+            // Mouth
+            ctx.beginPath();
+            ctx.arc(x + 25, y - player.jumpHeight + 30, 8, 0, Math.PI);
+            ctx.strokeStyle = '#FFFFFF';
+            ctx.lineWidth = 2;
+            ctx.stroke();
         }
 
-        // Enhanced Game Draw Function
-        function drawGame(ctx, canvas) {
-            // Clear canvas with gradient background
-            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            gradient.addColorStop(0, '#0F172A');
-            gradient.addColorStop(1, '#1E293B');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Draw animated background particles
-            if (gameFrame % 2 === 0) {
-                for (let i = 0; i < 3; i++) {
-                    const particle = {
-                        x: canvas.width,
-                        y: Math.random() * canvas.height,
-                        size: Math.random() * 3 + 1,
-                        speed: Math.random() * 2 + 1
-                    };
-                    ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.2})`;
-                    ctx.beginPath();
-                    ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            }
-            
-            // Draw ground with texture
-            ctx.fillStyle = '#334155';
-            ctx.fillRect(0, 370, canvas.width, 80);
-            
-            // Draw grass with animation
-            ctx.fillStyle = '#10B981';
-            for (let i = 0; i < canvas.width; i += 20) {
-                const height = 10 + Math.sin(gameFrame * 0.05 + i * 0.1) * 3;
-                ctx.fillRect(i, 370, 20, height);
-            }
-            
-            // Draw player
-            drawPlayer(ctx, player.x, player.y);
-            
-            // Draw teacher
-            drawTeacher(ctx, teacher.x, teacher.y);
-            
-            // Draw coins with animation
-            for (const coin of coinsArray) {
-                ctx.fillStyle = '#FBBF24';
-                ctx.shadowColor = '#FBBF24';
-                ctx.shadowBlur = 10;
-                ctx.beginPath();
-                ctx.arc(coin.x, coin.y, 8, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.shadowBlur = 0;
-                
-                // Draw coin shine
-                ctx.fillStyle = '#FFFFFF';
-                ctx.beginPath();
-                ctx.arc(coin.x - 2, coin.y - 2, 3, 0, Math.PI * 2);
-                ctx.fill();
-                
-                // Coin animation
-                coin.y += Math.sin(gameFrame * 0.1 + coin.x * 0.01) * 2;
-            }
-            
-            // Draw obstacles
-            for (const obstacle of obstacles) {
-                // Obstacle with texture
-                ctx.fillStyle = '#6B7280';
-                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-                
-                // Add warning sign
-                if (obstacle.x < player.x + 300 && obstacle.x > player.x - 50) {
-                    ctx.fillStyle = '#EF4444';
-                    ctx.fillRect(obstacle.x + obstacle.width/2 - 5, obstacle.y - 20, 10, 15);
-                }
-            }
-            
-            // Draw score with effects
-            ctx.fillStyle = '#FFFFFF';
-            ctx.font = 'bold 24px Arial';
-            ctx.shadowColor = '#000000';
-            ctx.shadowBlur = 5;
-            ctx.fillText(`${isEnglish ? 'Score:' : 'النقاط:'} ${gameScore}`, 20, 30);
-            ctx.fillStyle = '#FBBF24';
-            ctx.fillText(`${isEnglish ? 'High Score:' : 'أعلى نقاط:'} ${highScore}`, 20, 60);
-            ctx.shadowBlur = 0;
-            
-            // Draw current skin indicator
-            const skin = skins.find(s => s.id === currentSkin);
-            if (skin && skin.id !== 'default') {
-                ctx.fillStyle = skin.color;
-                ctx.font = 'bold 16px Arial';
-                ctx.fillText(`${skin.name}`, 20, 90);
-            }
-        }
-
-        // Enhanced Game Update with better jumping physics
+        // Enhanced Game Update with Power-ups
         function updateGame() {
             if (!gameRunning) return;
             
             gameFrame++;
             gameScore += 1;
             
+            // Update power-ups
+            updatePowerups();
+            applyMagnetEffect();
+            
             // Move player
             player.x += player.direction * player.speed;
             player.x = Math.max(0, Math.min(player.x, (gameRunningInFullscreen ? window.innerWidth : 800) - player.width));
             
-            // Enhanced Jumping Physics - Stay longer in air
+            // Enhanced Jumping Physics
             if (player.jumping) {
                 player.jumpDuration++;
                 if (player.jumpHeight < player.maxJumpHeight) {
                     player.jumpHeight += player.jumpSpeed;
                 }
-                // Stay at max height for longer
                 if (player.jumpHeight >= player.maxJumpHeight && player.jumpDuration < player.maxJumpDuration) {
                     // Stay in air
                 } else if (player.jumpDuration >= player.maxJumpDuration) {
                     player.jumping = false;
                 }
             } else if (player.jumpHeight > 0) {
-                // Slower descent for floatier feel
-                player.jumpHeight -= player.jumpSpeed * 0.8;
+                player.jumpHeight -= player.jumpSpeed * 0.7; // Even slower descent
                 if (player.jumpHeight < 0) player.jumpHeight = 0;
             }
             
-            // Reset jump duration when on ground
             if (player.jumpHeight === 0) {
                 player.jumpDuration = 0;
             }
             
-            // Move teacher with variable speed
-            teacher.x -= teacher.speed + Math.sin(gameFrame * 0.05) * 0.5;
+            // Move teacher
+            teacher.x -= teacher.speed + Math.sin(gameFrame * 0.03) * 0.3; // Slower variation
             
             // Angry mode
             if (teacher.angry) {
-                teacher.x -= 3;
+                teacher.x -= 2;
                 teacher.angryTime--;
                 if (teacher.angryTime <= 0) {
                     teacher.angry = false;
@@ -2053,27 +2362,38 @@
             // Reset teacher
             if (teacher.x < -teacher.width) {
                 teacher.x = (gameRunningInFullscreen ? window.innerWidth : 800) + 100;
-                teacher.speed = Math.min(teacher.speed + 0.1, 12);
+                teacher.speed = Math.min(teacher.speed + 0.05, 8); // Much slower difficulty increase
                 
-                // Random events
-                if (Math.random() < 0.25) {
+                if (Math.random() < 0.2) { // Less frequent anger
                     teacher.angry = true;
                     teacher.angryTime = 90;
                 }
             }
             
             // Generate coins
-            if (gameFrame % 45 === 0) {
+            if (gameFrame % 60 === 0) { // Less frequent coin generation
                 coinsArray.push({
                     x: (gameRunningInFullscreen ? window.innerWidth : 800),
                     y: Math.random() * 300 + 50,
-                    value: Math.random() < 0.1 ? 50 : 10, // 10% chance for big coin
+                    value: Math.random() < 0.05 ? 100 : 10, // 5% chance for big coin
                     collected: false
                 });
             }
             
-            // Generate obstacles less frequently for easier gameplay
-            if (gameFrame % 180 === 0) {
+            // Generate power-ups rarely
+            if (gameFrame % 600 === 0 && Math.random() < 0.3) {
+                const types = ['invincible', 'slowmo', 'magnet', 'highjump'];
+                const type = types[Math.floor(Math.random() * types.length)];
+                powerupsArray.push({
+                    x: (gameRunningInFullscreen ? window.innerWidth : 800),
+                    y: Math.random() * 300 + 50,
+                    type: type,
+                    collected: false
+                });
+            }
+            
+            // Generate obstacles very rarely for easier gameplay
+            if (gameFrame % 300 === 0 && Math.random() < 0.3) {
                 obstacles.push({
                     x: (gameRunningInFullscreen ? window.innerWidth : 800),
                     y: 320,
@@ -2098,9 +2418,9 @@
                     totalCoins = parseInt(totalCoins) + coinsArray[i].value;
                     localStorage.setItem('ahmedNahlaCoins', totalCoins);
                     
-                    // Visual feedback for big coins
-                    if (coinsArray[i].value === 50) {
-                        // Add special effect
+                    // Visual feedback
+                    if (coinsArray[i].value === 100) {
+                        // Big coin effect
                     }
                     
                     coinsArray.splice(i, 1);
@@ -2113,12 +2433,34 @@
                 }
             }
             
+            // Update power-ups
+            for (let i = powerupsArray.length - 1; i >= 0; i--) {
+                powerupsArray[i].x -= gameSpeed;
+                
+                // Collect power-up
+                if (!powerupsArray[i].collected &&
+                    powerupsArray[i].x < player.x + player.width &&
+                    powerupsArray[i].x + 30 > player.x &&
+                    powerupsArray[i].y < (player.y - player.jumpHeight) + player.height &&
+                    powerupsArray[i].y + 30 > player.y - player.jumpHeight) {
+                    
+                    powerupsArray[i].collected = true;
+                    activatePowerup(powerupsArray[i].type);
+                    powerupsArray.splice(i, 1);
+                }
+                
+                // Remove off-screen power-ups
+                if (powerupsArray[i] && powerupsArray[i].x < -30) {
+                    powerupsArray.splice(i, 1);
+                }
+            }
+            
             // Update obstacles
             for (let i = obstacles.length - 1; i >= 0; i--) {
                 obstacles[i].x -= gameSpeed;
                 
-                // Check collision with player (with jump immunity)
-                if (!player.jumping && player.jumpHeight < 50) {
+                // Check collision with player (invincibility ignores obstacles)
+                if (!player.isInvincible && !player.jumping && player.jumpHeight < 50) {
                     if (obstacles[i].x < player.x + player.width &&
                         obstacles[i].x + obstacles[i].width > player.x &&
                         obstacles[i].y < (player.y - player.jumpHeight) + player.height &&
@@ -2135,8 +2477,9 @@
                 }
             }
             
-            // Check collision with teacher
-            if (teacher.x < player.x + player.width &&
+            // Check collision with teacher (invincibility ignores teacher)
+            if (!player.isInvincible &&
+                teacher.x < player.x + player.width &&
                 teacher.x + teacher.width > player.x &&
                 teacher.y < (player.y - player.jumpHeight) + player.height &&
                 teacher.y + teacher.height > player.y - player.jumpHeight) {
@@ -2145,12 +2488,167 @@
                 return;
             }
             
-            // Gradually increase game speed
-            if (gameFrame % 300 === 0) {
-                gameSpeed = Math.min(gameSpeed + 0.2, 10);
+            // Very slow difficulty increase
+            if (gameFrame % 600 === 0) {
+                gameSpeed = Math.min(gameSpeed + 0.1, 6);
             }
             
             updateUI();
+        }
+
+        // Enhanced Draw Function with Power-ups
+        function drawGame(ctx, canvas) {
+            // Clear canvas
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#0F172A');
+            gradient.addColorStop(1, '#1E293B');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw animated background particles
+            if (gameFrame % 3 === 0) {
+                for (let i = 0; i < 2; i++) {
+                    const particle = {
+                        x: canvas.width,
+                        y: Math.random() * canvas.height,
+                        size: Math.random() * 2 + 1,
+                        speed: Math.random() * 1 + 0.5
+                    };
+                    ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.1})`;
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            // Draw ground
+            ctx.fillStyle = '#334155';
+            ctx.fillRect(0, 370, canvas.width, 80);
+            
+            // Draw grass
+            ctx.fillStyle = '#10B981';
+            for (let i = 0; i < canvas.width; i += 20) {
+                const height = 10 + Math.sin(gameFrame * 0.03 + i * 0.1) * 3;
+                ctx.fillRect(i, 370, 20, height);
+            }
+            
+            // Draw player
+            drawPlayer(ctx, player.x, player.y);
+            
+            // Draw teacher
+            ctx.fillStyle = teacher.color;
+            if (teacher.angry) {
+                ctx.fillStyle = '#DC2626';
+                ctx.shadowColor = '#DC2626';
+                ctx.shadowBlur = 20;
+            }
+            
+            ctx.fillRect(teacher.x, teacher.y, teacher.width, teacher.height);
+            ctx.shadowBlur = 0;
+            
+            // Draw face
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(teacher.x + 10, teacher.y + 10, 15, 15);
+            ctx.fillRect(teacher.x + 35, teacher.y + 10, 15, 15);
+            
+            // Draw angry eyebrows
+            ctx.beginPath();
+            ctx.moveTo(teacher.x + 8, teacher.y + 8);
+            ctx.lineTo(teacher.x + 23, teacher.y + 8);
+            ctx.moveTo(teacher.x + 37, teacher.y + 8);
+            ctx.lineTo(teacher.x + 52, teacher.y + 8);
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            
+            // Draw angry mouth
+            ctx.beginPath();
+            ctx.arc(teacher.x + 30, teacher.y + 40, 10, 0.2, Math.PI - 0.2);
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            
+            // Draw coins
+            for (const coin of coinsArray) {
+                ctx.fillStyle = '#FBBF24';
+                ctx.shadowColor = '#FBBF24';
+                ctx.shadowBlur = 10;
+                ctx.beginPath();
+                ctx.arc(coin.x, coin.y, 8, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+                
+                // Draw coin shine
+                ctx.fillStyle = '#FFFFFF';
+                ctx.beginPath();
+                ctx.arc(coin.x - 2, coin.y - 2, 3, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Coin animation
+                coin.y += Math.sin(gameFrame * 0.1 + coin.x * 0.01) * 2;
+            }
+            
+            // Draw power-ups
+            for (const powerup of powerupsArray) {
+                ctx.fillStyle = getPowerupColor(powerup.type);
+                ctx.shadowColor = getPowerupColor(powerup.type);
+                ctx.shadowBlur = 15;
+                ctx.beginPath();
+                ctx.arc(powerup.x, powerup.y, 15, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+                
+                // Draw power-up icon
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = 'bold 20px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(getPowerupIcon(powerup.type), powerup.x, powerup.y);
+            }
+            
+            // Draw obstacles
+            for (const obstacle of obstacles) {
+                ctx.fillStyle = '#6B7280';
+                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+            }
+            
+            // Draw score
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = 'bold 24px Arial';
+            ctx.shadowColor = '#000000';
+            ctx.shadowBlur = 5;
+            ctx.fillText(`${isEnglish ? 'Score:' : 'النقاط:'} ${gameScore}`, 20, 30);
+            ctx.fillStyle = '#FBBF24';
+            ctx.fillText(`${isEnglish ? 'High Score:' : 'أعلى نقاط:'} ${highScore}`, 20, 60);
+            ctx.shadowBlur = 0;
+            
+            // Draw current skin indicator
+            const skin = skins.find(s => s.id === currentSkin);
+            if (skin && skin.id !== 'default') {
+                ctx.fillStyle = skin.color;
+                ctx.font = 'bold 16px Arial';
+                ctx.fillText(`${skin.name}`, 20, 90);
+            }
+        }
+
+        function getPowerupColor(type) {
+            switch(type) {
+                case 'invincible': return '#3B82F6';
+                case 'slowmo': return '#8B5CF6';
+                case 'magnet': return '#FBBF24';
+                case 'highjump': return '#10B981';
+                default: return '#FFFFFF';
+            }
+        }
+
+        function getPowerupIcon(type) {
+            switch(type) {
+                case 'invincible': return '🛡️';
+                case 'slowmo': return '🐌';
+                case 'magnet': return '🧲';
+                case 'highjump': return '🚀';
+                default: return '❓';
+            }
         }
 
         // Game Loop
@@ -2173,22 +2671,40 @@
             gameRunning = true;
             gameScore = 0;
             coins = 0;
-            gameSpeed = 5;
+            gameSpeed = 3; // Slow start
             gameFrame = 0;
             
+            // Reset player
             player.x = 100;
             player.direction = 0;
             player.jumpHeight = 0;
             player.jumpDuration = 0;
+            player.isInvincible = false;
             
+            // Reset teacher
             teacher.x = 800;
-            teacher.speed = 6;
+            teacher.speed = 4; // Slow teacher
             teacher.angry = false;
             
+            // Reset arrays
             coinsArray.length = 0;
             obstacles.length = 0;
+            powerupsArray.length = 0;
             
+            // Reset power-ups
+            for (const type in powerups) {
+                deactivatePowerup(type);
+            }
+            
+            // Show/hide controls based on device
+            if (isMobile) {
+                document.getElementById('touchControls').classList.add('active');
+                document.getElementById('touchJump').classList.add('active');
+            }
+            
+            // Update UI
             gameOverlay.classList.remove('active');
+            document.getElementById('fullscreenGameOverlay').classList.remove('active');
             startBtn.textContent = isEnglish ? 'Playing...' : 'يلعب...';
             startBtn.disabled = true;
             
@@ -2204,23 +2720,33 @@
             gameLoop();
         }
 
-        // Game Over with random messages
+        // Enhanced Game Over with Both Overlays
         function gameOver() {
             gameRunning = false;
             
             if (gameScore > highScore) {
                 highScore = gameScore;
                 localStorage.setItem('ahmedNahlaHighScore', highScore);
-                leaderboard.find(p => p.name === (isEnglish ? "You" : "أنت")).score = highScore;
                 updateLeaderboard();
             }
             
             // Random game over message
             const messages = translations[isEnglish ? 'en' : 'ar'].gameOverMessages;
             const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            
+            // Update both overlays
             gameOverText.textContent = randomMessage;
+            fullscreenGameOverText.textContent = randomMessage;
             gameOverScore.textContent = `${isEnglish ? 'Score:' : 'النقاط:'} ${gameScore}`;
-            gameOverlay.classList.add('active');
+            fullscreenGameOverScore.textContent = `${isEnglish ? 'Score:' : 'النقاط:'} ${gameScore}`;
+            
+            // Show appropriate overlay
+            if (gameRunningInFullscreen) {
+                document.getElementById('fullscreenGameOverlay').classList.add('active');
+            } else {
+                gameOverlay.classList.add('active');
+            }
+            
             startBtn.textContent = translations[isEnglish ? 'en' : 'ar'].startText;
             startBtn.disabled = false;
             
@@ -2233,7 +2759,11 @@
 
         // Restart Game
         function restartGame() {
-            gameOverlay.classList.remove('active');
+            if (gameRunningInFullscreen) {
+                document.getElementById('fullscreenGameOverlay').classList.remove('active');
+            } else {
+                gameOverlay.classList.remove('active');
+            }
             startGame();
         }
 
@@ -2252,6 +2782,7 @@
         
         function toggleFullscreen() {
             if (gameFullscreen.style.display === 'flex') {
+                // Exit fullscreen
                 gameFullscreen.style.display = 'none';
                 document.exitFullscreen?.();
                 gameRunningInFullscreen = false;
@@ -2262,6 +2793,7 @@
                     setTimeout(startGame, 100);
                 }
             } else {
+                // Enter fullscreen
                 gameFullscreen.style.display = 'flex';
                 gameFullscreen.requestFullscreen?.();
                 gameRunningInFullscreen = true;
@@ -2277,8 +2809,22 @@
             }
         }
 
+        // Leaderboard
+        const leaderboard = [
+            { name: "Asser", score: Math.floor(Math.random() * 3000) + 500, coins: Math.floor(Math.random() * 100) + 25 },
+            { name: "Begad", score: Math.floor(Math.random() * 2500) + 400, coins: Math.floor(Math.random() * 80) + 15 },
+            { name: "Omnia", score: Math.floor(Math.random() * 2000) + 300, coins: Math.floor(Math.random() * 60) + 10 },
+            { name: "Salma", score: Math.floor(Math.random() * 1500) + 200, coins: Math.floor(Math.random() * 40) + 5 },
+            { name: "Asmaa", score: Math.floor(Math.random() * 1000) + 100, coins: Math.floor(Math.random() * 30) + 3 },
+            { name: "Rahma", score: Math.floor(Math.random() * 800) + 50, coins: Math.floor(Math.random() * 20) + 2 },
+            { name: isEnglish ? "You" : "أنت", score: highScore, coins: parseInt(totalCoins) }
+        ];
+
         // Update Leaderboard
         function updateLeaderboard() {
+            leaderboard.find(p => p.name === (isEnglish ? "You" : "أنت")).score = highScore;
+            leaderboard.find(p => p.name === (isEnglish ? "You" : "أنت")).coins = parseInt(totalCoins);
+            
             leaderboard.sort((a, b) => b.score - a.score);
             leaderboardList.innerHTML = '';
             
@@ -2310,14 +2856,14 @@
         // Create background particles
         function createBackgroundParticles() {
             const bgAnimation = document.getElementById('bgAnimation');
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 15; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'bg-particle';
-                particle.style.width = `${Math.random() * 4 + 1}px`;
+                particle.style.width = `${Math.random() * 3 + 1}px`;
                 particle.style.height = particle.style.width;
                 particle.style.left = `${Math.random() * 100}%`;
                 particle.style.animationDelay = `${Math.random() * 20}s`;
-                particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                particle.style.animationDuration = `${Math.random() * 15 + 10}s`;
                 bgAnimation.appendChild(particle);
             }
         }
@@ -2357,30 +2903,48 @@
             }
         });
         
-        // Touch controls
-        function setupTouchControls(touchLeftBtn, touchRightBtn) {
-            touchLeftBtn.addEventListener('touchstart', () => player.direction = -1);
-            touchLeftBtn.addEventListener('touchend', () => player.direction = 0);
-            touchLeftBtn.addEventListener('mousedown', () => player.direction = -1);
-            touchLeftBtn.addEventListener('mouseup', () => player.direction = 0);
-            touchLeftBtn.addEventListener('mouseleave', () => player.direction = 0);
+        // Enhanced Touch Controls
+        function setupTouchControls(touchLeftBtn, touchRightBtn, touchJumpBtn) {
+            // Left button
+            const handleLeftStart = () => player.direction = -1;
+            const handleLeftEnd = () => player.direction = 0;
             
-            touchRightBtn.addEventListener('touchstart', () => player.direction = 1);
-            touchRightBtn.addEventListener('touchend', () => player.direction = 0);
-            touchRightBtn.addEventListener('mousedown', () => player.direction = 1);
-            touchRightBtn.addEventListener('mouseup', () => player.direction = 0);
-            touchRightBtn.addEventListener('mouseleave', () => player.direction = 0);
+            touchLeftBtn.addEventListener('touchstart', handleLeftStart);
+            touchLeftBtn.addEventListener('touchend', handleLeftEnd);
+            touchLeftBtn.addEventListener('mousedown', handleLeftStart);
+            touchLeftBtn.addEventListener('mouseup', handleLeftEnd);
+            touchLeftBtn.addEventListener('mouseleave', handleLeftEnd);
             
-            const jumpArea = gameRunningInFullscreen ? fullscreenCanvas : gameCanvas;
-            jumpArea.addEventListener('click', () => {
+            // Right button
+            const handleRightStart = () => player.direction = 1;
+            const handleRightEnd = () => player.direction = 0;
+            
+            touchRightBtn.addEventListener('touchstart', handleRightStart);
+            touchRightBtn.addEventListener('touchend', handleRightEnd);
+            touchRightBtn.addEventListener('mousedown', handleRightStart);
+            touchRightBtn.addEventListener('mouseup', handleRightEnd);
+            touchRightBtn.addEventListener('mouseleave', handleRightEnd);
+            
+            // Jump button
+            const handleJump = () => {
                 if (!player.jumping && player.jumpHeight === 0) {
                     player.jumping = true;
                     player.jumpDuration = 0;
                 }
-            });
+            };
+            
+            touchJumpBtn.addEventListener('touchstart', handleJump);
+            touchJumpBtn.addEventListener('mousedown', handleJump);
+            
+            // Also allow tap anywhere to jump in fullscreen
+            if (gameRunningInFullscreen) {
+                fullscreenCanvas.addEventListener('click', handleJump);
+            } else {
+                gameCanvas.addEventListener('click', handleJump);
+            }
         }
         
-        // Initialize
+        // Initialize game
         gameCanvas.width = 800;
         gameCanvas.height = 450;
         createBackgroundParticles();
@@ -2401,17 +2965,29 @@
         // Setup touch controls
         setupTouchControls(
             document.getElementById('touchLeft'),
-            document.getElementById('touchRight')
+            document.getElementById('touchRight'),
+            document.getElementById('touchJump')
         );
         setupTouchControls(
             document.getElementById('fullscreenTouchLeft'),
-            document.getElementById('fullscreenTouchRight')
+            document.getElementById('fullscreenTouchRight'),
+            document.getElementById('fullscreenTouchJump')
         );
+        
+        // Auto-show touch controls on mobile
+        if (isMobile) {
+            document.getElementById('touchControls').classList.add('active');
+            document.getElementById('touchJump').classList.add('active');
+        }
         
         // Scroll to top function
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+        
+        // Prevent context menu on game canvas
+        gameCanvas.addEventListener('contextmenu', e => e.preventDefault());
+        fullscreenCanvas.addEventListener('contextmenu', e => e.preventDefault());
     </script>
 </body>
 </html>
